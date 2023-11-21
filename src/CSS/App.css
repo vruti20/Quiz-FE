@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+  margin: 0;
+  padding: 0;
+}
+.fixed {
+  position: fixed;
+  top: 0; 
+  right: 0;
+  z-index: 1;
+}
+@media (min-width: 425px), (max-width: 320px), (min-width: 375px) {
+  .fixed {
+    display: none;
+  }
+}
+
+/* Display the second column on larger screens */
+@media (min-width: 1024px), (min-width: 768px), (min-width: 1440px), (min-width: 2500px) {
+  .fixed {
+    display: block;
+
+  }
+}
+@media (max-width:1024px) {
+  .fixed img{
+    width: 300px;
+   display: flex;
+   justify-content: center;
+   }
+   .fixed {
+    font-size: 15px;
+    margin: 20px 35px 0px 50px;
+   }
+   .fixed p{
+    font-size: 15px;
+   }
+}
+@media (min-width:1440px)  {
+  .fixed{
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg-fixed-column {
+    position: fixed;
+    /* Add other styles for a fixed column */
+  }
+
+  .lg-w-530 {
+    width: 530px;
+    /* Add other styles for the column width */
+  }
+}
+.bottom-element {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.footer{
+  position: fixed;
+  bottom: 0%;
+  left: 0%;
+  width: 520px;
+}
+@media (max-width: 320px){
+  .footer {
+    width: 320px;
+  }
+}
+@media (min-width: 375px){
+  .footer {
+    width: 375px;
+  }
+}
+@media (min-width: 425px){
+  .footer {
+    width: 425px;
+  }
+}
+.header{
+  position: fixed;
+ box-shadow: rgb(17, 24, 39) 0px -15px 15px;
+ /* width: 520px; */
+}
+@media (max-width: 320px){
+  .header {
+    width: 320px;
+  }
+}
+@media (min-width: 375px){
+  .header {
+    width: 375px;
+  }
+}
+@media (min-width: 425px){
+  .header {
+    width: 425px;
+  }
+}
+
+
