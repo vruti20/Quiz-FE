@@ -3,13 +3,27 @@ import { BiCategory } from "react-icons/bi"
 import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
 import { Link } from "react-router-dom"
-const Profile = () => {
+import React, { useState } from 'react';
+import { FaX } from "react-icons/fa6";
+
+const Play = () => {
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    // Function to open the modal
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    // Function to close the modal
+    const closeModal = () => {
+        setModalOpen(false);
+    };
     return (
         <>
             <div className="bg-[#0F172A] ">
 
                 <Row className="">
-                    <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
+                    <Col className="md:w-[400px]  lg:w-[500px]  px-2 relative flex-col flex" >
                         <div className="" >
                             <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0F172A] header">
                                 <span className="pl-[10px]">
@@ -22,46 +36,75 @@ const Profile = () => {
                                         <img class="w-[25px] " src={require("../../../src/image/gift.gif")} alt="animation" />
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
                                     </div>
-                                    <div className="mt-[3px] flex items-center">
-                                        <div class="text-[10px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
-                                        <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
+                                    <div className="mt-[3px] flex items-center ">
+                                        <div class="text-[10px] flex text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                            <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             100 COINS
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                            <div className="flex justify-center w-full gap-10 mt-6 pt-14">
-                                <div className="w-32  rounded-full ">
-                                    <img className="h-32 rounded-full bg-[#1F2937]" src={require("../../../src/image/download.png")} alt="profile"></img>
-                                </div>
-                                <div class="flex gap-1 flex-col items-center justify-center text-white">
-                                    <p class="text-3xl">User X</p>
-                                    <p class="text-sm">Number not updated</p>
-                                    <p class="text-sm">Email not updated</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-center mt-6 gap-10">
-                                <div className="w-[150px] rounded-full py-2 px-4 flex justify-between items-center bg-orange-500 border-2">
-                                    <p className="text-white text-sm">Coins </p>
-                                    <p className="text-white text-lg">0</p>
-                                </div>
-                                <div class="w-[150px] py-2 px-4 rounded-full border-2 flex  items-center justify-between">
-                                    <p class="text-white text-sm">Quiz Played</p>
-                                    <p class="text-white text-lg">0</p>
-                                </div>
 
+                            <div className="bg-transparent mt-[50px] mt-[50px] h-[370px] mx-auto mb-[8px]">
+                                <p className="text-center text-white">
+                                    ads by goggle
+                                </p>
                             </div>
-                            <div class="flex justify-center mt-6">
-                                <p className="text-center mx-3 py-3 px-14 font-[700] bg-[#3957EA]  text-white rounded-full cursor-pointer">Join Now</p>
-                            </div>
-                            <div className="pb-8">
+                            <div className="pb-[150px]">
 
-                                <div className="bg-[#0F172A] lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
-                                    <p className="text-white text-sm text-center">ads by goggle</p>
+                                <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px]" style={{ borderColor: "rgb(75 85 99)" }}>
+                                    <div className="px-5 gap-2 flex items-center py-6">
+                                        <img className="w-[60px] sm:w-[52px] rounded-full " src={require("../../../src/image/grammar.png")} alt="category"></img>
+                                        <div className="">
+
+                                            <p class="text-[10px] text-[#64d2ff] font-black "> Noun-Pronoun </p>
+                                            <div className="flex text-white  text-[18px] font-black cursor-pointer">
+                                                <p>Play & Win</p>
+                                                <img className="w-5 ms-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
+                                                <p className="ms-2">10000</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div className="flex w-full justify-around pb-[25px]">
+                                        <Link to="/login">
+                                            <button class="bg-[#1A2F77] py-2 px-14 font-[700] text-white rounded-full">JOIN NOW</button>
+                                        </Link>
+                                        <p className="text-[20px] text-white">or</p>
+                                        {isModalOpen && (
+                                            <div className="modal-container">
+                                                <div className="modal">
+                                                    <div className="flex justify-end">
+                                                        <FaX onClick={closeModal} className="cursor-pointer"/>
+                                                    </div>
+                                                    <div className="flex justify-center">
+                                                        <img src="https://monetix-lookat1.quiztwiz.com/static/media/adpic.18b085351c262a96e5a9.png" alt="ads"></img>
+                                                    </div>
+
+                                                    <h2 class="text-4xl text-[#D8E91E] md:text-[1.5rem] mb-4 flex justify-center">oops!</h2>
+                                                    <p class="mb-6 text-[#8E8F98] flex justify-center">Not enough coins to play</p>
+                                                    <div className="flex justify-center">
+                                                    <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">Watch Ad</button>
+                                                    </div>
+                                                    {/* <button >Close Modal</button> */}
+                                                </div>
+                                            </div>
+                                        )}
+                                        <div class=" border-[1px] text-white text-center rounded-full font-bold text-sm py-3  px-10 cursor-pointer" onClick={openModal}>
+                                            PLAY AS GUEST
+                                        </div>
+                                    </div>
+
+                                    <ul class="list-disc text-white text-sm flex flex-col pb-[10px] gap-4 px-9 ">
+                                        <li>You've got 90 - 150 seconds to answer all questions</li>
+                                        <li>Answer as many questions as you can</li>
+                                        <li>For Every Correct answer you will get +50 points and will loose -25 points on every Incorrect answer</li>
+                                        <li>You can take help by using the lifelines present in the contest.</li>
+                                        <li>Lifelines can be used for free or by using a given amount of coins for each lifeline.</li>
+                                    </ul>
                                 </div>
                             </div>
-
 
                         </div>
 
@@ -73,10 +116,10 @@ const Profile = () => {
                                 </span>
                             </Link>
                             <Link to="/quizhome">
-                            <span className=" ">
-                                <LiaHomeSolid className="text-white text-[20px] m-2" />
-                                <p className="text-white text-[12px]">Home</p>
-                            </span>
+                                <span className=" ">
+                                    <LiaHomeSolid className="text-white text-[20px] m-2" />
+                                    <p className="text-white text-[12px]">Home</p>
+                                </span>
                             </Link>
 
                             <Link to="/profile">
@@ -107,4 +150,4 @@ const Profile = () => {
         </>
     )
 }
-export default Profile
+export default Play

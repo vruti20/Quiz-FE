@@ -26,13 +26,14 @@ const Category = () => {
                                     </div>
                                     <div className="mt-[3px] flex items-center">
                                         <div class="text-[8px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                        <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             100 COINS
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                            <div className="bg-transparent lg:w-[500px] md:w-[400px]  h-[350px] mx-auto mb-[8px]">
+                            <div className="bg-transparent h-[350px] mx-auto mb-[8px]">
                                 <p className="text-center text-white">
                                     ads by goggle
                                 </p>

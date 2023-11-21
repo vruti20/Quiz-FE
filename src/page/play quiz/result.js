@@ -1,0 +1,73 @@
+import { Col, Row } from "react-bootstrap"
+import { Link } from "react-router-dom"
+
+const Profile = () => {
+    return (
+        <>
+            <div className="bg-[#0F172A] ">
+
+                <Row className="">
+                    <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
+                        <div className="" >
+                            <div className="pb-8">
+                                <div className="bg-[#0F172A] lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
+                                    <p className="text-white text-sm text-center">ads by goggle</p>
+                                </div>
+                            </div>
+
+                            <div >
+                                <div className="flex justify-center">
+                                    <h1 className="text-white text-4xl">Well Played</h1>
+                                </div>
+                                <div className="flex justify-center">
+                                    <img className="w-[200px] z-[10]" src="https://monetix-lookat1.quiztwiz.com/static/media/animation.82d3951ab49c98d92a06.gif" alt="gift"></img>
+                                </div>
+                                <div className="grid-cols-2 flex-col justify-center gap-2 grid text-white pt-3 mx-[50px]">
+                                    <Col className="flex flex-col items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer ">
+                                        <p>0</p>
+                                        <p>Your Score</p>
+                                    </Col>
+                                    <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer">
+                                        <p>25</p>
+                                        <p>Coins Earned</p>
+                                    </Col>
+                                </div>
+                                <div class="mt-5 cursor-pointer flex justify-center">
+                                    <button class=" flex gap-2 rounded-full px-7 py-2 border-2 border-[#1a2f77] text-white ">
+                                        Double Your winnings
+                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coin" />
+                                    </button>
+                                </div>
+
+                                <div class="w-3/5 mx-auto  my-6" style={{ border: "1px solid rgb(26, 47, 119)" }}></div>
+
+                                <Link to="/quizhome">
+                                <div className="flex justify-center">
+                                    <button class="rounded-full px-7 py-2 text-white flex justify-center" style={{ background: "rgb(26, 47, 119)" }}>
+                                        Home
+                                    </button>
+                                </div>
+                                </Link>
+                            </div>
+
+                        </div>
+                    </Col>
+                    <Col className="fixed ">
+
+                        <div className="flex justify-center py-16 md:py-10">
+                            <img className="lg:w-[65%] md:w-[300px] " src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png" alt=""></img>
+                        </div>
+
+                        <div class="font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+                            Welcome to Quiztwiz. Play a quiz and earn coins.
+                            <p class="font-normal text-2xl pt-4 text-center">
+                                There's a quiz for everyone! </p>
+                        </div>
+
+                    </Col>
+                </Row>
+            </div>
+        </>
+    )
+}
+export default Profile

@@ -1,9 +1,7 @@
 import { Col, Row } from "react-bootstrap"
-import { BiCategory } from "react-icons/bi"
-import { LiaHomeSolid } from "react-icons/lia"
-import { CgProfile } from "react-icons/cg"
-import { Link } from "react-router-dom"
-const Profile = () => {
+import { VscHeartFilled } from "react-icons/vsc";
+
+const Question = () => {
     return (
         <>
             <div className="bg-[#0F172A] ">
@@ -23,40 +21,40 @@ const Profile = () => {
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
                                     </div>
                                     <div className="mt-[3px] flex items-center">
-                                        <div class="text-[10px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
-                                        <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
+                                        <div class="text-[10px] flex text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                            <img className="w-3 " src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             100 COINS
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                            <div className="flex justify-center w-full gap-10 mt-6 pt-14">
-                                <div className="w-32  rounded-full ">
-                                    <img className="h-32 rounded-full bg-[#1F2937]" src={require("../../../src/image/download.png")} alt="profile"></img>
-                                </div>
-                                <div class="flex gap-1 flex-col items-center justify-center text-white">
-                                    <p class="text-3xl">User X</p>
-                                    <p class="text-sm">Number not updated</p>
-                                    <p class="text-sm">Email not updated</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-center mt-6 gap-10">
-                                <div className="w-[150px] rounded-full py-2 px-4 flex justify-between items-center bg-orange-500 border-2">
-                                    <p className="text-white text-sm">Coins </p>
-                                    <p className="text-white text-lg">0</p>
-                                </div>
-                                <div class="w-[150px] py-2 px-4 rounded-full border-2 flex  items-center justify-between">
-                                    <p class="text-white text-sm">Quiz Played</p>
-                                    <p class="text-white text-lg">0</p>
-                                </div>
 
+                            <div className="">
+                                <div className="mt-[70px] ml-5 flex justify-between">
+                                    <span class="text-[14px] text-white">Question 1  <span class="text-[13px] text-white">/15</span></span>
+                                    <h3 className="text-white">118</h3>
+                                </div>
                             </div>
-                            <div class="flex justify-center mt-6">
-                                <p className="text-center mx-3 py-3 px-14 font-[700] bg-[#3957EA]  text-white rounded-full cursor-pointer">Join Now</p>
+                            <div class="text-lg font-bold px-6 pt-6 text-white text-center pb-5">
+                                <span>Which element is said to keep the bones of a human body strong?</span>
                             </div>
+
+                            <div className="grid-cols-2 flex-col gap-3 grid text-white">
+                                <Col className="flex flex-col  items-center py-4 bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">James Brown</Col>
+                                <Col className="flex flex-col  items-center  py-4  bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">Rio de Janeiro</Col>
+                            </div>
+                            <div className="grid-cols-2 flex-col gap-3 grid text-white pt-3">
+                                <Col className="flex flex-col items-center py-4  bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">Brain</Col>
+                                <Col className="flex flex-col  items-center py-4 bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">Calcium</Col>
+                            </div>
+
+                            <div className="flex justify-center items-center pt-4 text-lg font-bold">
+                                <p className="text-white">Your Score : </p>
+                                <span class="text-[#FFCC5B] pl-1"> 0 </span>
+                            </div>
+
                             <div className="pb-8">
-
                                 <div className="bg-[#0F172A] lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
                                     <p className="text-white text-sm text-center">ads by goggle</p>
                                 </div>
@@ -66,26 +64,50 @@ const Profile = () => {
                         </div>
 
                         <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
-                            <Link to="/category">
-                                <span >
-                                    <BiCategory className="text-white ml-4 text-[20px] m-2" />
-                                    <p className="text-white text-[12px]">Category</p>
-                                </span>
-                            </Link>
-                            <Link to="/quizhome">
-                            <span className=" ">
-                                <LiaHomeSolid className="text-white text-[20px] m-2" />
-                                <p className="text-white text-[12px]">Home</p>
-                            </span>
-                            </Link>
+                            <div>
+                                <div className="flex justify-center">
 
-                            <Link to="/profile">
-                                <span >
-                                    <CgProfile className="text-white text-[20px] m-2" />
-                                    <p className="text-white  text-[12px]">Profile</p>
-                                </span>
-                            </Link>
+                                <p className="text-white w-[180px] justify-center flex border rounded-full text-[14px] px-3 py-1 font-[600] nborder">
+                                    <VscHeartFilled className="pt-[3px] mr-2 text-[18px]" style={{ color: " rgb(2, 121, 211)" }} />
+                                    Tap To Use Lifelines
+                                </p>
+                                </div>
+
+                                <div className="flex gap-6">
+                                    <div>
+                                        <div class="h-[60px] gap-1 w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
+                                            50:50
+                                        </div>
+                                        <p className="text-white text-[12px]">50:50</p>
+                                    </div>
+
+                                    <div>
+                                        <div class="h-[60px] w-[60px] gap-1 border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
+                                            <img src="https://monetix-lookat1.quiztwiz.com/static/media/audience.c5d1df6dd75223d4733d68b4785d21c5.svg" alt="audience poll" />
+                                        </div>
+                                        <p className="text-white text-[12px]">Audience poll</p>
+                                    </div>
+
+                                    <div>
+                                    <div class="h-[60px] w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
+                                        <img src="https://monetix-lookat1.quiztwiz.com/static/media/freez.34d9b896bdb87fdf156faab0392be612.svg" alt="Freeze"/>
+                                        </div>
+                                        <p  className="text-white text-[12px]">Freeze Timer</p>
+                                    </div>
+
+                                    <div>
+                                    <div class="h-[60px] w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
+                                        <img src="https://monetix-lookat1.quiztwiz.com/static/media/flip.9d50f995c4455c51e153268fcc5cbee5.svg" alt="Flip"/>
+                                        </div>
+                                        <p  className="text-white text-[12px]">Flip Question</p>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+
                         </div>
+
 
 
                     </Col>
@@ -107,4 +129,4 @@ const Profile = () => {
         </>
     )
 }
-export default Profile
+export default Question

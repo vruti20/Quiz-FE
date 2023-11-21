@@ -6,6 +6,9 @@ import Quizplay from './page/play quiz/quizplay';
 import Home from './page/play quiz/homepage';
 import Category from './page/play quiz/category';
 import Profile from './page/play quiz/profile';
+import Play from './page/play quiz/play';
+import Question from './page/play quiz/question';
+import Result from './page/play quiz/result';
 function App() {
   return (
     <>
@@ -27,6 +30,15 @@ function App() {
         </Routes>
         <Routes>
           <Route  path="/profile" element={<Profile/>}/>
+        </Routes>
+        <Routes>
+          <Route  path="/play" element={<Play/>}/>
+        </Routes>
+        <Routes>
+          <Route  path="/question" element={<Question/>}/>
+        </Routes>
+        <Routes>
+          <Route  path="/result" element={<Result/>}/>
         </Routes>
       </BrowserRouter>
     </>

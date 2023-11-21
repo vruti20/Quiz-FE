@@ -5,8 +5,23 @@ import { BiCategory } from "react-icons/bi"
 import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
 import { Link } from "react-router-dom"
+import React, { useRef } from 'react';
 
 const Home = () => {
+
+    const menuRef = useRef(null);
+
+    const scrollLeft = () => {
+        if (menuRef.current) {
+            menuRef.current.scrollLeft -= 100; // You can adjust the scroll amount
+        }
+    };
+
+    const scrollRight = () => {
+        if (menuRef.current) {
+            menuRef.current.scrollLeft += 100; // You can adjust the scroll amount
+        }
+    };
     return (
         <>
             <div className="bg-[#0F172A] ">
@@ -27,6 +42,7 @@ const Home = () => {
                                     </div>
                                     <div className="mt-[3px] flex items-center">
                                         <div class="text-[10px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                        <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             100 COINS
                                         </div>
                                     </div>
@@ -34,55 +50,83 @@ const Home = () => {
 
                             </div>
 
-                            <div className="bg-[#0F172A] w-[510px] h-[350px] mx-auto mb-[8px]">
+                            <div className="bg-[#0F172A] mt-[50px] h-[350px] mx-auto mb-[8px]">
                                 <p className="text-white text-center">
                                     ads by goggle
                                 </p>
                             </div>
 
-                            <div className="flex justify-between px-[3px] pb-[20px] pt-10 overflow-x-auto">
+                            <div className="flex justify-between px-[3px] pb-[30px] pt-10 ">
 
                                 <div className="flex items-center">
-                                    <BsChevronLeft className="text-white " />
+                                    <BsChevronLeft className="text-white text-[14px] " onClick={scrollLeft} />
                                 </div>
-
-                                <div class="flex text-white justify-center border-2 border-border rounded-full mx-2 " style={{ backgroundColor: "rgb(26, 47, 119)" }}>
-                                    <div class="flex-none items-center px-2 mx-4 py-[4px] h-[35px]">
+                                <div ref={menuRef} className="overflow-hidden">
+                                <div class="flex text-white justify-center  mx-2 ms-[220px] " >
+                                    <div class="flex text-sm nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[8px] h-[35px]">
                                         <p>All</p>
                                     </div>
-                                    <div class="flex-none items-center px-2 mx-4 py-[4px] h-[35px]">
-                                        <p>All</p>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Sports</p>
                                     </div>
-                                    <div class="flex-none items-center px-2 mx-4 py-[4px] h-[35px]">
-                                        <p>All</p>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Fun Science</p>
                                     </div>
-                                    <div class="flex-none items-center px-2 mx-4 py-[4px] h-[35px]">
-                                        <p>All</p>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Vocabulary</p>
                                     </div>
-                                    <div class="flex-none items-center px-2 mx-4 py-[4px] h-[35px]">
-                                        <p>All</p>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Festivals</p>
                                     </div>
-                                    <div class="flex-none items-center px-2 mx-4 py-[4px] h-[35px]">
-                                        <p>All</p>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Fun Maths</p>
                                     </div>
-                                    <div class="flex-none items-center px-2 mx-4 py-[4px] h-[35px]">
-                                        <p>All</p>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>English Grammar</p>
                                     </div>
-                                    <div class="flex-none items-center px-2 mx-4 py-[4px] h-[35px]">
-                                        <p>All</p>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Monuments</p>
                                     </div>
-                                    <div class="flex-none items-center px-2 mx-4 py-[4px] h-[35px]">
-                                        <p>All</p>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Food Brands</p>
                                     </div>
-                                    <div class="flex-none items-center px-2 mx-4 py-[4px] h-[35px]">
-                                        <p>All</p>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Test Your Knowledge</p>
+                                    </div>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Entertainment</p>
+                                    </div>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>General Trivia</p>
+                                    </div>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Automobiles</p>
+                                    </div>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Bollywood</p>
+                                    </div>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Birds And Animals</p>
+                                    </div>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Famous Personalities</p>
+                                    </div>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Food & Beverages</p>
+                                    </div>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Business</p>
+                                    </div>
+                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <p>Literature</p>
                                     </div>
                                 </div>
-
+                                </div>
                                 <div className="flex items-center">
-                                    <BsChevronRight className="text-white"/>
+                                    <BsChevronRight className="text-white text-[14px]" onClick={scrollRight} />
                                 </div>
                             </div>
+<Link to="/play">
 
                             <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
                                 <div className="flex flex-col">
@@ -114,6 +158,7 @@ const Home = () => {
                                     <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
                                 </div>
                             </div>
+</Link>
 
 
                             <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
