@@ -63,9 +63,9 @@ const Question = () => {
 
                         </div>
 
-                        <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
-                            <div>
-                                <div className="flex justify-center">
+                        <div className="bg-[#191A32] footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
+                            <div className="relative">
+                                <div className="flex justify-center absolute top-[-10px] left-[95px]">
 
                                 <p className="text-white w-[180px] justify-center flex border rounded-full text-[14px] px-3 py-1 font-[600] nborder">
                                     <VscHeartFilled className="pt-[3px] mr-2 text-[18px]" style={{ color: " rgb(2, 121, 211)" }} />
@@ -73,31 +73,40 @@ const Question = () => {
                                 </p>
                                 </div>
 
-                                <div className="flex gap-6">
-                                    <div>
-                                        <div class="h-[60px] gap-1 w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
+                                <div className="flex gap-10 pt-8">
+                                    <div className="">
+                                        <div class="h-[60px] w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
                                             50:50
                                         </div>
-                                        <p className="text-white text-[12px]">50:50</p>
+                                        <p className="text-white text-[12px] text-center">50:50</p>
                                     </div>
 
                                     <div>
+                                        <div className="flex justify-center">
+                                            
                                         <div class="h-[60px] w-[60px] gap-1 border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
                                             <img src="https://monetix-lookat1.quiztwiz.com/static/media/audience.c5d1df6dd75223d4733d68b4785d21c5.svg" alt="audience poll" />
+                                        </div>
                                         </div>
                                         <p className="text-white text-[12px]">Audience poll</p>
                                     </div>
 
                                     <div>
+                                        <div className="flex justify-center">
+
                                     <div class="h-[60px] w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
                                         <img src="https://monetix-lookat1.quiztwiz.com/static/media/freez.34d9b896bdb87fdf156faab0392be612.svg" alt="Freeze"/>
+                                        </div>
                                         </div>
                                         <p  className="text-white text-[12px]">Freeze Timer</p>
                                     </div>
 
                                     <div>
+                                        <div className="flex justify-center">
+
                                     <div class="h-[60px] w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
                                         <img src="https://monetix-lookat1.quiztwiz.com/static/media/flip.9d50f995c4455c51e153268fcc5cbee5.svg" alt="Flip"/>
+                                        </div>
                                         </div>
                                         <p  className="text-white text-[12px]">Flip Question</p>
                                     </div>

@@ -87,7 +87,7 @@ const Play = () => {
                                                     <div className="flex justify-center">
                                                     <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">Watch Ad</button>
                                                     </div>
-                                                    {/* <button >Close Modal</button> */}
+
                                                 </div>
                                             </div>
                                         )}

@@ -1,9 +1,22 @@
 // import { useEffect } from "react";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FaX } from "react-icons/fa6";
 // import Google from "./Google";
 
 const Quiz = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  // Function to open the modal
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   // useEffect(() => {
   //   const pushAd = () => {
   //     try {
@@ -83,7 +96,7 @@ const Quiz = () => {
     <>
       <div className="bg-[#0F172A]">
         <Row className="flex  ">
-          <Col className="md:w-[410px]  py-3 px-2">
+          <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
             <div className="bg-white h-[350px] mx-auto mb-[8px]">
               <p className="text-black text-center">ads by goggle</p>
               {/* <iframe data-aa='2279699' src='//ad.a-ads.com/2279699?size=300x250' style={{width:'300px', height:'250px', border:'0px', padding:'0', overflow:'hidden', backgroundColor: 'transparent'}}></iframe> */}
@@ -134,7 +147,28 @@ const Quiz = () => {
               <Col className="flex flex-col items-center py-2  bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">
                 A
               </Col>
-              <Col className="flex flex-col  items-center py-2 bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">
+              {isModalOpen && (
+                <div className="modal-container">
+                  <div className="modal">
+                    <div className="flex justify-end">
+                      <FaX onClick={closeModal} className="cursor-pointer" />
+                    </div>
+                    <div className="flex justify-center">
+                      <img src={require("../../../src/image/getreward..gif")} alt="ads"></img>
+                    </div>
+
+                    <h2 class="text-2xl mb-4 text-[#D8E91E] flex justify-center">New Reward Available</h2>
+                    <h2 class="lg:text-4xl md:text-[1.5rem] mb-4 flex justify-center">Get Instant 100 Coins!</h2>
+                    <p class="mb-6 text-[#8E8F98] flex justify-center">Watch a simple ad and get rewarded</p>
+                    <div className="flex justify-center">
+                      <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">Claim</button>
+                    </div>
+
+
+                  </div>
+                </div>
+              )}
+              <Col onClick={openModal} className="flex flex-col  items-center py-2 bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">
                 A
               </Col>
             </div>
