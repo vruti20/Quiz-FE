@@ -14,24 +14,27 @@ const Profile = () => {
                                     <p className="text-white text-sm text-center">ads by goggle</p>
                                 </div>
                             </div>
-
                             <div >
-                                <div className="flex justify-center">
-                                    <h1 className="text-white text-4xl">Well Played</h1>
+
+                                <div>
+
+                                    <div className="flex justify-center ">
+                                        <h1 className="text-white text-4xl">Well Played</h1>
+                                        <img className="w-[200px] absolute " src="https://monetix-lookat1.quiztwiz.com/static/media/animation.82d3951ab49c98d92a06.gif" alt="gift"></img>
+                                    </div>
+
+                                    <div className="grid-cols-2 flex-col pt-[100px] justify-center gap-2 grid text-white mx-[50px]">
+                                        <Col className="flex flex-col items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer ">
+                                            <p>0</p>
+                                            <p>Your Score</p>
+                                        </Col>
+                                        <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer">
+                                            <p>25</p>
+                                            <p>Coins Earned</p>
+                                        </Col>
+                                    </div>
                                 </div>
-                                <div className="flex justify-center">
-                                    <img className="w-[200px] z-[10]" src="https://monetix-lookat1.quiztwiz.com/static/media/animation.82d3951ab49c98d92a06.gif" alt="gift"></img>
-                                </div>
-                                <div className="grid-cols-2 flex-col justify-center gap-2 grid text-white pt-3 mx-[50px]">
-                                    <Col className="flex flex-col items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer ">
-                                        <p>0</p>
-                                        <p>Your Score</p>
-                                    </Col>
-                                    <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer">
-                                        <p>25</p>
-                                        <p>Coins Earned</p>
-                                    </Col>
-                                </div>
+
                                 <div class="mt-5 cursor-pointer flex justify-center">
                                     <button class=" flex gap-2 rounded-full px-7 py-2 border-2 border-[#1a2f77] text-white ">
                                         Double Your winnings
@@ -39,14 +42,14 @@ const Profile = () => {
                                     </button>
                                 </div>
 
-                                <div class="w-3/5 mx-auto  my-6" style={{ border: "1px solid rgb(26, 47, 119)" }}></div>
+                                <div class="w-[85%] mx-auto  my-6" style={{ border: "1px solid rgb(26, 47, 119)" }}></div>
 
                                 <Link to="/quizhome">
-                                <div className="flex justify-center">
-                                    <button class="rounded-full px-7 py-2 text-white flex justify-center" style={{ background: "rgb(26, 47, 119)" }}>
-                                        Home
-                                    </button>
-                                </div>
+                                    <div className="flex justify-center pb-[100px]">
+                                        <button class="rounded-full px-7 py-2 text-white flex justify-center " style={{ background: "rgb(26, 47, 119)" }}>
+                                            Home
+                                        </button>
+                                    </div>
                                 </Link>
                             </div>
 
