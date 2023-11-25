@@ -1,7 +1,13 @@
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap"
 import { VscHeartFilled } from "react-icons/vsc";
 
 const Question = () => {
+    const [showLifelines, setShowLifelines] = useState(false);
+
+    const handleLifelinesClick = () => {
+      setShowLifelines(!showLifelines);
+    };
     return (
         <>
             <div className="bg-[#0F172A] ">
@@ -63,18 +69,21 @@ const Question = () => {
 
                         </div>
 
-                        <div className="bg-[#191A32] footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
-                            <div className="relative">
-                                <div className="flex justify-center absolute top-[-10px] left-[95px]">
 
-                                <p className="text-white w-[180px] justify-center flex border rounded-full text-[14px] px-3 py-1 font-[600] nborder">
+                        <div className="bg-[#191A32] footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
+                            
+                            <div className="relative ">
+
+                                <div className="flex justify-center absolute" style={{ transition: "0.1" }}>
+                                <p onClick={handleLifelinesClick} className="text-white bg-[#191A32] w-[180px] justify-center flex border rounded-full text-[14px] px-3 py-1 font-[600] nborder">
                                     <VscHeartFilled className="pt-[3px] mr-2 text-[18px]" style={{ color: " rgb(2, 121, 211)" }} />
                                     Tap To Use Lifelines
                                 </p>
                                 </div>
-
-                                <div className="flex gap-10 pt-8">
-                                    <div className="">
+                                {showLifelines && (
+              
+                                <div className="flex gap-10 pt-8 ">
+                                    <div >
                                         <div class="h-[60px] w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
                                             50:50
                                         </div>
@@ -111,6 +120,7 @@ const Question = () => {
                                         <p  className="text-white text-[12px]">Flip Question</p>
                                     </div>
                                 </div>
+            )}
 
                                 
                             </div>
