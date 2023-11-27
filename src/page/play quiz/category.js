@@ -4,8 +4,26 @@ import { BiCategory } from "react-icons/bi"
 import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Category = () => {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get("http://localhost:5000/api/category/allcategories");
+                setCategories(response.data.data);
+                console.log("CATEGORY LIST",response.data.data);
+
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
     return (
         <>
             <div className="bg-[#0F172A] ">
@@ -26,7 +44,7 @@ const Category = () => {
                                     </div>
                                     <div className="mt-[3px] flex items-center">
                                         <div class="text-[8px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
-                                        <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
+                                            <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             100 COINS
                                         </div>
                                     </div>
@@ -47,9 +65,28 @@ const Category = () => {
                                 <IoSearch className="text-white text-[20px] " />
                                 <input type="text" placeholder="Search Quiz Category" className="bg-transparent text-lg text-white w-full outline-none"></input>
                             </div>
-                            <div style={{height:"auto !important",paddingBottom:"100px"}}>
+                            <div style={{ height: "auto !important", paddingBottom: "100px",width:"520px"}}>
 
-                                <div className="flex pt-5 gap-3">
+                                {categories.map((category) => (
+                                    <div
+                                        key={category._id}
+                                        className="pt-5 flex"
+                                    >
+                                        <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
+                                            <img
+                                                className="w-[46px] rounded-full"
+                                                src={category.img}
+                                                alt={category.title}
+                                            />
+                                            <span className="text-center text-white text-sm w-full">
+                                                {category.name}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
+
+                                {/* <div className="flex pt-5 gap-3">
+
                                     <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/science.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full"> Fun Science </span>
@@ -58,8 +95,9 @@ const Category = () => {
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/vocab.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Vocabulary </span>
                                     </div>
-                                </div>
-                                <div className="flex pt-2 gap-3">
+                                </div> */}
+
+                                {/* <div className="flex pt-2 gap-3">
                                     <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/sports.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Sports</span>
@@ -68,8 +106,8 @@ const Category = () => {
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/festival-min.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Festivals</span>
                                     </div>
-                                </div>
-                                <div className="flex pt-2 gap-3">
+                                </div> */}
+                                {/* <div className="flex pt-2 gap-3">
                                     <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/math.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Fun Maths</span>
@@ -78,8 +116,8 @@ const Category = () => {
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/grammar.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">English Grammar</span>
                                     </div>
-                                </div>
-                                <div className="flex pt-2 gap-3">
+                                </div> */}
+                                {/* <div className="flex pt-2 gap-3">
                                     <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/sports.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Monuments</span>
@@ -88,8 +126,8 @@ const Category = () => {
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/brand.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Food Brands</span>
                                     </div>
-                                </div>
-                                <div className="flex pt-2 gap-3">
+                                </div> */}
+                                {/* <div className="flex pt-2 gap-3">
                                     <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/testknow.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Test Your Knowledge</span>
@@ -98,8 +136,8 @@ const Category = () => {
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/entertainment.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Entertainment</span>
                                     </div>
-                                </div>
-                                <div className="flex pt-2 gap-3">
+                                </div> */}
+                                {/* <div className="flex pt-2 gap-3">
                                     <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/trivia-min.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">General Trivia</span>
@@ -108,8 +146,8 @@ const Category = () => {
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/auto.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Automobiles</span>
                                     </div>
-                                </div>
-                                <div className="flex pt-2 gap-3">
+                                </div> */}
+                                {/* <div className="flex pt-2 gap-3">
                                     <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/bollywood.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Bollywood</span>
@@ -118,8 +156,8 @@ const Category = () => {
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/animal.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Birds And Animals</span>
                                     </div>
-                                </div>
-                                <div className="flex pt-2 gap-3">
+                                </div> */}
+                                {/* <div className="flex pt-2 gap-3">
                                     <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/famous.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Famous Personalities</span>
@@ -128,8 +166,8 @@ const Category = () => {
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/food.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Food & Beverages</span>
                                     </div>
-                                </div>
-                                <div className="flex pt-2 gap-3">
+                                </div> */}
+                                {/* <div className="flex pt-2 gap-3">
                                     <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/business-min.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Business</span>
@@ -138,7 +176,7 @@ const Category = () => {
                                         <img className="w-[46px] rounded-full" src={require("../../../src/image/literature-min.png")} alt="category"></img>
                                         <span className="text-center text-white text-sm w-full">Litrature</span>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 
@@ -151,10 +189,10 @@ const Category = () => {
                                 </span>
                             </Link>
                             <Link to="/quizhome">
-                            <span className=" ">
-                                <LiaHomeSolid className="text-white text-[20px] m-2" />
-                                <p className="text-white text-[12px]">Home</p>
-                            </span>
+                                <span className=" ">
+                                    <LiaHomeSolid className="text-white text-[20px] m-2" />
+                                    <p className="text-white text-[12px]">Home</p>
+                                </span>
                             </Link>
                             <Link to="/profile">
                                 <span className=" ">

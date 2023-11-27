@@ -70,18 +70,18 @@ const Question = () => {
                         </div>
 
 
-                        <div className="bg-[#191A32] footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
+                        <div className="bg-[#191A32]  footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4 border-t nborder" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
                             
-                            <div className="relative ">
+                            <div className="">
 
-                                <div className="flex justify-center absolute" style={{ transition: "0.1" }}>
-                                <p onClick={handleLifelinesClick} className="text-white bg-[#191A32] w-[180px] justify-center flex border rounded-full text-[14px] px-3 py-1 font-[600] nborder">
+                                <div className="flex justify-center  pt-3 relative" >
+                                <p onClick={handleLifelinesClick} className="text-white  transition duration-1000 absolute top-[-12px] bg-[#191A32] w-[180px] justify-center flex border cursor-pointer rounded-full  px-3 py-1 nborder">
                                     <VscHeartFilled className="pt-[3px] mr-2 text-[18px]" style={{ color: " rgb(2, 121, 211)" }} />
+                                    <span className="text-[14px] font-[600] ">
                                     Tap To Use Lifelines
+                                    </span>
                                 </p>
-                                </div>
                                 {showLifelines && (
-              
                                 <div className="flex gap-10 pt-8 ">
                                     <div >
                                         <div class="h-[60px] w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center ">
@@ -123,6 +123,7 @@ const Question = () => {
             )}
 
                                 
+                                </div>
                             </div>
 
                         </div>
