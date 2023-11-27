@@ -5,21 +5,38 @@ import { BiCategory } from "react-icons/bi"
 import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
 import { Link } from "react-router-dom"
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import axios from "axios"
 
 const Home = () => {
 
     const menuRef = useRef(null);
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get("http://localhost:5000/api/category/allcategories");
+                setCategories(response.data.data);
+                console.log("CATEGORY LIST", response.data.data);
+
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     const scrollLeft = () => {
         if (menuRef.current) {
-            menuRef.current.scrollLeft -= 100; // You can adjust the scroll amount
+            menuRef.current.scrollLeft -= 300;
         }
     };
 
     const scrollRight = () => {
         if (menuRef.current) {
-            menuRef.current.scrollLeft += 100; // You can adjust the scroll amount
+            menuRef.current.scrollLeft += 300;
         }
     };
     return (
@@ -42,7 +59,7 @@ const Home = () => {
                                     </div>
                                     <div className="mt-[3px] flex items-center">
                                         <div class="text-[10px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
-                                        <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
+                                            <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             100 COINS
                                         </div>
                                     </div>
@@ -61,104 +78,56 @@ const Home = () => {
                                 <div className="flex items-center">
                                     <BsChevronLeft className="text-white text-[14px] " onClick={scrollLeft} />
                                 </div>
+                                
                                 <div ref={menuRef} className="overflow-hidden">
-                                <div class="flex text-white justify-center  mx-2 ms-[220px] " >
-                                    <div class="flex text-sm nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[8px] h-[35px]">
-                                        <p>All</p>
+                                    <div className="flex text-white justify-center pl-[1200px] mx-2 ms-[220px]">
+                                        {categories.map((category) => (
+                                            <div
+                                                key={category._id}
+                                                className="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]"
+                                            >
+                                                <p>{category.name}</p>
+                                            </div>
+                                        ))}
                                     </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Sports</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Fun Science</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Vocabulary</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Festivals</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Fun Maths</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>English Grammar</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Monuments</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Food Brands</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Test Your Knowledge</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Entertainment</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>General Trivia</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Automobiles</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Bollywood</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Birds And Animals</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Famous Personalities</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Food & Beverages</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Business</p>
-                                    </div>
-                                    <div class="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
-                                        <p>Literature</p>
-                                    </div>
-                                </div>
                                 </div>
                                 <div className="flex items-center">
                                     <BsChevronRight className="text-white text-[14px]" onClick={scrollRight} />
                                 </div>
                             </div>
-<Link to="/play">
+                            <Link to="/play">
 
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/monument.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-2 px-2">
-                                            Monuments | National
-                                        </p>
+                                <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
+                                    <div className="flex flex-col">
+                                        <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/monument.png")} alt="monuments"></img>
                                     </div>
+                                    <div className="w-full ">
 
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
+                                        <div className="flex text-[10px] justify-end my-[5px] font-[900]">
+                                            <p className="text-[#64d2ff] max-h-[20px] py-2 px-2">
+                                                Monuments | National
+                                            </p>
+                                        </div>
 
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
+                                        <div className="flex justify-end my-[8px]">
+                                            <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
+                                            <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
+                                            <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
+                                        </div>
+                                        <div className="flex justify-end my-[5px]">
+
+                                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                                                <p>Entry Fee&nbsp;</p>
+                                                <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
+                                                <p>&nbsp;100</p>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div className="w-[120px]">
+                                        <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
+                                    </div>
                                 </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-</Link>
+                            </Link>
 
 
                             <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
