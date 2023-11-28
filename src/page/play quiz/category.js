@@ -16,13 +16,11 @@ const Category = () => {
                 const response = await axios.get("http://localhost:5000/api/category/allcategories");
                 setCategories(response.data.data);
                 console.log("CATEGORY LIST", response.data.data);
-
-                
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
         };
-        
+
         fetchCategories();
     }, []);
     return (
@@ -82,27 +80,6 @@ const Category = () => {
                                     </div>
                                 ))}
                             </div>
-
-                            {/* <div className="pb-[100px] flex ">
-
-                                {categories.map((data) => (
-                                    <div
-                                        key={category._id}
-                                        className="pt-5"
-                                    >
-                                        <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                            <img
-                                                className="w-[46px] rounded-full"
-                                                src={category.img}
-                                                alt={category.title}
-                                            />
-                                            <span className="text-center text-white text-sm w-full">
-                                                {category.name}
-                                            </span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div> */}
                         </div>
 
                         <div className=" footer flex justify-around lg:w-[520px]  bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>

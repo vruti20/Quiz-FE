@@ -35,7 +35,7 @@ function App() {
           <Route  path="/play" element={<Play/>}/>
         </Routes>
         <Routes>
-          <Route  path="/question" element={<Question/>}/>
+          <Route  path="/question/:categoryId" element={<Question/>}/>
         </Routes>
         <Routes>
           <Route  path="/result" element={<Result/>}/>

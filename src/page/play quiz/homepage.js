@@ -7,15 +7,23 @@ import { CgProfile } from "react-icons/cg"
 import { Link } from "react-router-dom"
 import React, { useEffect, useRef, useState } from 'react';
 import axios from "axios"
+import { useNavigate } from 'react-router-dom';
+// import Question from "./question"
 
 const Home = () => {
 
     const menuRef = useRef(null);
+    const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
     const [category, setCategory] = useState([])
     const [subcategories, setSubcategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [categoryid, setCategoryid] = useState(null)
 
+    const handleCategoryid = (categoryId) => {
+        setCategoryid(categoryId);
+        navigate(`/question/${categoryId}`);
+      };
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -34,19 +42,20 @@ const Home = () => {
                 const response = await axios.get('http://localhost:5000/api/category/allsubcategories');
                 setCategory(response.data.data);
                 console.log("HOMECTAEGORY:", response.data.data);
-                console.log(">>>>>",category[0]);
+                console.log(">>>>>", category);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
-        
+
         const fetchSubCategory = async () => {
             try {
                 if (selectedCategory) {
                     const response = await axios.get(`http://localhost:5000/api/category/subcategories/${selectedCategory}`);
                     setSubcategories(response.data.data);
                     console.log("SUBCATEGORIES:", response.data.data);
+                    console.log(">>>>>>>", categoryid);
                 }
             } catch (error) {
                 console.error('Error fetching subcategories:', error);
@@ -56,7 +65,8 @@ const Home = () => {
         fetchCategory();
         fetchSubCategory();
         fetchCategories();
-    }, [selectedCategory]);
+
+    }, [selectedCategory,categoryid]);
     // console.log(">>>>>>>>>",subcategories);
 
     const handleCategoryClick = (categoryId) => {
@@ -76,6 +86,7 @@ const Home = () => {
     };
     return (
         <>
+            {/* {categoryid && <Question categoryId={categoryid} />} */}
             <div className="bg-[#0F172A] w-full bg-scroll " >
 
                 <Row className="">
@@ -116,16 +127,16 @@ const Home = () => {
 
                                 <div ref={menuRef} className="overflow-hidden">
                                     <div className="flex text-white justify-center pl-[1240px] mx-2 ms-[220px]">
-                                        <div  onClick={() => handleCategoryClick('All')} class="flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                        <div onClick={() => handleCategoryClick('All')} class="flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
                                             <p >All</p>
                                         </div>
                                         {categories.map((data) => (
                                             <div
-                                                key={data._id}        
+                                                key={data._id}
                                                 className="flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]"
                                                 onClick={() => handleCategoryClick(data._id)}
                                             >
-                                            <p>{data.name}</p>
+                                                <p>{data.name}</p>
                                             </div>
                                         ))}
                                     </div>
@@ -136,10 +147,14 @@ const Home = () => {
                             </div>
                             <Link to="/play">
 
-                                <div className="pb-[125px]">
-                                    {selectedCategory
-                                    ?subcategories.map((data) => (
-                                        <div key={data._id} className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }} >
+                            <div className="pb-[125px]">
+                                {selectedCategory
+                                    ? subcategories.map((data) => (
+                                        <div 
+                                         onClick={() => handleCategoryid(data._id)}
+                                          key={data._id} 
+                                          className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" 
+                                          style={{ borderColor: "rgb(75 85 99)" }} >
                                             <div className="flex flex-col">
                                                 <img className="rounded-full w-[125px] p-2" src={data.img} alt={data.title}></img>
                                             </div>
@@ -164,8 +179,12 @@ const Home = () => {
                                                 <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
                                             </div>
                                         </div>
-                                    )): category.map((subcategory) => (
-                                        <div key={subcategory._id} className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }} >
+                                    )) : category.map((subcategory) => (
+                                        <div
+                                            onClick={() => handleCategoryid(subcategory._id)}
+                                            key={subcategory._id}
+                                            className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
+                                            style={{ borderColor: "rgb(75 85 99)" }} >
                                             <div className="flex flex-col">
                                                 <img className="rounded-full w-[125px] p-2" src={subcategory.img} alt={subcategory.title}></img>
                                             </div>
@@ -192,7 +211,7 @@ const Home = () => {
                                         </div>
                                     ))}
 
-                                </div>
+                            </div>
                             </Link>
 
                         </div>
