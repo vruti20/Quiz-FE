@@ -4,11 +4,15 @@ import { Link } from "react-router-dom";
 const Quizplay = () => {
     return (
         <>
-            <div className="bg-[#0F172A]">
+            <div className="bg-[#0F172A] bg-fixed ">
               
-                <Row className="flex lg:h-screen ">
-                    <Col className="md:w-[400px] items-end flex lg:w-[530px] py-3 px-2">
-
+                <Row className="flex">
+                    <Col className="md:w-[400px] items-end  lg:w-[530px] py-3 px-2">
+                    <div className="bg-[#0F172A] mt-[50px] h-[350px] mx-auto mb-[8px]">
+                                <p className="text-white text-center">
+                                    ads by goggle
+                                </p>
+                            </div>
                         <div className="border-2 w-full p-[15px] m-[5px] rounded-[30px]" style={{borderColor:"rgb(75 85 99)"}}>
                             <h1 class="text-[10px] text-center text-[#64d2ff] font-black ">
                                 QuizTwiz

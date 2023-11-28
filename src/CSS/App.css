@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 *{
   margin: 0;
   padding: 0;
@@ -122,31 +123,6 @@
   border: 2px solid  white;
   padding: 20px;
   border-radius: 20px;
-  width: 620px; /* Adjust the width as needed */
-  height: auto; /* Adjust the height as needed */
+  width: 620px; 
+  height: auto; 
 }
-
-/* .modal-container {
-  position: absolute;
-  top: 50%;
-  left: 150%;
-  transform: translate(-50%, -50%);
-   background: rgba(0, 0, 0, 0.5); 
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 20;
-}
-
-.modal {
-  background: white;
-  color: white;
-  padding: 20px;
-  border: 1px solid;
-  border-color: white;
-  border-radius: 30px;
-  width: 520px; 
-  height: 200px; 
-} */

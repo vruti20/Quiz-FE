@@ -3,11 +3,15 @@ import { BiCategory } from "react-icons/bi"
 import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
 import { Link } from "react-router-dom"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaX } from "react-icons/fa6";
+import axios from "axios"
 
 const Play = () => {
     const [isModalOpen, setModalOpen] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [subcategories, setSubcategories] = useState([]);
+
 
     // Function to open the modal
     const openModal = () => {
@@ -18,6 +22,26 @@ const Play = () => {
     const closeModal = () => {
         setModalOpen(false);
     };
+
+
+    useEffect(() => {
+
+        const fetchSubCategory = async () => {
+            try {
+                if (selectedCategory) {
+                    const response = await axios.get(`http://localhost:5000/api/category/subcategories/${selectedCategory}`);
+                    setSubcategories(response.data.data);
+                    console.log("SUBCATEGORIES:", response.data.data);
+                    // console.log(">>>>>>>", categoryid);
+                }
+            } catch (error) {
+                console.error('Error fetching subcategories:', error);
+            }
+        };
+
+        fetchSubCategory()
+
+    }, [selectedCategory]);
     return (
         <>
             <div className="bg-[#0F172A] ">
@@ -37,7 +61,7 @@ const Play = () => {
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
                                     </div>
                                     <div className="mt-[3px] flex items-center ">
-                                        <div class="text-[10px] flex text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                        <div class="text-[8px] flex text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             100 COINS
                                         </div>
@@ -52,6 +76,29 @@ const Play = () => {
                                 </p>
                             </div>
                             <div className="pb-[150px]">
+                                <div className="px-5 gap-2 flex items-center py-6">
+                                    {subcategories.map((subcategory, index) => (
+                                        <div key={index} className="">
+                                            <img
+                                                className="w-[60px] sm:w-[52px] rounded-full "
+                                                src={subcategory.img}
+                                                alt="category"
+                                            />
+                                            <div className="">
+                                                <p className="text-[10px] text-[#64d2ff] font-black ">{subcategory.name}</p>
+                                                <div className="flex text-white text-[18px] font-black cursor-pointer">
+                                                    <p>{subcategory.playWin}</p>
+                                                    <img
+                                                        className="w-5 ms-2"
+                                                        src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                                                        alt="svg"
+                                                    />
+                                                    <p className="ms-2">{subcategory.points}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
 
                                 <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px]" style={{ borderColor: "rgb(75 85 99)" }}>
                                     <div className="px-5 gap-2 flex items-center py-6">
@@ -67,86 +114,86 @@ const Play = () => {
 
                                         </div>
                                     </div>
-                                    <div className="flex w-full justify-around pb-[25px]">
-                                        <Link to="/login">
-                                            <button class="bg-[#1A2F77] py-2 px-14 font-[700] text-white rounded-full">JOIN NOW</button>
-                                        </Link>
-                                        <p className="text-[20px] text-white">or</p>
-                                        {isModalOpen && (
-                                            <div className="modal-container">
-                                                <div className="modal">
-                                                    <div className="flex justify-end">
-                                                        <FaX onClick={closeModal} className="cursor-pointer"/>
-                                                    </div>
-                                                    <div className="flex justify-center">
-                                                        <img src="https://monetix-lookat1.quiztwiz.com/static/media/adpic.18b085351c262a96e5a9.png" alt="ads"></img>
-                                                    </div>
-
-                                                    <h2 class="text-4xl text-[#D8E91E] md:text-[1.5rem] mb-4 flex justify-center">oops!</h2>
-                                                    <p class="mb-6 text-[#8E8F98] flex justify-center">Not enough coins to play</p>
-                                                    <div className="flex justify-center">
-                                                    <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">Watch Ad</button>
-                                                    </div>
-
+                                <div className="flex w-full justify-around pb-[25px]">
+                                    <Link to="/login">
+                                        <button class="bg-[#1A2F77] py-2 px-14 font-[700] text-white rounded-full">JOIN NOW</button>
+                                    </Link>
+                                    <p className="text-[20px] text-white">or</p>
+                                    {isModalOpen && (
+                                        <div className="modal-container">
+                                            <div className="modal">
+                                                <div className="flex justify-end">
+                                                    <FaX onClick={closeModal} className="cursor-pointer" />
                                                 </div>
+                                                <div className="flex justify-center">
+                                                    <img src="https://monetix-lookat1.quiztwiz.com/static/media/adpic.18b085351c262a96e5a9.png" alt="ads"></img>
+                                                </div>
+
+                                                <h2 class="text-4xl text-[#D8E91E] md:text-[1.5rem] mb-4 flex justify-center">oops!</h2>
+                                                <p class="mb-6 text-[#8E8F98] flex justify-center">Not enough coins to play</p>
+                                                <div className="flex justify-center">
+                                                    <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">Watch Ad</button>
+                                                </div>
+
                                             </div>
-                                        )}
-                                        <div class=" border-[1px] text-white text-center rounded-full font-bold text-sm py-3  px-10 cursor-pointer" onClick={openModal}>
-                                            PLAY AS GUEST
                                         </div>
+                                    )}
+                                    <div class=" border-[1px] text-white text-center rounded-full font-bold text-sm py-3  px-10 cursor-pointer" onClick={openModal}>
+                                        PLAY AS GUEST
                                     </div>
-
-                                    <ul class="list-disc text-white text-sm flex flex-col pb-[10px] gap-4 px-9 ">
-                                        <li>You've got 90 - 150 seconds to answer all questions</li>
-                                        <li>Answer as many questions as you can</li>
-                                        <li>For Every Correct answer you will get +50 points and will loose -25 points on every Incorrect answer</li>
-                                        <li>You can take help by using the lifelines present in the contest.</li>
-                                        <li>Lifelines can be used for free or by using a given amount of coins for each lifeline.</li>
-                                    </ul>
                                 </div>
+
+                                <ul class="list-disc text-white text-sm flex flex-col pb-[10px] gap-4 px-9 ">
+                                    <li>You've got 90 - 150 seconds to answer all questions</li>
+                                    <li>Answer as many questions as you can</li>
+                                    <li>For Every Correct answer you will get +50 points and will loose -25 points on every Incorrect answer</li>
+                                    <li>You can take help by using the lifelines present in the contest.</li>
+                                    <li>Lifelines can be used for free or by using a given amount of coins for each lifeline.</li>
+                                </ul>
                             </div>
-
                         </div>
 
-                        <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
-                            <Link to="/category">
-                                <span >
-                                    <BiCategory className="text-white ml-4 text-[20px] m-2" />
-                                    <p className="text-white text-[12px]">Category</p>
-                                </span>
-                            </Link>
-                            <Link to="/quizhome">
-                                <span className=" ">
-                                    <LiaHomeSolid className="text-white text-[20px] m-2" />
-                                    <p className="text-white text-[12px]">Home</p>
-                                </span>
-                            </Link>
+                    </div>
 
-                            <Link to="/profile">
-                                <span >
-                                    <CgProfile className="text-white text-[20px] m-2" />
-                                    <p className="text-white  text-[12px]">Profile</p>
-                                </span>
-                            </Link>
-                        </div>
+                    <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
+                        <Link to="/category">
+                            <span >
+                                <BiCategory className="text-white ml-4 text-[20px] m-2" />
+                                <p className="text-white text-[12px]">Category</p>
+                            </span>
+                        </Link>
+                        <Link to="/quizhome">
+                            <span className=" ">
+                                <LiaHomeSolid className="text-white text-[20px] m-2" />
+                                <p className="text-white text-[12px]">Home</p>
+                            </span>
+                        </Link>
+
+                        <Link to="/profile">
+                            <span >
+                                <CgProfile className="text-white text-[20px] m-2" />
+                                <p className="text-white  text-[12px]">Profile</p>
+                            </span>
+                        </Link>
+                    </div>
 
 
-                    </Col>
-                    <Col className="fixed ">
+                </Col>
+                <Col className="fixed ">
 
-                        <div className="flex justify-center py-16 md:py-10">
-                            <img className="lg:w-[65%] md:w-[300px] " src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png" alt=""></img>
-                        </div>
+                    <div className="flex justify-center py-16 md:py-10">
+                        <img className="lg:w-[65%] md:w-[300px] " src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png" alt=""></img>
+                    </div>
 
-                        <div class="font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
-                            Welcome to Quiztwiz. Play a quiz and earn coins.
-                            <p class="font-normal text-2xl pt-4 text-center">
-                                There's a quiz for everyone! </p>
-                        </div>
+                    <div class="font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+                        Welcome to Quiztwiz. Play a quiz and earn coins.
+                        <p class="font-normal text-2xl pt-4 text-center">
+                            There's a quiz for everyone! </p>
+                    </div>
 
-                    </Col>
-                </Row>
-            </div>
+                </Col>
+            </Row>
+        </div >
         </>
     )
 }

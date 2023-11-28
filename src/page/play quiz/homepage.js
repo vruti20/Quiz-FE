@@ -7,11 +7,23 @@ import { CgProfile } from "react-icons/cg"
 import { Link } from "react-router-dom"
 import React, { useEffect, useRef, useState } from 'react';
 import axios from "axios"
+import { useNavigate } from 'react-router-dom';
+// import Question from "./question"
 
 const Home = () => {
 
     const menuRef = useRef(null);
+    const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
+    const [category, setCategory] = useState([])
+    const [subcategories, setSubcategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [categoryid, setCategoryid] = useState(null)
+
+    const handleCategoryid = (categoryId) => {
+        setCategoryid(categoryId);
+        navigate(`/question/${categoryId}`);
+      };
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -25,8 +37,41 @@ const Home = () => {
             }
         };
 
+        const fetchCategory = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/category/allsubcategories');
+                setCategory(response.data.data);
+                console.log("HOMECTAEGORY:", response.data.data);
+                console.log(">>>>>", category);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+
+        const fetchSubCategory = async () => {
+            try {
+                if (selectedCategory) {
+                    const response = await axios.get(`http://localhost:5000/api/category/subcategories/${selectedCategory}`);
+                    setSubcategories(response.data.data);
+                    console.log("SUBCATEGORIES:", response.data.data);
+                    console.log(">>>>>>>", categoryid);
+                }
+            } catch (error) {
+                console.error('Error fetching subcategories:', error);
+            }
+        };
+
+        fetchCategory();
+        fetchSubCategory();
         fetchCategories();
-    }, []);
+
+    }, [selectedCategory,categoryid]);
+    // console.log(">>>>>>>>>",subcategories);
+
+    const handleCategoryClick = (categoryId) => {
+        setSelectedCategory(categoryId === 'All' ? null : categoryId);
+    };
 
     const scrollLeft = () => {
         if (menuRef.current) {
@@ -41,10 +86,11 @@ const Home = () => {
     };
     return (
         <>
-            <div className="bg-[#0F172A] ">
+            {/* {categoryid && <Question categoryId={categoryid} />} */}
+            <div className="bg-[#0F172A] w-full bg-scroll " >
 
                 <Row className="">
-                    <Col className="md:w-[400px] lg:w-[520px] py-[1px] px-2 relative flex-col flex" >
+                    <Col className="md:w-[400px]  lg:w-[520px] py-[1px] px-2 relative flex-col flex overflow-y-auto" >
                         <div className="">
                             <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0F172A] header">
                                 <span className="pl-[10px]">
@@ -58,7 +104,7 @@ const Home = () => {
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
                                     </div>
                                     <div className="mt-[3px] flex items-center">
-                                        <div class="text-[10px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                        <div class="text-[8px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             100 COINS
                                         </div>
@@ -78,15 +124,19 @@ const Home = () => {
                                 <div className="flex items-center">
                                     <BsChevronLeft className="text-white text-[14px] " onClick={scrollLeft} />
                                 </div>
-                                
+
                                 <div ref={menuRef} className="overflow-hidden">
-                                    <div className="flex text-white justify-center pl-[1200px] mx-2 ms-[220px]">
-                                        {categories.map((category) => (
+                                    <div className="flex text-white justify-center pl-[1240px] mx-2 ms-[220px]">
+                                        <div onClick={() => handleCategoryClick('All')} class="flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]">
+                                            <p >All</p>
+                                        </div>
+                                        {categories.map((data) => (
                                             <div
-                                                key={category._id}
-                                                className="flex-none flex text-[10px] nborder border-2 border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]"
+                                                key={data._id}
+                                                className="flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px]"
+                                                onClick={() => handleCategoryClick(data._id)}
                                             >
-                                                <p>{category.name}</p>
+                                                <p>{data.name}</p>
                                             </div>
                                         ))}
                                     </div>
@@ -97,675 +147,73 @@ const Home = () => {
                             </div>
                             <Link to="/play">
 
-                                <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                    <div className="flex flex-col">
-                                        <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/monument.png")} alt="monuments"></img>
-                                    </div>
-                                    <div className="w-full ">
-
-                                        <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                            <p className="text-[#64d2ff] max-h-[20px] py-2 px-2">
-                                                Monuments | National
-                                            </p>
-                                        </div>
-
-                                        <div className="flex justify-end my-[8px]">
-                                            <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                            <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                        </div>
-                                        <div className="flex justify-end my-[5px]">
-
-                                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                                <p>Entry Fee&nbsp;</p>
-                                                <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                                <p>&nbsp;100</p>
+                            <div className="pb-[125px]">
+                                {selectedCategory
+                                    ? subcategories.map((data) => (
+                                        <div 
+                                         onClick={() => handleCategoryid(data._id)}
+                                          key={data._id} 
+                                          className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" 
+                                          style={{ borderColor: "rgb(75 85 99)" }} >
+                                            <div className="flex flex-col">
+                                                <img className="rounded-full w-[125px] p-2" src={data.img} alt={data.title}></img>
+                                            </div>
+                                            <div className="w-full ">
+                                                <div className="flex text-[10px] justify-end my-[5px] font-[900]">
+                                                    <p className="text-[#64d2ff] max-h-[20px]  px-2">{data.category.name} | {data.title}</p>
+                                                </div>
+                                                <div className="flex justify-end my-[8px]">
+                                                    <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
+                                                    <img className="w-[14px]" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
+                                                    <p className="text-white font-[900] text-[14px]">&nbsp;{data.totalPrice}</p>
+                                                </div>
+                                                <div className="flex justify-end my-[5px] text-[7px]">
+                                                    <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                                                        <p className="text-white">Entry Fee&nbsp;</p>
+                                                        <img className="w-[10px]" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
+                                                        <p className="text-white">&nbsp;{data.entryFee}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="w-[120px]">
+                                                <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="w-[120px]">
-                                        <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                    </div>
-                                </div>
+                                    )) : category.map((subcategory) => (
+                                        <div
+                                            onClick={() => handleCategoryid(subcategory._id)}
+                                            key={subcategory._id}
+                                            className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
+                                            style={{ borderColor: "rgb(75 85 99)" }} >
+                                            <div className="flex flex-col">
+                                                <img className="rounded-full w-[125px] p-2" src={subcategory.img} alt={subcategory.title}></img>
+                                            </div>
+                                            <div className="w-full ">
+                                                <div className="flex text-[10px] justify-end my-[5px] font-[900]">
+                                                    <p className="text-[#64d2ff] max-h-[20px] px-2">{subcategory.category.name} | {subcategory.title}</p>
+                                                </div>
+                                                <div className="flex justify-end my-[8px]">
+                                                    <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
+                                                    <img className="w-[14px]" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
+                                                    <p className="text-white font-[900] text-[14px]">&nbsp;{subcategory.totalPrice}</p>
+                                                </div>
+                                                <div className="flex justify-end my-[5px] text-[7px]">
+                                                    <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                                                        <p className="text-white">Entry Fee&nbsp;</p>
+                                                        <img className="w-[10px]" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
+                                                        <p className="text-white">&nbsp;{subcategory.entryFee}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="w-[120px]">
+                                                <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
+                                            </div>
+                                        </div>
+                                    ))}
+
+                            </div>
                             </Link>
 
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/famous.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Famous Personalities | Wonder-Women
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/science.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Fun Science | Space-Exploration
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/science.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Fun Science | Everyday-Science
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/entertainment.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Entertainment |Friends
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/sports.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Sports | Cricket
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/entertainment.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Entertainment | Movie-Quotes
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/business-min.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Business | Banking-and-Finance
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/literature-min.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Literature | Fiction
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/festival-min.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Festivals | Raksha-Bandhan
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/festival-min.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Festivals | Onam
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/sports.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Sports | T-20
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/animal.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Birds And Animals | Find-That-Creature
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/food.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Food & Beverages | Food-Trivia
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/food.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Food & Beverages | Indian-Cuisine
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/testknow.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Test Your Knowledge | Easy-Trivia
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/entertainment.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Entertainment | Guess-The-Movie
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/math.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Fun Maths | Algebra
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/math.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Fun Maths | Tringometry
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/math.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Fun Maths | Play-With-Shapes
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
-
-
-                            <div className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[85px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                <div className="flex flex-col">
-                                    <img className="rounded-full w-[125px] p-2" src={require("../../../src/image/math.png")} alt="monuments"></img>
-                                </div>
-                                <div className="w-full ">
-
-                                    <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                        <p className="text-[#64d2ff] max-h-[20px] py-1 px-2">
-                                            Fun Maths | Easy-Math-Trivia
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-end my-[8px]">
-                                        <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                        <p className="text-white font-[900] text-[14px]">&nbsp;10000</p>
-                                    </div>
-                                    <div className="flex justify-end my-[5px]">
-
-                                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                                            <p>Entry Fee&nbsp;</p>
-                                            <img className="w-[10px]" src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                            <p>&nbsp;100</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[120px]">
-                                    <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
-                                </div>
-                            </div>
                         </div>
 
                         <div className=" footer flex justify-around lg:w-[520px]  bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
