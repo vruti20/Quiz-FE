@@ -1,22 +1,72 @@
 // import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaX } from "react-icons/fa6";
+import axios from "axios";
 // import Google from "./Google";
 
 const Quiz = () => {
+  const navigate = useNavigate();
+
   const [isModalOpen, setModalOpen] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [answerStatus, setAnswerStatus] = useState(null);
 
   // Function to open the modal
   const openModal = () => {
     setModalOpen(true);
   };
-
+  
   // Function to close the modal
   const closeModal = () => {
     setModalOpen(false);
+    navigate("/quizplay")
   };
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/quesation/loginquestions"
+        );
+        setQuestions(response.data.data.slice(0,2));
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchQuestions();
+  }, []);
+  const handleOptionClick = (answer) => {
+    const currentQuestion = questions[currentQuestionIndex];
+  
+    // Check if the selected answer is correct
+    const isCorrect= answer === currentQuestion.correct;
+    // Update the state and use the updated value immediately
+    setSelectedAnswer(answer);
+    setAnswerStatus(isCorrect); 
+
+    setTimeout(() => {
+      // Clear the selected answer and answer status
+      setSelectedAnswer(null);
+      setAnswerStatus(null);
+
+      // Move to the next question
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+
+      // Check if it's the last question and open the modal
+      if (currentQuestionIndex + 1 === questions.length) {
+        openModal();
+      }
+    }, 1000);
+  };
+  useEffect(() => {
+    if (currentQuestionIndex + 1 === questions.length) {
+      openModal();
+    }
+  }, [currentQuestionIndex , questions.length]);
+  
   // useEffect(() => {
   //   const pushAd = () => {
   //     try {
@@ -92,6 +142,7 @@ const Quiz = () => {
   //   };
   // }, []);
 
+  
   return (
     <>
       <div className="bg-[#0F172A]">
@@ -99,7 +150,7 @@ const Quiz = () => {
           <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
             <div className="bg-white h-[350px] mx-auto mb-[8px]">
               <p className="text-black text-center">ads by goggle</p>
-              {/* <iframe data-aa='2279699' src='//ad.a-ads.com/2279699?size=300x250' style={{width:'300px', height:'250px', border:'0px', padding:'0', overflow:'hidden', backgroundColor: 'transparent'}}></iframe> */}
+                  {/* <iframe data-aa='2279699' src='//ad.a-ads.com/2279699?size=300x250' style={{width:'300px', height:'250px', border:'0px', padding:'0', overflow:'hidden', backgroundColor: 'transparent'}}></iframe> */}
               {/* <script
                 async
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9720528266916800"
@@ -126,52 +177,67 @@ const Quiz = () => {
                 Answer few questions and win 150 free!
               </span>
             </div>
-
             <div className=" text-[#bac8ff] font-bold text-center pt-5 pb-3">
-              Question 1<span className="text-[13px]">/2</span>
+              Question {currentQuestionIndex + 1}/{questions.length}
             </div>
-
-            <div className="text-lg font-bold px-10 text-white text-center pb-5">
-              <span>Which is the fifth alphabet in the word 'PASTE'?</span>
-            </div>
-
-            <div className="grid-cols-2 grid text-white ">
-              <Col className="flex flex-col  items-center py-2 bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">
-                A
-              </Col>
-              <Col className="flex flex-col  items-center  py-2  bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">
-                A
-              </Col>
-            </div>
-            <div className="grid-cols-2 grid text-white pt-2">
-              <Col className="flex flex-col items-center py-2  bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">
-                A
-              </Col>
-              {isModalOpen && (
-                <div className="modal-container">
-                  <div className="modal">
-                    <div className="flex justify-end">
-                      <FaX onClick={closeModal} className="cursor-pointer" />
-                    </div>
-                    <div className="flex justify-center">
-                      <img src={require("../../../src/image/getreward..gif")} alt="ads"></img>
-                    </div>
-
-                    <h2 class="text-2xl mb-4 text-[#D8E91E] flex justify-center">New Reward Available</h2>
-                    <h2 class="lg:text-4xl md:text-[1.5rem] mb-4 flex justify-center">Get Instant 100 Coins!</h2>
-                    <p class="mb-6 text-[#8E8F98] flex justify-center">Watch a simple ad and get rewarded</p>
-                    <div className="flex justify-center">
-                      <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">Claim</button>
-                    </div>
-
-
-                  </div>
+            {currentQuestionIndex < questions.length && (
+              <>
+                <div
+                  key={questions[currentQuestionIndex]._id}
+                  className="text-lg font-bold px-10 text-white text-center pb-5"
+                >
+                  <span>{questions[currentQuestionIndex].question}</span>
                 </div>
-              )}
-              <Col onClick={openModal} className="flex flex-col  items-center py-2 bg-[#20213f] border-2 border-[#404380] rounded-full cursor-pointer">
-                A
-              </Col>
+                <div className="grid-cols-2 grid text-white pt-2">
+              {questions[currentQuestionIndex]?.answers.map((answer, index) => (
+                <Col
+                  key={index}
+                  onClick={() => handleOptionClick(answer)}
+                  className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${
+                    answer === selectedAnswer
+                      ? answerStatus
+                        ? "bg-[#099623] !important"
+                        : "bg-[#f02d1f] !important"
+                      : "bg-[#20213f] !important"
+                  } rounded-full cursor-pointer`}
+
+                >
+                  {answer}
+                </Col>
+              ))}
             </div>
+                {isModalOpen && (
+                  <div className="modal-container">
+                    <div className="modal">
+                      <div className="flex justify-end">
+                        <FaX onClick={closeModal} className="cursor-pointer" />
+                      </div>
+                      <div className="flex justify-center">
+                        <img
+                          src={require("../../../src/image/getreward..gif")}
+                          alt="ads"
+                        ></img>
+                      </div>
+
+                      <h2 class="text-2xl mb-4 text-[#D8E91E] flex justify-center">
+                        New Reward Available
+                      </h2>
+                      <h2 class="lg:text-4xl md:text-[1.5rem] mb-4 flex justify-center">
+                        Get Instant 100 Coins!
+                      </h2>
+                      <p class="mb-6 text-[#8E8F98] flex justify-center">
+                        Watch a simple ad and get rewarded
+                      </p>
+                      <div className="flex justify-center">
+                        <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">
+                          Claim
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
 
             <p className="text-[#ffcc5b] text-center font-bold cursor-pointer pt-3">
               <Link to="/login">Sign-Up - Login</Link>
@@ -220,7 +286,6 @@ const Quiz = () => {
                 alt=""
               ></img>
             </div>
-
             <div className="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p className="font-normal text-2xl pt-4 text-center">
