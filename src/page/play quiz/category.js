@@ -15,13 +15,14 @@ const Category = () => {
             try {
                 const response = await axios.get("http://localhost:5000/api/category/allcategories");
                 setCategories(response.data.data);
-                console.log("CATEGORY LIST",response.data.data);
+                console.log("CATEGORY LIST", response.data.data);
 
+                
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
         };
-
+        
         fetchCategories();
     }, []);
     return (
@@ -65,12 +66,29 @@ const Category = () => {
                                 <IoSearch className="text-white text-[20px] " />
                                 <input type="text" placeholder="Search Quiz Category" className="bg-transparent text-lg text-white w-full outline-none"></input>
                             </div>
-                            <div style={{ height: "auto !important", paddingBottom: "100px",width:"520px"}}>
+                            <div className="flex flex-wrap pb-[100px]">
+                                {categories.map((data) => (
+                                    <div key={data._id} className="px-2 pt-5 w-1/2">
+                                        <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-full">
+                                            <img
+                                                className="w-[46px] rounded-full"
+                                                src={data.category.img}
+                                                alt={data.title}
+                                            />
+                                            <span className="text-center text-white text-sm w-full">
+                                                {data.name}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
 
-                                {categories.map((category) => (
+                            {/* <div className="pb-[100px] flex ">
+
+                                {categories.map((data) => (
                                     <div
                                         key={category._id}
-                                        className="pt-5 flex"
+                                        className="pt-5"
                                     >
                                         <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
                                             <img
@@ -84,100 +102,7 @@ const Category = () => {
                                         </div>
                                     </div>
                                 ))}
-
-                                {/* <div className="flex pt-5 gap-3">
-
-                                    <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/science.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full"> Fun Science </span>
-                                    </div>
-                                    <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/vocab.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Vocabulary </span>
-                                    </div>
-                                </div> */}
-
-                                {/* <div className="flex pt-2 gap-3">
-                                    <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/sports.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Sports</span>
-                                    </div>
-                                    <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/festival-min.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Festivals</span>
-                                    </div>
-                                </div> */}
-                                {/* <div className="flex pt-2 gap-3">
-                                    <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/math.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Fun Maths</span>
-                                    </div>
-                                    <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/grammar.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">English Grammar</span>
-                                    </div>
-                                </div> */}
-                                {/* <div className="flex pt-2 gap-3">
-                                    <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/sports.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Monuments</span>
-                                    </div>
-                                    <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/brand.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Food Brands</span>
-                                    </div>
-                                </div> */}
-                                {/* <div className="flex pt-2 gap-3">
-                                    <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/testknow.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Test Your Knowledge</span>
-                                    </div>
-                                    <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/entertainment.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Entertainment</span>
-                                    </div>
-                                </div> */}
-                                {/* <div className="flex pt-2 gap-3">
-                                    <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/trivia-min.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">General Trivia</span>
-                                    </div>
-                                    <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/auto.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Automobiles</span>
-                                    </div>
-                                </div> */}
-                                {/* <div className="flex pt-2 gap-3">
-                                    <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/bollywood.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Bollywood</span>
-                                    </div>
-                                    <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/animal.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Birds And Animals</span>
-                                    </div>
-                                </div> */}
-                                {/* <div className="flex pt-2 gap-3">
-                                    <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/famous.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Famous Personalities</span>
-                                    </div>
-                                    <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/food.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Food & Beverages</span>
-                                    </div>
-                                </div> */}
-                                {/* <div className="flex pt-2 gap-3">
-                                    <div className="flex  gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/business-min.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Business</span>
-                                    </div>
-                                    <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-[260px]">
-                                        <img className="w-[46px] rounded-full" src={require("../../../src/image/literature-min.png")} alt="category"></img>
-                                        <span className="text-center text-white text-sm w-full">Litrature</span>
-                                    </div>
-                                </div> */}
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className=" footer flex justify-around lg:w-[520px]  bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>

@@ -8,6 +8,7 @@ import { FaX } from "react-icons/fa6";
 
 const Play = () => {
     const [isModalOpen, setModalOpen] = useState(false);
+    
 
     // Function to open the modal
     const openModal = () => {
@@ -37,7 +38,7 @@ const Play = () => {
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
                                     </div>
                                     <div className="mt-[3px] flex items-center ">
-                                        <div class="text-[10px] flex text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                        <div class="text-[8px] flex text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             100 COINS
                                         </div>
