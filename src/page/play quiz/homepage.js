@@ -26,6 +26,7 @@ const Home = () => {
       };
 
     useEffect(() => {
+
         const fetchCategories = async () => {
             try {
                 const response = await axios.get("http://localhost:5000/api/category/allcategories");
@@ -55,7 +56,7 @@ const Home = () => {
                     const response = await axios.get(`http://localhost:5000/api/category/subcategories/${selectedCategory}`);
                     setSubcategories(response.data.data);
                     console.log("SUBCATEGORIES:", response.data.data);
-                    console.log(">>>>>>>", categoryid);
+                    console.log(">>>>>>>iddddd", selectedCategory);
                 }
             } catch (error) {
                 console.error('Error fetching subcategories:', error);
@@ -84,9 +85,9 @@ const Home = () => {
             menuRef.current.scrollLeft += 300;
         }
     };
+    
     return (
         <>
-            {/* {categoryid && <Question categoryId={categoryid} />} */}
             <div className="bg-[#0F172A] w-full bg-scroll " >
 
                 <Row className="">
@@ -145,7 +146,8 @@ const Home = () => {
                                     <BsChevronRight className="text-white text-[14px]" onClick={scrollRight} />
                                 </div>
                             </div>
-                            <Link to="/play">
+
+                            <Link to={`/play/${selectedCategory}`}>
 
                             <div className="pb-[125px]">
                                 {selectedCategory
@@ -238,7 +240,9 @@ const Home = () => {
                                 </span>
                             </Link>
                         </div>
+
                     </Col>
+
                     <Col className="fixed ">
 
                         <div className="flex justify-center py-16 md:py-10">

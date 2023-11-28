@@ -2,15 +2,18 @@ import { Col, Row } from "react-bootstrap"
 import { BiCategory } from "react-icons/bi"
 import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
-import { Link } from "react-router-dom"
+import { Link,useParams } from "react-router-dom"
 import React, { useEffect, useState } from 'react';
 import { FaX } from "react-icons/fa6";
+// import { useNavigate } from 'react-router-dom';
 import axios from "axios"
+// import Question from "./question"
 
 const Play = () => {
     const [isModalOpen, setModalOpen] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
     const [subcategories, setSubcategories] = useState([]);
+    const { categoryId } = useParams();
+    // const navigate = useNavigate();
 
 
     // Function to open the modal
@@ -28,20 +31,20 @@ const Play = () => {
 
         const fetchSubCategory = async () => {
             try {
-                if (selectedCategory) {
-                    const response = await axios.get(`http://localhost:5000/api/category/subcategories/${selectedCategory}`);
+              
+                    const response = await axios.get(`http://localhost:5000/api/category/subcategories/${categoryId}`);
                     setSubcategories(response.data.data);
                     console.log("SUBCATEGORIES:", response.data.data);
-                    // console.log(">>>>>>>", categoryid);
-                }
+              
             } catch (error) {
                 console.error('Error fetching subcategories:', error);
             }
         };
+        if (categoryId) {
+            fetchSubCategory()
+        }
 
-        fetchSubCategory()
-
-    }, [selectedCategory]);
+    }, [categoryId]);
     return (
         <>
             <div className="bg-[#0F172A] ">
@@ -76,32 +79,32 @@ const Play = () => {
                                 </p>
                             </div>
                             <div className="pb-[150px]">
+
+                                <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px]" style={{ borderColor: "rgb(75 85 99)" }}>
                                 <div className="px-5 gap-2 flex items-center py-6">
-                                    {subcategories.map((subcategory, index) => (
+                                    {subcategories.map((data, index) => (
                                         <div key={index} className="">
                                             <img
                                                 className="w-[60px] sm:w-[52px] rounded-full "
-                                                src={subcategory.img}
+                                                src={data.img}
                                                 alt="category"
                                             />
                                             <div className="">
-                                                <p className="text-[10px] text-[#64d2ff] font-black ">{subcategory.name}</p>
+                                                <p className="text-[10px] text-[#64d2ff] font-black ">{data.title}</p>
                                                 <div className="flex text-white text-[18px] font-black cursor-pointer">
-                                                    <p>{subcategory.playWin}</p>
+                                                    <p>Play Win</p>
                                                     <img
                                                         className="w-5 ms-2"
                                                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                                                         alt="svg"
-                                                    />
-                                                    <p className="ms-2">{subcategory.points}</p>
+                                                        />
+                                                    <p className="ms-2">{data.totalPrice}</p>
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
-                                </div>
-
-                                <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                    <div className="px-5 gap-2 flex items-center py-6">
+                                                        </div>
+                                    {/* <div className="px-5 gap-2 flex items-center py-6">
                                         <img className="w-[60px] sm:w-[52px] rounded-full " src={require("../../../src/image/grammar.png")} alt="category"></img>
                                         <div className="">
 
@@ -113,7 +116,7 @@ const Play = () => {
                                             </div>
 
                                         </div>
-                                    </div>
+                                    </div> */}
                                 <div className="flex w-full justify-around pb-[25px]">
                                     <Link to="/login">
                                         <button class="bg-[#1A2F77] py-2 px-14 font-[700] text-white rounded-full">JOIN NOW</button>
