@@ -3,7 +3,24 @@ import { BiCategory } from "react-icons/bi"
 import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 const Profile = () => {
+    const score = localStorage.getItem('score');
+
+    const [isClicked, setIsClicked] = useState(false);
+    const [isClick, setIsClick] = useState(false);
+    const [click, setClick] = useState(false);
+
+    const handleClick = () => {
+        setIsClicked(!isClicked);
+    };
+
+    const handleisClick = () => {
+        setIsClick(!isClick);
+    };
+    const handleClicked = () => {
+        setClick(!click);
+    };
     return (
         <>
             <div className="bg-[#0F172A] ">
@@ -26,7 +43,7 @@ const Profile = () => {
                                         <div class="text-[8px] flex w-[100px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                            100 COINS
+                                                {score} COINS
 
                                             </p>
                                         </div>
@@ -70,23 +87,32 @@ const Profile = () => {
 
                         <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
                             <Link to="/category">
-                                <span >
-                                    <BiCategory className="text-white ml-4 text-[20px] m-2" />
+                                <div
+                                    className={`px-8 py-1 rounded-[28px] ${ click? '' : 'bg-[#1A2F77]'}`}
+                                    onClick={handleClicked}
+                                >
+                                    <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
                                     <p className="text-white text-[12px]">Category</p>
-                                </span>
+                                </div>
                             </Link>
                             <Link to="/quizhome">
-                            <span className=" ">
-                                <LiaHomeSolid className="text-white text-[20px] m-2" />
-                                <p className="text-white text-[12px]">Home</p>
-                            </span>
+                                <div
+                                    className={`px-8 py-1 rounded-[28px] ${isClick ? '' : 'bg-[#1A2F77]'}`}
+                                    onClick={handleisClick}
+                                >
+                                    <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
+                                    <p className="text-white text-[12px]">Home</p>
+                                </div>
                             </Link>
 
                             <Link to="/profile">
-                                <span >
-                                    <CgProfile className="text-white text-[20px] m-2" />
-                                    <p className="text-white  text-[12px]">Profile</p>
-                                </span>
+                                <div
+                                    className={`px-8 py-1 rounded-[28px] ${isClicked ? '' : 'bg-[#1A2F77]'}`}
+                                    onClick={handleClick}
+                                >
+                                    <CgProfile className={`text-white text-[20px] mx-2 my-1`} />
+                                    <p className="text-white text-[12px]">Profile</p>
+                                </div>
                             </Link>
                         </div>
 

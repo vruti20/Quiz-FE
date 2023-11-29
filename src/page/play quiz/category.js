@@ -10,11 +10,28 @@ import axios from "axios";
 // import { async } from "q";
 
 const Category = () => {
+    const score = localStorage.getItem('score');
     const { id } = useParams();
     console.log('**********',id);
     const navigate = useNavigate();
 
     const [categories, setCategories] = useState([]);
+    const [isClicked, setIsClicked] = useState(false);
+    const [searchInput, setSearchInput] = useState("");
+    const [isClick, setIsClick] = useState(false);
+    const [click, setClick] = useState(false);
+    
+
+    const handleClick = () => {
+        setIsClicked(!isClicked);
+    };
+
+    const handleisClick = () => {
+        setIsClick(!isClick);
+    };
+    const handleClicked = () => {
+        setClick(!click);
+    };
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -41,6 +58,15 @@ const Category = () => {
             console.log(error);
           })
     }
+  
+    const handleSearchInputChange = (e) => {
+      setSearchInput(e.target.value);
+    };
+  
+    // Function to filter categories based on search input
+    const filteredCategories = categories.filter((category) =>
+      category.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
     return (
         <>
             <div className="bg-[#0F172A] ">
@@ -62,7 +88,7 @@ const Category = () => {
                                         <div class="text-[8px] flex w-[100px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                            100 COINS
+                                            {score}COINS
                                             </p>
                                         </div>
                                     </div>
@@ -81,10 +107,16 @@ const Category = () => {
 
                             <div className="border-2 rounded-full border-white px-4 py-3 flex items-center gap-2">
                                 <IoSearch className="text-white text-[20px] " />
-                                <input type="text" placeholder="Search Quiz Category" className="bg-transparent text-lg text-white w-full outline-none"></input>
+                                <input 
+                                type="text"
+                                value={searchInput}
+                                onChange={handleSearchInputChange}
+                                 placeholder="Search Quiz Category"
+                                  className="bg-transparent text-lg text-white w-full outline-none"
+                                  ></input>
                             </div>
                             <div className="flex flex-wrap pb-[100px]">
-                                {categories.map((data) => (
+                                {filteredCategories.map((data) => (
                                     <div key={data._id} className="px-2 pt-5 w-1/2" onClick={() => Subcategory(data._id)}>
                                         <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-full">
                                             <img
@@ -101,25 +133,34 @@ const Category = () => {
                             </div>
                         </div>
 
-                        <div className=" footer flex justify-around lg:w-[520px]  bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
+                        <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
                             <Link to="/category">
-                                <span className="  " >
-                                    <BiCategory className="text-white ml-4 text-[20px] m-2" />
+                                <div
+                                    className={`px-8 py-1 rounded-[28px] ${click?  'bg-[#1A2F77]':'' }`}
+                                    onClick={handleClicked}
+                                >
+                                    <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
                                     <p className="text-white text-[12px]">Category</p>
-
-                                </span>
+                                </div>
                             </Link>
                             <Link to="/quizhome">
-                                <span className=" ">
-                                    <LiaHomeSolid className="text-white text-[20px] m-2" />
+                                <div
+                                    className={`px-8 py-1 rounded-[28px] ${isClick ? '' : 'bg-[#1A2F77]'}`}
+                                    onClick={handleisClick}
+                                >
+                                    <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
                                     <p className="text-white text-[12px]">Home</p>
-                                </span>
+                                </div>
                             </Link>
+
                             <Link to="/profile">
-                                <span className=" ">
-                                    <CgProfile className="text-white text-[20px] m-2" />
-                                    <p className="text-white  text-[12px]">Profile</p>
-                                </span>
+                                <div
+                                    className={`px-8 py-1 rounded-[28px] ${isClicked ? '' : 'bg-[#1A2F77]'}`}
+                                    onClick={handleClick}
+                                >
+                                    <CgProfile className={`text-white text-[20px] mx-2 my-1`} />
+                                    <p className="text-white text-[12px]">Profile</p>
+                                </div>
                             </Link>
                         </div>
                     </Col>

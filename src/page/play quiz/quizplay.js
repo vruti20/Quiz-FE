@@ -2,36 +2,36 @@ import { Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Quizplay = () => {
+    const score = localStorage.getItem('score');
 
     return (
         <>
             <div className="bg-[#0F172A] bg-fixed ">
-              
+
                 <Row className="flex">
                     <Col className="md:w-[400px] items-end  lg:w-[530px] py-3 px-2">
-                    <div className="bg-[#0F172A] mt-[50px] h-[350px] mx-auto mb-[8px]">
-                                <p className="text-white text-center">
-                                    ads by goggle
-                                </p>
-                            </div>
-                        <div className="border-2 w-full p-[15px] m-[5px] rounded-[30px]" style={{borderColor:"rgb(75 85 99)"}}>
+                        <div className="bg-[#0F172A] mt-[50px] h-[350px] mx-auto mb-[8px]">
+                            <p className="text-white text-center">
+                                ads by goggle
+                            </p>
+                        </div>
+                        <div className="border-2 w-full p-[15px] m-[5px] rounded-[30px]" style={{ borderColor: "rgb(75 85 99)" }}>
                             <h1 class="text-[10px] text-center text-[#64d2ff] font-black ">
                                 QuizTwiz
                             </h1>
                             <h3 class="justify-center flex">
-                               <p className="font-[700] text-center text-[18px] text-white"> You have won 0</p>
+                                <p className="font-[700] text-center text-[18px] text-white"> You have won {score}</p>
                                 <img className="w-5 ml-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
-
                             </h3>
-                        <div className="text-center py-6">
-                            <Link to={`/quizhome`}> 
-                            <Button className="py-[10px] px-8 bg-[#1F01FF] border-[1px] rounded-full text-white font-bold cursor-pointer">
-                            PLAY QUIZ
-                            </Button>
-                            </Link>
-                        </div>
-                        
-                        <ul class="list-disc text-white text-sm flex flex-col gap-3 px-9 ">
+                            <div className="text-center py-6">
+                                <Link to={`/quizhome`}>
+                                    <Button className="py-[10px] px-8 bg-[#1F01FF] border-[1px] rounded-full text-white font-bold cursor-pointer">
+                                        PLAY QUIZ
+                                    </Button>
+                                </Link>
+                            </div>
+
+                            <ul class="list-disc text-white text-sm flex flex-col gap-3 px-9 ">
                                 <li>You've got 90 - 150 seconds to answer all questions</li>
                                 <li>Answer as many questions as you can</li>
                                 <li>For Every Correct answer you will get +50 points and will loose -25 points on every Incorrect answer</li>

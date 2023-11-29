@@ -13,7 +13,8 @@ const Question = () => {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [answerStatus, setAnswerStatus] = useState(null);
     const [questionData, setQuestionData] = useState([]);
-    // const [quetionid, setQuestionid] = useState(null)
+    const [score, setScore] = useState(0);
+
 
     const handleLifelinesClick = () => {
         setShowLifelines(!showLifelines);
@@ -24,7 +25,6 @@ const Question = () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/quesation/questions?quiz=${categoryId}`);
                 setQuestionData(response.data.data.slice(0, 15));
-                // console.log("DTA QUESTION:", response.data.data[1].answer);
                 console.log(response.data.data);
             } catch (error) {
                 console.error('Error fetching question data:', error);
@@ -36,29 +36,55 @@ const Question = () => {
         }
 
     }, [categoryId]);
+
     const handleOptionClick = (answer) => {
-        const currentQuestion = questionData[currentQuestionIndex];
-      
-        // Check if the selected answer is correct
-        const isCorrect= answer === currentQuestion.correct;
-        // Update the state and use the updated value immediately
+        const currentQuestion = questionData[currentQuestionIndex]; 
+        const isCorrect = answer === currentQuestion.correct;
+        
+        const scoreChange = isCorrect ? 50 : -25;
+        setScore((prevScore) => prevScore + scoreChange);
+        
         setSelectedAnswer(answer);
-        setAnswerStatus(isCorrect); 
-    
+        setAnswerStatus(isCorrect);
+      
+        const newScore = isCorrect ? score + 50 : score - 25;
+        localStorage.setItem('score', newScore);
+
         setTimeout(() => {
-          // Clear the selected answer and answer status
           setSelectedAnswer(null);
           setAnswerStatus(null);
-    
-          // Move to the next question
-          setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-
+      
+          if (currentQuestionIndex === questionData.length - 1) {
+            window.location.replace('/result');
+          } else {
+            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+          }
         }, 1000);
       };
+      
+    // const handleOptionClick = (answer) => {
+    //     const currentQuestion = questionData[currentQuestionIndex];
+      
+    //     // Check if the selected answer is correct
+    //     const isCorrect= answer === currentQuestion.correct;
+    //     // Update the state and use the updated value immediately
+    //     setSelectedAnswer(answer);
+    //     setAnswerStatus(isCorrect); 
+    
+    //     setTimeout(() => {
+    //       // Clear the selected answer and answer status
+    //       setSelectedAnswer(null);
+    //       setAnswerStatus(null);
+    
+    //       // Move to the next question
+    //       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+
+    //     }, 1000);
+    //   };
 
     return (
         <>
-            <div className="bg-[#0F172A] bg-fixed ">
+            <div className="bg-[#0F172A] bg-fixed h-[739px]">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
@@ -127,7 +153,7 @@ const Question = () => {
 
                             <div className="flex justify-center items-center pt-4 text-lg font-bold">
                                 <p className="text-white">Your Score : </p>
-                                <span class="text-[#FFCC5B] pl-1"> 0 </span>
+                                <span class="text-[#FFCC5B] pl-1">{score}</span>
                             </div>
 
                             <div className="pb-8">
