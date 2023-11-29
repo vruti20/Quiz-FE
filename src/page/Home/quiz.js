@@ -1,17 +1,16 @@
-// import { useEffect } from "react";
+
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FaX } from "react-icons/fa6";
 import axios from "axios";
-// import Google from "./Google";
 
 const Quiz = () => {
   const navigate = useNavigate();
 
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [questions, setQuestions] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [isModalOpen, setModalOpen] = useState(false); //model open & close
+  const [questions, setQuestions] = useState([]); // fatch to questions data
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerStatus, setAnswerStatus] = useState(null);
 
@@ -24,7 +23,9 @@ const Quiz = () => {
   const closeModal = () => {
     setModalOpen(false);
     navigate("/quizplay")
+
   };
+  //questions data
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -38,45 +39,35 @@ const Quiz = () => {
     };
     fetchQuestions();
   }, []);
+
+  //correct and incorrect answer function
   const handleOptionClick = (answer) => {
-    const currentQuestion = questions[currentQuestionIndex];
+  const currentQuestion = questions[currentQuestionIndex];
+
+  // Check if the selected answer is correct
+  const isCorrect = answer === currentQuestion.correct;
   
-    // Check if the selected answer is correct
-    const isCorrect= answer === currentQuestion.correct;
-    // Update the state and use the updated value immediately
-    setSelectedAnswer(answer);
-    setAnswerStatus(isCorrect); 
+  // Update the state and use the updated value immediately
+  setSelectedAnswer(answer);
+  setAnswerStatus(isCorrect);
 
-    setTimeout(() => {
-      // Clear the selected answer and answer status
-      setSelectedAnswer(null);
-      setAnswerStatus(null);
+  setTimeout(() => {
+    // Clear the selected answer and answer status
+    setSelectedAnswer(null);
+    setAnswerStatus(null);
 
-      // Move to the next question
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    // Move to the next question
+    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+  }, 1000);
+};
+useEffect(() => {
+  console.log("Current Question Index:", currentQuestionIndex);
 
-      // Check if it's the last question and open the modal
-      if (currentQuestionIndex + 1 === questions.length) {
-        openModal();
-      }
-    }, 1000);
-  };
-  useEffect(() => {
-    if (currentQuestionIndex + 1 === questions.length) {
-      openModal();
-    }
-  }, [currentQuestionIndex , questions.length]);
-  
-  // useEffect(() => {
-  //   const pushAd = () => {
-  //     try {
-  //       const adsbygoogle = window.adsbygoogle
-  //       console.log({ adsbygoogle })
-  //       adsbygoogle.push({})
-  //     } catch (e) {
-  //       console.error(e)
-  //     }
-  //   }
+  // Show the modal when currentQuestionIndex is 1
+  if (currentQuestionIndex === 2) {
+    openModal();
+  }
+}, [currentQuestionIndex]);;
 
   //   let interval = setInterval(() => {
   //     // Check if Adsense script is loaded every 300ms
@@ -178,7 +169,7 @@ const Quiz = () => {
               </span>
             </div>
             <div className=" text-[#bac8ff] font-bold text-center pt-5 pb-3">
-              Question {currentQuestionIndex + 1}/{questions.length}
+              Question {currentQuestionIndex + 1 }/{questions.length}
             </div>
             {currentQuestionIndex < questions.length && (
               <>
@@ -197,10 +188,11 @@ const Quiz = () => {
                     answer === selectedAnswer
                       ? answerStatus
                         ? "bg-[#099623] !important"
-                        : "bg-[#f02d1f] !important"
+                        : "bg-[#f02d1f] !important" || "bg-[#099623] !important"
+                        : answer === questions[currentQuestionIndex].correct && answerStatus === false
+                        ? "bg-[#099623] !important"  // Highlight correct answer in green
                       : "bg-[#20213f] !important"
-                  } rounded-full cursor-pointer`}
-
+                  } rounded-full cursor-pointer`} 
                 >
                   {answer}
                 </Col>

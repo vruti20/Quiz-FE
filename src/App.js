@@ -9,6 +9,7 @@ import Profile from './page/play quiz/profile';
 import Play from './page/play quiz/play';
 import Question from './page/play quiz/question';
 import Result from './page/play quiz/result';
+import Subcategory from './page/play quiz/subcategory';
 function App() {
   return (
     <>
@@ -32,13 +33,16 @@ function App() {
           <Route  path="/profile" element={<Profile/>}/>
         </Routes>
         <Routes>
-          <Route  path="/play" element={<Play/>}/>
+          <Route  path="/play/:categoryid" element={<Play/>}/>
         </Routes>
         <Routes>
           <Route  path="/question/:categoryId" element={<Question/>}/>
         </Routes>
         <Routes>
           <Route  path="/result" element={<Result/>}/>
+        </Routes>
+        <Routes>
+          <Route  path="/subcategory/:id" element={<Subcategory/>}/>
         </Routes>
       </BrowserRouter>
     </>
