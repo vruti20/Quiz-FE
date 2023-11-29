@@ -1,7 +1,28 @@
 import { Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
-const Profile = () => {
+const Result = () => {
+
+    const score = localStorage.getItem('score');
+
+    const calculateEarnedCoins = (score) => {
+        if (score >= 50 && score <= 150) {
+          return 500;
+        } else if (score >= 200 && score <= 350) {
+          return 750;
+        } else if (score >= 400 && score <= 550) {
+          return 1000;
+        } else if (score >= 600 && score <= 700) {
+          return 5000;
+        } else if (score >= 750) {
+          return 10000;
+        } else {
+          return 25;
+        }
+      };
+
+      const earnedCoins = calculateEarnedCoins(score);
+
     return (
         <>
             <div className="bg-[#0F172A] ">
@@ -25,11 +46,11 @@ const Profile = () => {
 
                                     <div className="grid-cols-2 flex-col pt-[100px] justify-center gap-2 grid text-white mx-[50px]">
                                         <Col className="flex flex-col items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer ">
-                                            <p>0</p>
+                                            <p>{score}</p>
                                             <p>Your Score</p>
                                         </Col>
                                         <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer">
-                                            <p>25</p>
+                                            <p>{earnedCoins}</p>
                                             <p>Coins Earned</p>
                                         </Col>
                                     </div>
@@ -73,4 +94,4 @@ const Profile = () => {
         </>
     )
 }
-export default Profile
+export default Result

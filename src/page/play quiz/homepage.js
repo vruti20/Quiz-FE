@@ -11,20 +11,35 @@ import { useNavigate } from 'react-router-dom';
 // import Question from "./question"
 
 const Home = () => {
+    const score = localStorage.getItem('score');
 
     const menuRef = useRef(null);
     const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
-    const [category, setCategory] = useState([])
+    const [categorydata, setCategory] = useState([])
     const [subcategories, setSubcategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [categoryid, setCategoryid] = useState(null)
+    const [categoryid, setCategoryid] = useState(null);
+    const [isClicked, setIsClicked] = useState(false);
+    const [isClick, setIsClick] = useState(false);
+    const [click, setClick] = useState(false);
+
+    const handleClick = () => {
+        setIsClicked(!isClicked);
+    };
+
+    const handleisClick = () => {
+        setIsClick(!isClick);
+    };
+    const handleClicked = () => {
+        setClick(!click);
+    };
 
     const handleCategoryid = (categoryid) => {
         setCategoryid(categoryid);
-        console.log("???????????",categoryid);
+        console.log("???????????", categoryid);
         navigate(`/play/${categoryid}`);
-      };
+    };
 
     useEffect(() => {
 
@@ -68,7 +83,7 @@ const Home = () => {
         fetchSubCategory();
         fetchCategories();
 
-    }, [selectedCategory,categoryid]);
+    }, [selectedCategory, categoryid]);
     // console.log(">>>>>>>>>",subcategories);
 
     const handleCategoryClick = (categoryId) => {
@@ -86,7 +101,7 @@ const Home = () => {
             menuRef.current.scrollLeft += 300;
         }
     };
-    
+
     return (
         <>
             <div className="bg-[#0F172A] w-full bg-scroll " >
@@ -107,7 +122,7 @@ const Home = () => {
                                     <div className="mt-[3px] flex items-center ml-1">
                                         <div class="text-[8px] flex text-white w-[100px] bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
-                                           <p> 100 COINS</p>
+                                            <p> {score} COINS</p>
                                         </div>
                                     </div>
                                 </div>
@@ -152,13 +167,13 @@ const Home = () => {
                             <div className="pb-[125px]">
                                 {selectedCategory
                                     ? subcategories.map((data) => (
-                                        <div 
-                                         onClick={() => handleCategoryid(data._id)}
-                                          key={data._id} 
-                                          className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]" 
-                                          style={{ borderColor: "rgb(75 85 99)" }} >
+                                        <div
+                                            onClick={() => handleCategoryid(data._id)}
+                                            key={data._id}
+                                            className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
+                                            style={{ borderColor: "rgb(75 85 99)" }} >
                                             <div className="flex flex-col">
-                                                <img className="rounded-full w-[125px] p-2" src={data.img} alt={data.title}></img>
+                                                <img className="rounded-full w-[125px] p-2" src={data.category.img} alt={data.title}></img>
                                             </div>
                                             <div className="w-full ">
                                                 <div className="flex text-[10px] justify-end my-[5px] font-[900]">
@@ -181,29 +196,29 @@ const Home = () => {
                                                 <img className=" rounded-full p-2" src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg" alt="Play" />
                                             </div>
                                         </div>
-                                    )) : category.map((subcategory) => (
+                                    )) : categorydata.map((category, index) => (
                                         <div
-                                            onClick={() => handleCategoryid(subcategory._id)}
-                                            key={subcategory._id}
+                                            onClick={() => handleCategoryid(category._id)}
+                                            key={index}
                                             className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
                                             style={{ borderColor: "rgb(75 85 99)" }} >
                                             <div className="flex flex-col">
-                                                <img className="rounded-full w-[125px] p-2" src={subcategory.img} alt={subcategory.title}></img>
+                                                <img className="rounded-full w-[125px] p-2" src={category.category.img} alt={category.title}></img>
                                             </div>
                                             <div className="w-full ">
                                                 <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                                                    <p className="text-[#64d2ff] max-h-[20px] px-2">{subcategory.category.name} | {subcategory.title}</p>
+                                                    <p className="text-[#64d2ff] max-h-[20px] px-2">{category.category.name} | {category.title}</p>
                                                 </div>
                                                 <div className="flex justify-end my-[8px]">
                                                     <p className="text-white font-[900] text-[14px]">Play & Win &nbsp;</p>
                                                     <img className="w-[14px]" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                                    <p className="text-white font-[900] text-[14px]">&nbsp;{subcategory.totalPrice}</p>
+                                                    <p className="text-white font-[900] text-[14px]">&nbsp;{category.totalPrice}</p>
                                                 </div>
                                                 <div className="flex justify-end my-[5px] text-[7px]">
                                                     <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
                                                         <p className="text-white">Entry Fee&nbsp;</p>
                                                         <img className="w-[10px]" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coins"></img>
-                                                        <p className="text-white">&nbsp;{subcategory.entryFee}</p>
+                                                        <p className="text-white">&nbsp;{category.entryFee}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -217,27 +232,34 @@ const Home = () => {
                             {/* </Link> */}
 
                         </div>
-
-                        <div className=" footer flex justify-around lg:w-[520px]  bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
+                        <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
                             <Link to="/category">
-                                <span>
-                                    <BiCategory className="text-white ml-4 text-[20px] m-2" />
+                                <div
+                                    className={`px-8 py-1 rounded-[28px] ${ click? '' : 'bg-[#1A2F77]'}`}
+                                    onClick={handleClicked}
+                                >
+                                    <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
                                     <p className="text-white text-[12px]">Category</p>
-
-                                </span>
+                                </div>
                             </Link>
                             <Link to="/quizhome">
-                                <span className=" ">
-                                    <LiaHomeSolid className="text-white text-[20px] m-2" />
+                                <div
+                                    className={`px-8 py-1 rounded-[28px] ${isClick ? '' : 'bg-[#1A2F77]'}`}
+                                    onClick={handleisClick}
+                                >
+                                    <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
                                     <p className="text-white text-[12px]">Home</p>
-                                </span>
+                                </div>
                             </Link>
 
                             <Link to="/profile">
-                                <span className=" ">
-                                    <CgProfile className="text-white text-[20px] m-2" />
-                                    <p className="text-white  text-[12px]">Profile</p>
-                                </span>
+                                <div
+                                    className={`px-8 py-1 rounded-[28px] ${isClicked ? '' : 'bg-[#1A2F77]'}`}
+                                    onClick={handleClick}
+                                >
+                                    <CgProfile className={`text-white text-[20px] mx-2 my-1`} />
+                                    <p className="text-white text-[12px]">Profile</p>
+                                </div>
                             </Link>
                         </div>
 
