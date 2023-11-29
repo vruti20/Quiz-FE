@@ -13,6 +13,7 @@ const Quiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerStatus, setAnswerStatus] = useState(null);
+  const [totalscore,setTotalScore]=useState(0)
 
   // Function to open the modal
   const openModal = () => {
@@ -41,34 +42,56 @@ const Quiz = () => {
   }, []);
 
   //correct and incorrect answer function
-  const handleOptionClick = (answer) => {
-  const currentQuestion = questions[currentQuestionIndex];
+//   const handleOptionClick = (answer) => {
+//   const currentQuestion = questions[currentQuestionIndex];
 
-  // Check if the selected answer is correct
-  const isCorrect = answer === currentQuestion.correct;
+//   const isCorrect = answer === currentQuestion.correct;   // Check if the selected answer is correct
   
-  // Update the state and use the updated value immediately
-  setSelectedAnswer(answer);
-  setAnswerStatus(isCorrect);
+//   setSelectedAnswer(answer);    // Update the state and use the updated value immediately
+//   setAnswerStatus(isCorrect);
+//   console.log("Handling option click. Current Index:", currentQuestionIndex);
 
-  setTimeout(() => {
-    // Clear the selected answer and answer status
-    setSelectedAnswer(null);
-    setAnswerStatus(null);
+//   setTimeout(() => {
+//     setSelectedAnswer(null); // Clear the selected answer and answer status
+//     setAnswerStatus(null);
+//     if (currentQuestionIndex + 1 < questions.length) {
+//       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+//     }
 
-    // Move to the next question
-    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-  }, 1000);
-};
-useEffect(() => {
-  console.log("Current Question Index:", currentQuestionIndex);
-
-  // Show the modal when currentQuestionIndex is 1
-  if (currentQuestionIndex === 2) {
-    openModal();
-  }
-}, [currentQuestionIndex]);;
-
+//     // Check if it's the second question and open the modal
+//     if (currentQuestionIndex === 1) {
+//       openModal();
+//     }
+//   }, 1000);
+// };
+const handleOptionClick = (answer) => {
+    const currentQuestion = questions[currentQuestionIndex];
+    // Check if the selected answer is correct
+    const isCorrect = answer === currentQuestion.correct;
+    // Update the state and use the updated value immediately
+    setSelectedAnswer(answer);
+    setAnswerStatus(isCorrect);
+    const correctScore = 50;
+    const wrongScore = -50;
+    // Calculate the score based on correctness
+    const scoreChange = isCorrect ? correctScore : wrongScore;
+    // Update the total score
+    setTotalScore((prevScore) => prevScore  + scoreChange);
+    setTimeout(() => {
+          setSelectedAnswer(null); // Clear the selected answer and answer status
+          setAnswerStatus(null);
+          if (currentQuestionIndex + 1 < questions.length) {
+            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+          }
+      
+          // Check if it's the second question and open the modal
+          if (currentQuestionIndex === 1) {
+            openModal();
+          }
+        }, 1000);
+  };
+  const defaultScore = 100+totalscore;
+  localStorage.setItem('score', defaultScore);
   //   let interval = setInterval(() => {
   //     // Check if Adsense script is loaded every 300ms
   //     if (window.adsbygoogle) {
@@ -199,7 +222,7 @@ useEffect(() => {
               ))}
             </div>
                 {isModalOpen && (
-                  <div className="modal-container">
+                  <div className="modal-container ">
                     <div className="modal">
                       <div className="flex justify-end">
                         <FaX onClick={closeModal} className="cursor-pointer" />
