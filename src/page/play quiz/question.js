@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap"
 import { VscHeartFilled } from "react-icons/vsc";
 import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 
 
 const Question = () => {
     const { categoryId } = useParams();
-    const navigate = useNavigate();
     const [showLifelines, setShowLifelines] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -26,7 +24,8 @@ const Question = () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/quesation/questions?quiz=${categoryId}`);
                 setQuestionData(response.data.data.slice(0, 15));
-                console.log("DTA QUESTION:", response.data.data[1].answer);
+                // console.log("DTA QUESTION:", response.data.data[1].answer);
+                console.log(response.data.data);
             } catch (error) {
                 console.error('Error fetching question data:', error);
             }
@@ -37,20 +36,25 @@ const Question = () => {
         }
 
     }, [categoryId]);
-
     const handleOptionClick = (answer) => {
         const currentQuestion = questionData[currentQuestionIndex];
-        const isCorrect = answer === currentQuestion.correct;
+      
+        // Check if the selected answer is correct
+        const isCorrect= answer === currentQuestion.correct;
+        // Update the state and use the updated value immediately
         setSelectedAnswer(answer);
-        setAnswerStatus(isCorrect);
-         if (currentQuestionIndex + 1 < questionData.length) {
-      // Move to the next question
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      // Redirect to the Result page
-      navigate('/result'); // Update the path as needed
-    }
-    };
+        setAnswerStatus(isCorrect); 
+    
+        setTimeout(() => {
+          // Clear the selected answer and answer status
+          setSelectedAnswer(null);
+          setAnswerStatus(null);
+    
+          // Move to the next question
+          setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+
+        }, 1000);
+      };
 
     return (
         <>
@@ -103,17 +107,15 @@ const Question = () => {
                                             <Col
                                                 key={index}
                                                 onClick={() => handleOptionClick(answer)}
-                                                className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${(() => {
-                                                    console.log("Answer:", answer);
-                                                    console.log("Selected Answer:", selectedAnswer);
-                                                    console.log("Answer Status:", answerStatus);
-                                                    return answer === selectedAnswer
-                                                        ? answerStatus
-                                                            ? "bg-green-500"
-                                                            : "bg-red-500"
-                                                        : "bg-[#20213F]";
-                                                })()
-                                                    } rounded-full cursor-pointer`}
+                                                className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${
+                                                    answer === selectedAnswer
+                                                      ? answerStatus
+                                                        ? "bg-[#099623] !important"
+                                                        : "bg-[#f02d1f] !important" || "bg-[#099623] !important"
+                                                        : answer === questionData[currentQuestionIndex].correct && answerStatus === false
+                                                        ? "bg-[#099623] !important" 
+                                                      : "bg-[#20213f] !important"
+                                                  } rounded-full cursor-pointer`} 
                                             >
                                                 {answer}
                                             </Col>
@@ -138,7 +140,7 @@ const Question = () => {
                         </div>
 
 
-                        <div className="bg-[#191A32]  footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4 border-t nborder" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
+                        <div className="  footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4 border-t nborder" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
 
                             <div className="">
 
