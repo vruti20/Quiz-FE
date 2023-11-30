@@ -16,19 +16,9 @@ const Category = () => {
     const navigate = useNavigate();
 
     const [categories, setCategories] = useState([]);
-    const [isClicked, setIsClicked] = useState(false);
     const [searchInput, setSearchInput] = useState("");
-    const [isClick, setIsClick] = useState(false);
     const [click, setClick] = useState(false);
     
-
-    const handleClick = () => {
-        setIsClicked(!isClicked);
-    };
-
-    const handleisClick = () => {
-        setIsClick(!isClick);
-    };
     const handleClicked = () => {
         setClick(!click);
     };
@@ -136,7 +126,7 @@ const Category = () => {
                         <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
                             <Link to="/category">
                                 <div
-                                    className={`px-8 py-1 rounded-[28px] ${click?  'bg-[#1A2F77]':'' }`}
+                                    className={`px-8 py-1 rounded-[28px] ${click?  '':'bg-[#1A2F77]' }`}
                                     onClick={handleClicked}
                                 >
                                     <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
@@ -145,8 +135,7 @@ const Category = () => {
                             </Link>
                             <Link to="/quizhome">
                                 <div
-                                    className={`px-8 py-1 rounded-[28px] ${isClick ? '' : 'bg-[#1A2F77]'}`}
-                                    onClick={handleisClick}
+                                    className={`px-8 py-1 rounded-[28px] `}
                                 >
                                     <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
                                     <p className="text-white text-[12px]">Home</p>
@@ -155,8 +144,7 @@ const Category = () => {
 
                             <Link to="/profile">
                                 <div
-                                    className={`px-8 py-1 rounded-[28px] ${isClicked ? '' : 'bg-[#1A2F77]'}`}
-                                    onClick={handleClick}
+                                    className={`px-8 py-1 rounded-[28px] `}
                                 >
                                     <CgProfile className={`text-white text-[20px] mx-2 my-1`} />
                                     <p className="text-white text-[12px]">Profile</p>
