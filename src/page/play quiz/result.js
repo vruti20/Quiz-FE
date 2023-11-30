@@ -1,25 +1,25 @@
 import { Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
+export const calculateEarnedCoins = (score) => {
+    if (score >= 50 && score <= 150) {
+      return 500;
+    } else if (score >= 200 && score <= 350) {
+      return 750;
+    } else if (score >= 400 && score <= 550) {
+      return 1000;
+    } else if (score >= 600 && score <= 700) {
+      return 5000;
+    } else if (score >= 750) {
+      return 10000;
+    } else {
+      return 25;
+    }
+  };
 const Result = () => {
 
     const score = localStorage.getItem('score');
 
-    const calculateEarnedCoins = (score) => {
-        if (score >= 50 && score <= 150) {
-          return 500;
-        } else if (score >= 200 && score <= 350) {
-          return 750;
-        } else if (score >= 400 && score <= 550) {
-          return 1000;
-        } else if (score >= 600 && score <= 700) {
-          return 5000;
-        } else if (score >= 750) {
-          return 10000;
-        } else {
-          return 25;
-        }
-      };
 
       const earnedCoins = calculateEarnedCoins(score);
 

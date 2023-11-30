@@ -91,7 +91,7 @@ const handleOptionClick = (answer) => {
         }, 1000);
   };
   const defaultScore = 100+totalscore;
-  localStorage.setItem('score', defaultScore);
+  localStorage.setItem('totalsocre', defaultScore);
   //   let interval = setInterval(() => {
   //     // Check if Adsense script is loaded every 300ms
   //     if (window.adsbygoogle) {
