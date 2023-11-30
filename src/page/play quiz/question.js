@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap"
 import { VscHeartFilled } from "react-icons/vsc";
 import { useParams } from 'react-router-dom';
+import LinearProgress from '@mui/material/LinearProgress';
+import Typography from '@mui/material/Typography';
 
 
 
@@ -14,6 +16,8 @@ const Question = () => {
     const [answerStatus, setAnswerStatus] = useState(null);
     const [questionData, setQuestionData] = useState([]);
     const [score, setScore] = useState(0);
+    const [secondsRemaining, setSecondsRemaining] = useState(118);
+    const [progress, setProgress] = useState(100);
 
 
     const handleLifelinesClick = () => {
@@ -29,53 +33,68 @@ const Question = () => {
             } catch (error) {
                 console.error('Error fetching question data:', error);
             }
-        };    
+        };
         if (categoryId) {
-            
+
             fetchData();
         }
+        const countdownInterval = setInterval(() => {
+            setSecondsRemaining((prevSeconds) => prevSeconds - 1, 0);
+            setProgress((prevProgress) => prevProgress - (100 / 118)); // Adjust for your total time
 
-    }, [categoryId]);
+        }, 1000);
+        console.log(">>>>>>>>??????", countdownInterval);
+        if (secondsRemaining === 0) {
+            clearInterval(countdownInterval);
+            window.location.href = '/result'; // Adjust the path as needed
+        }
+        return () => clearInterval(countdownInterval);
+
+    }, [categoryId, secondsRemaining]);
+
+    const formatTime = (seconds) => {
+        return `${seconds}`;
+    };
 
     const handleOptionClick = (answer) => {
-        const currentQuestion = questionData[currentQuestionIndex]; 
+        const currentQuestion = questionData[currentQuestionIndex];
         const isCorrect = answer === currentQuestion.correct;
-        
+
         const scoreChange = isCorrect ? 50 : -25;
         setScore((prevScore) => prevScore + scoreChange);
-        
+
         setSelectedAnswer(answer);
         setAnswerStatus(isCorrect);
-      
+
         const newScore = isCorrect ? score + 50 : score - 25;
         localStorage.setItem('score', newScore);
 
         setTimeout(() => {
-          setSelectedAnswer(null);
-          setAnswerStatus(null);
-      
-          if (currentQuestionIndex === questionData.length - 1) {
-            window.location.replace('/result');
-          } else {
-            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-          }
+            setSelectedAnswer(null);
+            setAnswerStatus(null);
+
+            if (currentQuestionIndex === questionData.length - 1) {
+                window.location.replace('/result');
+            } else {
+                setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+            }
         }, 1000);
-      };
-      
+    };
+
     // const handleOptionClick = (answer) => {
     //     const currentQuestion = questionData[currentQuestionIndex];
-      
+
     //     // Check if the selected answer is correct
     //     const isCorrect= answer === currentQuestion.correct;
     //     // Update the state and use the updated value immediately
     //     setSelectedAnswer(answer);
     //     setAnswerStatus(isCorrect); 
-    
+
     //     setTimeout(() => {
     //       // Clear the selected answer and answer status
     //       setSelectedAnswer(null);
     //       setAnswerStatus(null);
-    
+
     //       // Move to the next question
     //       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
 
@@ -115,9 +134,15 @@ const Question = () => {
                             <div className="mt-[70px] ml-5 flex justify-between">
                                 <div className="text-[14px] text-white flex justify-between">
                                     Question {currentQuestionIndex + 1}/{questionData.length}
-                                    <h3 className="text-white">118</h3>
 
                                 </div>
+                                <div style={{ position: 'relative', width: '60%',paddingTop:"8px" }}>
+                                    <LinearProgress className="bg-[green]" variant="determinate" value={progress} sx={{ height: 5 }} />
+                                    <Typography variant="body2" style={{textAlign:"center"}} >
+                                       
+                                    </Typography>
+                                </div>
+                                <h3 className="text-white">{formatTime(secondsRemaining)}</h3>
                             </div>
                             {currentQuestionIndex < questionData.length && (
                                 <>
@@ -133,15 +158,14 @@ const Question = () => {
                                             <Col
                                                 key={index}
                                                 onClick={() => handleOptionClick(answer)}
-                                                className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${
-                                                    answer === selectedAnswer
-                                                      ? answerStatus
+                                                className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${answer === selectedAnswer
+                                                    ? answerStatus
                                                         ? "bg-[#099623] !important"
                                                         : "bg-[#f02d1f] !important" || "bg-[#099623] !important"
-                                                        : answer === questionData[currentQuestionIndex].correct && answerStatus === false
-                                                        ? "bg-[#099623] !important" 
-                                                      : "bg-[#20213f] !important"
-                                                  } rounded-full cursor-pointer`} 
+                                                    : answer === questionData[currentQuestionIndex].correct && answerStatus === false
+                                                        ? "bg-[#099623] !important"
+                                                        : "bg-[#20213f] !important"
+                                                    } rounded-full cursor-pointer`}
                                             >
                                                 {answer}
                                             </Col>

@@ -2,7 +2,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Quizplay = () => {
-    const score = localStorage.getItem('score');
+    const loginscore = localStorage.getItem('totalsocre');
 
     return (
         <>
@@ -20,7 +20,7 @@ const Quizplay = () => {
                                 QuizTwiz
                             </h1>
                             <h3 class="justify-center flex">
-                                <p className="font-[700] text-center text-[18px] text-white"> You have won {score}</p>
+                                <p className="font-[700] text-center text-[18px] text-white"> You have won {loginscore}</p>
                                 <img className="w-5 ml-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                             </h3>
                             <div className="text-center py-6">
