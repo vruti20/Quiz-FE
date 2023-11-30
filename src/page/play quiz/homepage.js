@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 // import Question from "./question"
 
 const Home = () => {
-  const score = localStorage.getItem("score");
-
+//   const score = localStorage.getItem("score");
+    const coins=localStorage.getItem("totalsocre")
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
@@ -27,9 +27,14 @@ const Home = () => {
   };
 
   const handleCategoryid = (categoryid) => {
+    const updatedCoins = parseInt(coins) - 100;
+    localStorage.setItem("totalsocre", updatedCoins);
+
     setCategoryid(categoryid);
+
     console.log("???????????", categoryid);
     navigate(`/play/${categoryid}`);
+
   };
   const getBackgroundColorClass = (categoryId) => {
     return selectedCategory === categoryId || (categoryId === 'All' && selectedCategory === null) ? 'bg-[#1A2F77]' : '';
@@ -120,7 +125,6 @@ const Home = () => {
                       alt="animation"
                     />
                     <p className="text-white text-[10px] font-[700] pt-1">
-                      {" "}
                       Daily Reward
                     </p>
                   </div>
@@ -131,7 +135,7 @@ const Home = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      <p> {score} COINS</p>
+                      <p> {coins} COINS</p>
                     </div>
                   </div>
                 </div>
