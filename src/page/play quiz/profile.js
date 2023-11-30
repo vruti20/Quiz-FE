@@ -8,18 +8,9 @@ const Profile = () => {
     const score = localStorage.getItem('score');
 
     const [isClicked, setIsClicked] = useState(false);
-    const [isClick, setIsClick] = useState(false);
-    const [click, setClick] = useState(false);
 
     const handleClick = () => {
         setIsClicked(!isClicked);
-    };
-
-    const handleisClick = () => {
-        setIsClick(!isClick);
-    };
-    const handleClicked = () => {
-        setClick(!click);
     };
     return (
         <>
@@ -88,8 +79,7 @@ const Profile = () => {
                         <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
                             <Link to="/category">
                                 <div
-                                    className={`px-8 py-1 rounded-[28px] ${ click? '' : 'bg-[#1A2F77]'}`}
-                                    onClick={handleClicked}
+                                    className={`px-8 py-1 rounded-[28px] `}
                                 >
                                     <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
                                     <p className="text-white text-[12px]">Category</p>
@@ -97,8 +87,7 @@ const Profile = () => {
                             </Link>
                             <Link to="/quizhome">
                                 <div
-                                    className={`px-8 py-1 rounded-[28px] ${isClick ? '' : 'bg-[#1A2F77]'}`}
-                                    onClick={handleisClick}
+                                    className={`px-8 py-1 rounded-[28px]`}
                                 >
                                     <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
                                     <p className="text-white text-[12px]">Home</p>

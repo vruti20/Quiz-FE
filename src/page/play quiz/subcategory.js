@@ -65,7 +65,7 @@ const Subcategory = () => {
             {/* Render subcategories */}
             <div className="mt-[20%]">
             {subcategories.map((subcategory) => (
-             <Link to={'/quizplay'}>
+             <Link to={`/play/${subcategory._id}`}>
                  <div
                 key={subcategory._id}
                 className="flex rounded-full gap-2 border border-border bg-[#1F2937] mb-[25px]"
