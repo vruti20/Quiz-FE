@@ -51,6 +51,8 @@ const Result = () => {
                 console.log("TOTALCOINS",totalCoins); 
 
                 setCoins(totalCoins);
+                localStorage.setItem("userCoins", totalCoins);
+
                 // Cookies.set('userCoins', data.totalCoins); 
               } catch (error) {
                 console.error('Error updating coins:', error);

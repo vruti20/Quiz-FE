@@ -5,7 +5,9 @@ import { CgProfile } from "react-icons/cg"
 import { Link } from "react-router-dom"
 import { useState } from "react"
 const Profile = () => {
-    const score = localStorage.getItem('score');
+    // const score = localStorage.getItem('score');
+    const userCoins = localStorage.getItem("userCoins");
+
 
     const [isClicked, setIsClicked] = useState(false);
 
@@ -34,7 +36,7 @@ const Profile = () => {
                                         <div class="text-[8px] flex w-[100px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                                {score} COINS
+                                                {userCoins} COINS
 
                                             </p>
                                         </div>
@@ -55,7 +57,7 @@ const Profile = () => {
                             <div className="flex items-center justify-center mt-6 gap-10">
                                 <div className="w-[150px] rounded-full py-2 px-4 flex justify-between items-center bg-orange-500 border-2">
                                     <p className="text-white text-sm">Coins </p>
-                                    <p className="text-white text-lg">0</p>
+                                    <p className="text-white text-lg">{userCoins}</p>
                                 </div>
                                 <div class="w-[150px] py-2 px-4 rounded-full border-2 flex  items-center justify-between">
                                     <p class="text-white text-sm">Quiz Played</p>
