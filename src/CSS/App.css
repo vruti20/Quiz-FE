@@ -17,6 +17,12 @@
     display: none;
   }
 }
+.css-5xe99f-MuiLinearProgress-bar1{
+    background-color: green !important;
+}
+.css-1kuv0w2-MuiLinearProgress-root{
+  background-color: white !important;
+}
 
 /* Display the second column on larger screens */
 @media (min-width: 1024px), (min-width: 768px), (min-width: 1440px), (min-width: 2500px) {
