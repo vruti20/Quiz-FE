@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 // import Question from "./question"
 
 const Home = () => {
-//   const score = localStorage.getItem("score");
+    //   const score = localStorage.getItem("score");
     const coins=localStorage.getItem("totalsocre")
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -21,15 +21,20 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categoryid, setCategoryid] = useState(null);
   const [isClick, setIsClick] = useState(false);
-
+  
   const handleisClick = () => {
-    setIsClick(!isClick);
-  };
+      setIsClick(!isClick);
+    };
+    
+    const handleCategoryid = (categoryid) => {
 
-  const handleCategoryid = (categoryid) => {
     const updatedCoins = parseInt(coins) - 100;
     localStorage.setItem("totalsocre", updatedCoins);
-
+    
+    const earnedCoins = localStorage.getItem("earnedCoins");
+    const allcoins=updatedCoins+earnedCoins
+   localStorage.setItem("earnedCoins", allcoins);
+    
     setCategoryid(categoryid);
 
     console.log("???????????", categoryid);
@@ -41,30 +46,30 @@ const Home = () => {
 };
   useEffect(() => {
     const fetchCategories = async () => {
-      try {
+        try {
         const response = await axios.get(
-          "http://localhost:5000/api/category/allcategories"
-        );
+            "http://localhost:5000/api/category/allcategories"
+            );
         setCategories(response.data.data);
         console.log("CATEGORY LIST", response.data.data);
-      } catch (error) {
+    } catch (error) {
         console.error("Error fetching categories:", error);
       }
     };
 
     const fetchCategory = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/category/allsubcategories"
-        );
+          const response = await axios.get(
+              "http://localhost:5000/api/category/allsubcategories"
+              );
         setCategory(response.data.data);
         console.log("HOMECTAEGORY:", response.data.data);
         console.log(">>>>>", categoryid);
       } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+          console.error("Error fetching data:", error);
+        }
     };
-
+    
     const fetchSubCategory = async () => {
       try {
         if (selectedCategory) {
@@ -75,19 +80,22 @@ const Home = () => {
           console.log("SUBCATEGORIES:", response.data.data);
           console.log(">>>>>>>iddddd", selectedCategory);
         }
-      } catch (error) {
+    } catch (error) {
         console.error("Error fetching subcategories:", error);
       }
     };
 
+
+    
     fetchCategory();
     fetchSubCategory();
     fetchCategories();
-  }, [selectedCategory, categoryid]);
-  // console.log(">>>>>>>>>",subcategories);
+}, [selectedCategory, categoryid]);
+
+// console.log(">>>>>>>>>",subcategories);
 
   const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId === "All" ? null : categoryId);
+      setSelectedCategory(categoryId === "All" ? null : categoryId);
   };
 
   const scrollLeft = () => {
@@ -97,11 +105,12 @@ const Home = () => {
   };
 
   const scrollRight = () => {
-    if (menuRef.current) {
-      menuRef.current.scrollLeft += 300;
-    }
-  };
-
+      if (menuRef.current) {
+          menuRef.current.scrollLeft += 300;
+        }
+    };
+    
+    // const newcoin= localStorage.getItem("earnedCoins");
   return (
     <>
       <div className="bg-[#0F172A] w-full bg-scroll ">

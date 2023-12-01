@@ -1,31 +1,70 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
+// import Cookies from 'js-cookie';
 
-export const calculateEarnedCoins = (score) => {
-    if (score >= 50 && score <= 150) {
-      return 500;
-    } else if (score >= 200 && score <= 350) {
-      return 750;
-    } else if (score >= 400 && score <= 550) {
-      return 1000;
-    } else if (score >= 600 && score <= 700) {
-      return 5000;
-    } else if (score >= 750) {
-      return 10000;
-    } else {
-      return 25;
-    }
-  };
+
 const Result = () => {
 
+    const [coins, setCoins] = useState(0);
+
+    const calculateEarnedCoins = (score) => {
+        if (score >= 50 && score <= 150) {
+            return 500;
+        } else if (score >= 200 && score <= 350) {
+            return 750;
+        } else if (score >= 400 && score <= 550) {
+            return 1000;
+        } else if (score >= 600 && score <= 700) {
+            return 5000;
+        } else if (score >= 750) {
+            return 10000;
+        } else {
+            return 25;
+        }
+    };
+
     const score = localStorage.getItem('score');
+    const mobileNumber = localStorage.getItem('mobileNumber')
 
+    const earnedCoins = calculateEarnedCoins(score);
+    localStorage.setItem('earnedCoins', earnedCoins)
+   
+    useEffect(() => {
+        const updateCoins = async () => {
+            try {
+                
+                // const score = parseInt(localStorage.getItem("score"), 10);
+                const earnedCoins= parseInt(localStorage.getItem('earnedCoins'), 10);
 
-      const earnedCoins = calculateEarnedCoins(score);
+                const response = await axios.post('http://localhost:5000/api/updateCoins', {
+                  mobileNumber: mobileNumber,
+                  coins: earnedCoins,
+                //   coins:score
+                });
+
+                const data = response.data;
+                console.log("DATA",response.data.mobileNumber);
+
+                const totalCoins = data.totalCoins;
+                console.log("TOTALCOINS",totalCoins); 
+
+                setCoins(totalCoins);
+                // Cookies.set('userCoins', data.totalCoins); 
+              } catch (error) {
+                console.error('Error updating coins:', error);
+
+              }
+            };
+
+            updateCoins(); 
+          }, [mobileNumber]);
+
 
     return (
         <>
-            <div className="bg-[#0F172A] ">
+            <div className="bg-[#0F172A] bg-fixed">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
@@ -53,6 +92,9 @@ const Result = () => {
                                             <p>{earnedCoins}</p>
                                             <p>Coins Earned</p>
                                         </Col>
+
+
+                                        <p>{coins} COINS</p>
                                     </div>
                                 </div>
 

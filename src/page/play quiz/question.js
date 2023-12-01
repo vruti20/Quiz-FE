@@ -43,6 +43,7 @@ const Question = () => {
             setProgress((prevProgress) => prevProgress - (100 / 118)); // Adjust for your total time
 
         }, 1000);
+
         console.log(">>>>>>>>??????", countdownInterval);
         if (secondsRemaining === 0) {
             clearInterval(countdownInterval);
@@ -60,7 +61,7 @@ const Question = () => {
         const currentQuestion = questionData[currentQuestionIndex];
         const isCorrect = answer === currentQuestion.correct;
 
-        const scoreChange = isCorrect ? 50 : -25;
+        const scoreChange = isCorrect ? 25 : -25;
         setScore((prevScore) => prevScore + scoreChange);
 
         setSelectedAnswer(answer);
@@ -74,7 +75,7 @@ const Question = () => {
             setAnswerStatus(null);
 
             if (currentQuestionIndex === questionData.length - 1) {
-                window.location.replace('/result');
+              window.location.href = '/result';
             } else {
                 setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             }
