@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 const Profile = () => {
     // const score = localStorage.getItem('score');
-    const userCoins = localStorage.getItem("userCoins");
+    const userCoins = localStorage.getItem("coins");
 
 
     const [isClicked, setIsClicked] = useState(false);

@@ -26,7 +26,7 @@ const Home = () => {
   const [categoryid, setCategoryid] = useState(null);
   const [isClick, setIsClick] = useState(false);
 
-  const coins=localStorage.getItem('allcoin')
+  // const coins=localStorage.getItem('allcoin')
   const handleisClick = () => {
     setIsClick(!isClick);
   };
@@ -116,7 +116,7 @@ const Home = () => {
     }
   };
 
-  // const newcoin= localStorage.getItem("earnedCoins");
+  const newcoin= localStorage.getItem("coins");
   // localStorage.setItem("earnedCoins", allcoins);
 
   return (
@@ -152,7 +152,7 @@ const Home = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      <p> {coins} COINS</p>
+                      <p> {newcoin} COINS</p>
                     </div>
                   </div>
                 </div>

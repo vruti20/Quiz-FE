@@ -14,7 +14,7 @@ const Category = () => {
     const { id } = useParams();
     console.log('**********',id);
     const navigate = useNavigate();
-    const userCoins = localStorage.getItem("userCoins");
+    const userCoins = localStorage.getItem("coins");
 
 
     const [categories, setCategories] = useState([]);

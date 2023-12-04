@@ -9,7 +9,7 @@ import axios from "axios";
 const Subcategory = () => {
   const location = useLocation();
   const [subcategories, setSubcategories] = useState([]);
-  const userCoins = localStorage.getItem("userCoins");
+  const userCoins = localStorage.getItem("coins");
 
   useEffect(() => {
     const id = location.state._id; // Get the category ID from the location state

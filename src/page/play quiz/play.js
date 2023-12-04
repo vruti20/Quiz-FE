@@ -14,28 +14,30 @@ const Play = () => {
     const [subcategories, setSubcategories] = useState([]);
     const { categoryid } = useParams();
     // const loginscore = localStorage.getItem('totalsocre');
+    // const [loginscore, setLoginScore] = useState(localStorage.getItem('totalsocre'));
+    const newcoins= localStorage.getItem("coins");
 
-    const [loginscore, setLoginScore] = useState(localStorage.getItem('totalsocre'));
+
 
     // Function to deduct coins
-    const deductCoins = () => {
-        const updatedScore = Math.max(0, loginscore - 100); // Deduct 100 coins, but ensure it doesn't go below zero
-        setLoginScore(updatedScore);
-        localStorage.setItem('totalsocre', updatedScore);
-        const earnedCoins = localStorage.getItem('earnedCoins');
-        const allcoins = parseInt(updatedScore) + parseInt(earnedCoins)
-        localStorage.setItem('allscore', allcoins)
-        console.log("updatedScore:", updatedScore);
-        console.log("earnedCoins:", earnedCoins);
-        console.log("allscore:", allcoins);
-    };
-   const loginpluscoin= localStorage.getItem('totalsocre');
+    // const deductCoins = () => {
+    //     const updatedScore = Math.max(0, loginscore - 100); // Deduct 100 coins, but ensure it doesn't go below zero
+    //     setLoginScore(updatedScore);
+    //     localStorage.setItem('totalsocre', updatedScore);
+    //     const earnedCoins = localStorage.getItem('earnedCoins');
+    //     const allcoins = parseInt(updatedScore) + parseInt(earnedCoins)
+    //     localStorage.setItem('allscore', allcoins)
+    //     console.log("updatedScore:", updatedScore);
+    //     console.log("earnedCoins:", earnedCoins);
+    //     console.log("allscore:", allcoins);
+    // };
+//    const loginpluscoin= localStorage.getItem('totalsocre');
 
-    const coins = localStorage.getItem('allscore')
+    // const coins = localStorage.getItem('allscore')
 
-    const allcoin=parseInt(loginpluscoin)+parseInt(coins)
-    localStorage.setItem('allcoin',allcoin)
-   const newcoins= localStorage.getItem('allcoin',allcoin)
+    // const allcoin=parseInt(loginpluscoin)+parseInt(coins)
+    // localStorage.setItem('allcoin',allcoin)
+//    const newcoins= localStorage.getItem('allcoin',allcoin)
 
     // const newcoin = localStorage.getItem('allcoin')
     // const earnedCoins = localStorage.getItem('earnedCoins');
@@ -137,7 +139,7 @@ const Play = () => {
                                     ))}
 
                                     <div className="flex w-full justify-around pb-[25px]">
-                                        <Link onClick={deductCoins} to="/login">
+                                        <Link to="/login">
                                             <button class="bg-[#1A2F77] py-2 px-14 font-[700] text-white rounded-full">JOIN NOW</button>
                                         </Link>
                                         <p className="text-[20px] text-white">or</p>
@@ -160,7 +162,7 @@ const Play = () => {
                                                 </div>
                                             </div>
                                         )}
-                                        <Link onClick={deductCoins} to={`/question/${categoryid}`}>
+                                        <Link to={`/question/${categoryid}`}>
                                             <div class=" border-[1px] text-white text-center rounded-full font-bold text-sm py-3  px-10 cursor-pointer" onClick={openModal}>
                                                 PLAY AS GUEST
                                             </div>
