@@ -22,6 +22,8 @@ const Question = () => {
   const [audience, setAudience] = useState(false); // show & hide audienceResponses in ui
   const [isFrozen, setIsFrozen] = useState(false); // freeze time for this state
   const [remainingAnswers, setRemainingAnswers] = useState([]);
+  const newcoin= localStorage.getItem("coins");
+
 
   const handleLifelinesClick = () => {
     setShowLifelines(!showLifelines);
@@ -178,7 +180,7 @@ const Question = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      100 COINS
+                     {newcoin} COINS
                     </div>
                   </div>
                 </div>
