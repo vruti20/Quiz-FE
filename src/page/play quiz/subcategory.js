@@ -7,8 +7,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Subcategory = () => {
-  const location = useLocation(); 
+  const location = useLocation();
   const [subcategories, setSubcategories] = useState([]);
+  const userCoins = localStorage.getItem("userCoins");
 
   useEffect(() => {
     const id = location.state._id; // Get the category ID from the location state
@@ -50,13 +51,13 @@ const Subcategory = () => {
                     </p>
                   </div>
                   <div className="mt-[3px] flex items-center">
-                    <div class="text-[8px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                    <div class="text-[10px] w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      100 COINS
+                      {userCoins} COINS
                     </div>
                   </div>
                 </div>
@@ -64,61 +65,61 @@ const Subcategory = () => {
             </div>
             {/* Render subcategories */}
             <div className="mt-[20%]">
-            {subcategories.map((subcategory) => (
-             <Link to={`/play/${subcategory._id}`}>
-                 <div
-                key={subcategory._id}
-                className="flex rounded-full gap-2 border border-border bg-[#1F2937] mb-[25px]"
-                style={{ borderColor: "rgb(75 85 99)" }}
-              >
-                <div className="flex flex-col">
-                  <img
-                    className="rounded-full w-[125px] p-2"
-                    src={subcategory.img}
-                    alt={subcategory.title}
-                  ></img>
-                </div>
-                <div className="w-full ">
-                  <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                    <p className="text-[#64d2ff] max-h-[20px]  px-2">
-                      {subcategory.category.name} | {subcategory.title}
-                    </p>
-                  </div>
-                  <div className="flex justify-end my-[8px]">
-                    <p className="text-white font-[900] text-[14px]">
-                      Play & Win &nbsp;
-                    </p>
-                    <img
-                      className="w-[14px]"
-                      src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
-                      alt="coins"
-                    ></img>
-                    <p className="text-white font-[900] text-[14px]">
-                      &nbsp;{subcategory.totalPrice}
-                    </p>
-                  </div>
-                  <div className="flex justify-end my-[5px] text-[7px]">
-                    <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                      <p className="text-white">Entry Fee&nbsp;</p>
+              {subcategories.map((subcategory) => (
+                <Link to={`/play/${subcategory._id}`}>
+                  <div
+                    key={subcategory._id}
+                    className="flex rounded-full gap-2 border border-border bg-[#1F2937] mb-[25px]"
+                    style={{ borderColor: "rgb(75 85 99)" }}
+                  >
+                    <div className="flex flex-col">
                       <img
-                        className="w-[10px]"
-                        src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
-                        alt="coins"
+                        className="rounded-full w-[125px] p-2"
+                        src={subcategory.img}
+                        alt={subcategory.title}
                       ></img>
-                      <p className="text-white">&nbsp;{subcategory.entryFee}</p>
+                    </div>
+                    <div className="w-full ">
+                      <div className="flex text-[10px] justify-end my-[5px] font-[900]">
+                        <p className="text-[#64d2ff] max-h-[20px]  px-2">
+                          {subcategory.category.name} | {subcategory.title}
+                        </p>
+                      </div>
+                      <div className="flex justify-end my-[8px]">
+                        <p className="text-white font-[900] text-[14px]">
+                          Play & Win &nbsp;
+                        </p>
+                        <img
+                          className="w-[14px]"
+                          src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                          alt="coins"
+                        ></img>
+                        <p className="text-white font-[900] text-[14px]">
+                          &nbsp;{subcategory.totalPrice}
+                        </p>
+                      </div>
+                      <div className="flex justify-end my-[5px] text-[7px]">
+                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                          <p className="text-white">Entry Fee&nbsp;</p>
+                          <img
+                            className="w-[10px]"
+                            src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                            alt="coins"
+                          ></img>
+                          <p className="text-white">&nbsp;{subcategory.entryFee}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-[120px]">
+                      <img
+                        className=" rounded-full p-2"
+                        src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                        alt="Play"
+                      />
                     </div>
                   </div>
-                </div>
-                <div className="w-[120px]">
-                  <img
-                    className=" rounded-full p-2"
-                    src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
-                    alt="Play"
-                  />
-                </div>
-              </div>
-             </Link>
-            ))}
+                </Link>
+              ))}
             </div>
             {/* </div> */}
             <div

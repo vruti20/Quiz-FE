@@ -10,10 +10,12 @@ import axios from "axios";
 // import { async } from "q";
 
 const Category = () => {
-    const score = localStorage.getItem('score');
+    // const score = localStorage.getItem('score');
     const { id } = useParams();
     console.log('**********',id);
     const navigate = useNavigate();
+    const userCoins = localStorage.getItem("userCoins");
+
 
     const [categories, setCategories] = useState([]);
     const [searchInput, setSearchInput] = useState("");
@@ -75,10 +77,10 @@ const Category = () => {
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
                                     </div>
                                     <div className="mt-[3px] flex items-center ml-1">
-                                        <div class="text-[8px] flex w-[100px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                        <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                            {score}COINS
+                                            {userCoins} COINS
                                             </p>
                                         </div>
                                     </div>

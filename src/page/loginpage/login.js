@@ -14,7 +14,8 @@ const Login = () => {
   const generateOTP = async () => {
     try {
       const response = await axios.post('http://localhost:5000/api/login', { mobileNumber });
-      localStorage.setItem('mobileNumber', mobileNumber);
+      localStorage.setItem('token', response.data.token);
+      // console.log(">>>>>>>",response.data.token);
 
       if (response.status === 200) {
         const ganrateotp = response.data.otp;
@@ -71,6 +72,7 @@ const Login = () => {
                   <Button
                     className="bg-[#1A2F77] text-white font-bold text-[16px] border-[3px] border-white border-solid rounded-full py-[10px] text-center px-[85px]"
                     onClick={generateOTP}
+                    value={otp}
                   >
                     GET CODE
                   </Button>

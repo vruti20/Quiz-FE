@@ -11,8 +11,12 @@ import { useNavigate } from "react-router-dom";
 // import Question from "./question"
 
 const Home = () => {
-    //   const score = localStorage.getItem("score");
-    const coins=localStorage.getItem("totalsocre")
+  // const score = localStorage.getItem("score");
+  // const coins=localStorage.getItem("totalsocre")
+  // const userCoins = localStorage.getItem("userCoins");
+  // const loginscore = localStorage.getItem('totalsocre');
+
+
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
@@ -21,20 +25,22 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categoryid, setCategoryid] = useState(null);
   const [isClick, setIsClick] = useState(false);
-  
-  const handleisClick = () => {
-      setIsClick(!isClick);
-    };
-    
-    const handleCategoryid = (categoryid) => {
 
-    const updatedCoins = parseInt(coins) - 100;
-    localStorage.setItem("totalsocre", updatedCoins);
-    
-    const earnedCoins = localStorage.getItem("earnedCoins");
-    const allcoins=updatedCoins+earnedCoins
-   localStorage.setItem("earnedCoins", allcoins);
-    
+  const coins=localStorage.getItem('allcoin')
+  const handleisClick = () => {
+    setIsClick(!isClick);
+  };
+
+  const handleCategoryid = (categoryid) => {
+
+    //   const updatedCoins = parseInt(coins) - 100;
+    //   localStorage.setItem("totalsocre", updatedCoins);
+
+    //   const earnedCoins = localStorage.getItem("earnedCoins");
+    //   const allcoins=updatedCoins+earnedCoins
+    //  localStorage.setItem("earnedCoins", allcoins);
+
+
     setCategoryid(categoryid);
 
     console.log("???????????", categoryid);
@@ -43,33 +49,33 @@ const Home = () => {
   };
   const getBackgroundColorClass = (categoryId) => {
     return selectedCategory === categoryId || (categoryId === 'All' && selectedCategory === null) ? 'bg-[#1A2F77]' : '';
-};
+  };
   useEffect(() => {
     const fetchCategories = async () => {
-        try {
+      try {
         const response = await axios.get(
-            "http://localhost:5000/api/category/allcategories"
-            );
+          "http://localhost:5000/api/category/allcategories"
+        );
         setCategories(response.data.data);
         console.log("CATEGORY LIST", response.data.data);
-    } catch (error) {
+      } catch (error) {
         console.error("Error fetching categories:", error);
       }
     };
 
     const fetchCategory = async () => {
       try {
-          const response = await axios.get(
-              "http://localhost:5000/api/category/allsubcategories"
-              );
+        const response = await axios.get(
+          "http://localhost:5000/api/category/allsubcategories"
+        );
         setCategory(response.data.data);
         console.log("HOMECTAEGORY:", response.data.data);
         console.log(">>>>>", categoryid);
       } catch (error) {
-          console.error("Error fetching data:", error);
-        }
+        console.error("Error fetching data:", error);
+      }
     };
-    
+
     const fetchSubCategory = async () => {
       try {
         if (selectedCategory) {
@@ -80,22 +86,22 @@ const Home = () => {
           console.log("SUBCATEGORIES:", response.data.data);
           console.log(">>>>>>>iddddd", selectedCategory);
         }
-    } catch (error) {
+      } catch (error) {
         console.error("Error fetching subcategories:", error);
       }
     };
 
 
-    
+
     fetchCategory();
     fetchSubCategory();
     fetchCategories();
-}, [selectedCategory, categoryid]);
+  }, [selectedCategory, categoryid]);
 
-// console.log(">>>>>>>>>",subcategories);
+  // console.log(">>>>>>>>>",subcategories);
 
   const handleCategoryClick = (categoryId) => {
-      setSelectedCategory(categoryId === "All" ? null : categoryId);
+    setSelectedCategory(categoryId === "All" ? null : categoryId);
   };
 
   const scrollLeft = () => {
@@ -105,12 +111,14 @@ const Home = () => {
   };
 
   const scrollRight = () => {
-      if (menuRef.current) {
-          menuRef.current.scrollLeft += 300;
-        }
-    };
-    
-    // const newcoin= localStorage.getItem("earnedCoins");
+    if (menuRef.current) {
+      menuRef.current.scrollLeft += 300;
+    }
+  };
+
+  // const newcoin= localStorage.getItem("earnedCoins");
+  // localStorage.setItem("earnedCoins", allcoins);
+
   return (
     <>
       <div className="bg-[#0F172A] w-full bg-scroll ">
@@ -138,7 +146,7 @@ const Home = () => {
                     </p>
                   </div>
                   <div className="mt-[3px] flex items-center ml-1">
-                    <div class="text-[8px] flex text-white w-[100px] bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                    <div class="text-[10px] flex text-white w-[110px] bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -194,117 +202,117 @@ const Home = () => {
               <div className="pb-[125px]">
                 {selectedCategory
                   ? subcategories.map((data) => (
-                      <div
-                        onClick={() => handleCategoryid(data._id)}
-                        key={data._id}
-                        className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
-                        style={{ borderColor: "rgb(75 85 99)" }}
-                      >
-                        <div className="flex flex-col">
-                          <img
-                            className="rounded-full w-[125px] p-2"
-                            src={data.category.img}
-                            alt={data.title}
-                          ></img>
+                    <div
+                      onClick={() => handleCategoryid(data._id)}
+                      key={data._id}
+                      className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
+                      style={{ borderColor: "rgb(75 85 99)" }}
+                    >
+                      <div className="flex flex-col">
+                        <img
+                          className="rounded-full w-[125px] p-2"
+                          src={data.category.img}
+                          alt={data.title}
+                        ></img>
+                      </div>
+                      <div className="w-full ">
+                        <div className="flex text-[10px] justify-end my-[5px] font-[900]">
+                          <p className="text-[#64d2ff] max-h-[20px]  px-2">
+                            {data.category.name} | {data.title}
+                          </p>
                         </div>
-                        <div className="w-full ">
-                          <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                            <p className="text-[#64d2ff] max-h-[20px]  px-2">
-                              {data.category.name} | {data.title}
-                            </p>
-                          </div>
-                          <div className="flex justify-end my-[8px]">
-                            <p className="text-white font-[900] text-[14px]">
-                              Play & Win &nbsp;
-                            </p>
+                        <div className="flex justify-end my-[8px]">
+                          <p className="text-white font-[900] text-[14px]">
+                            Play & Win &nbsp;
+                          </p>
+                          <img
+                            className="w-[14px]"
+                            src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                            alt="coins"
+                          ></img>
+                          <p className="text-white font-[900] text-[14px]">
+                            &nbsp;{data.totalPrice}
+                          </p>
+                        </div>
+                        <div className="flex justify-end my-[5px] text-[7px]">
+                          <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                            <p className="text-white">Entry Fee&nbsp;</p>
                             <img
-                              className="w-[14px]"
+                              className="w-[10px]"
                               src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                               alt="coins"
                             ></img>
-                            <p className="text-white font-[900] text-[14px]">
-                              &nbsp;{data.totalPrice}
+                            <p className="text-white">
+                              &nbsp;{data.entryFee}
                             </p>
                           </div>
-                          <div className="flex justify-end my-[5px] text-[7px]">
-                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                              <p className="text-white">Entry Fee&nbsp;</p>
-                              <img
-                                className="w-[10px]"
-                                src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
-                                alt="coins"
-                              ></img>
-                              <p className="text-white">
-                                &nbsp;{data.entryFee}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-[120px]">
-                          <img
-                            className=" rounded-full p-2"
-                            src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
-                            alt="Play"
-                          />
                         </div>
                       </div>
-                    ))
+                      <div className="w-[120px]">
+                        <img
+                          className=" rounded-full p-2"
+                          src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                          alt="Play"
+                        />
+                      </div>
+                    </div>
+                  ))
                   : categorydata.map((category, index) => (
-                      <div
-                        onClick={() => handleCategoryid(category._id)}
-                        key={index}
-                        className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
-                        style={{ borderColor: "rgb(75 85 99)" }}
-                      >
-                        <div className="flex flex-col">
-                          <img
-                            className="rounded-full w-[125px] p-2"
-                            src={category.category.img}
-                            alt={category.title}
-                          ></img>
+                    <div
+                      onClick={() => handleCategoryid(category._id)}
+                      key={index}
+                      className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
+                      style={{ borderColor: "rgb(75 85 99)" }}
+                    >
+                      <div className="flex flex-col">
+                        <img
+                          className="rounded-full w-[125px] p-2"
+                          src={category.category.img}
+                          alt={category.title}
+                        ></img>
+                      </div>
+                      <div className="w-full ">
+                        <div className="flex text-[10px] justify-end my-[5px] font-[900]">
+                          <p className="text-[#64d2ff] max-h-[20px] px-2">
+                            {category.category.name} | {category.title}
+                          </p>
                         </div>
-                        <div className="w-full ">
-                          <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                            <p className="text-[#64d2ff] max-h-[20px] px-2">
-                              {category.category.name} | {category.title}
-                            </p>
-                          </div>
-                          <div className="flex justify-end my-[8px]">
-                            <p className="text-white font-[900] text-[14px]">
-                              Play & Win &nbsp;
-                            </p>
+                        <div className="flex justify-end my-[8px]">
+                          <p className="text-white font-[900] text-[14px]">
+                            Play & Win &nbsp;
+                          </p>
+                          <img
+                            className="w-[14px]"
+                            src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                            alt="coins"
+                          ></img>
+                          <p className="text-white font-[900] text-[14px]">
+                            &nbsp;{category.totalPrice}
+                          </p>
+                        </div>
+                        <div className="flex justify-end my-[5px] text-[7px]">
+                          <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                            <p className="text-white">Entry Fee&nbsp;</p>
                             <img
-                              className="w-[14px]"
+                              className="w-[10px]"
                               src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                               alt="coins"
                             ></img>
-                            <p className="text-white font-[900] text-[14px]">
-                              &nbsp;{category.totalPrice}
+                            <p className="text-white">
+                              &nbsp;{category.entryFee}
                             </p>
                           </div>
-                          <div className="flex justify-end my-[5px] text-[7px]">
-                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                              <p className="text-white">Entry Fee&nbsp;</p>
-                              <img
-                                className="w-[10px]"
-                                src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
-                                alt="coins"
-                              ></img>
-                              <p className="text-white">
-                                &nbsp;{category.entryFee}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-[120px]">
-                          <img
-                            className=" rounded-full p-2"
-                            src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
-                            alt="Play"
-                          />
                         </div>
                       </div>
-                    ))}
+                      <div className="w-[120px]">
+                        <img
+                          className=" rounded-full p-2"
+                          src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                          alt="Play"
+                        />
+                      </div>
+                    </div>
+                  ))}
               </div>
               {/* </Link> */}
             </div>
@@ -320,9 +328,8 @@ const Home = () => {
               </Link>
               <Link to="/quizhome">
                 <div
-                  className={`px-8 py-1 rounded-[28px] ${
-                    isClick ? "" : "bg-[#1A2F77]"
-                  }`}
+                  className={`px-8 py-1 rounded-[28px] ${isClick ? "" : "bg-[#1A2F77]"
+                    }`}
                   onClick={handleisClick}
                 >
                   <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />

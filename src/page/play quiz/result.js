@@ -26,7 +26,7 @@ const Result = () => {
     };
 
     const score = localStorage.getItem('score');
-    const mobileNumber = localStorage.getItem('mobileNumber')
+    // const mobileNumber = localStorage.getItem('mobileNumber')
 
     const earnedCoins = calculateEarnedCoins(score);
     localStorage.setItem('earnedCoins', earnedCoins)
@@ -34,26 +34,33 @@ const Result = () => {
     useEffect(() => {
         const updateCoins = async () => {
             try {
-                
+                const token = localStorage.getItem('token');
+
                 // const score = parseInt(localStorage.getItem("score"), 10);
-                const earnedCoins= parseInt(localStorage.getItem('earnedCoins'), 10);
+                // const earnedCoins= parseInt(localStorage.getItem('earnedCoins'), 10);
+                console.log("FCSSF",earnedCoins);
 
-                const response = await axios.post('http://localhost:5000/api/updateCoins', {
-                  mobileNumber: mobileNumber,
-                  coins: earnedCoins,
-                //   coins:score
-                });
+                const response = await axios.post('http://localhost:5000/api/updateCoins', 
+                    {
+                        // Uncomment if needed
+                        // mobileNumber: mobileNumber,
+                        coins: coins,
+                      },
+                      {
+                        headers: {
+                          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                        },
+                      }
+                );
 
-                const data = response.data;
+                // const data = response.data;
                 console.log("DATA",response.data.mobileNumber);
 
-                const totalCoins = data.totalCoins;
-                console.log("TOTALCOINS",totalCoins); 
+                // const totalCoins = data.coins;
+                // console.log("TOTALCOINS",totalCoins); 
 
-                setCoins(totalCoins);
-                localStorage.setItem("userCoins", totalCoins);
-
-                // Cookies.set('userCoins', data.totalCoins); 
+                setCoins(earnedCoins);
+                console.log("COINSSS",coins);
               } catch (error) {
                 console.error('Error updating coins:', error);
 
@@ -61,7 +68,7 @@ const Result = () => {
             };
 
             updateCoins(); 
-          }, [mobileNumber]);
+          }, [coins,earnedCoins]);
 
 
     return (
@@ -79,7 +86,6 @@ const Result = () => {
                             <div >
 
                                 <div>
-
                                     <div className="flex justify-center ">
                                         <h1 className="text-white text-4xl">Well Played</h1>
                                         <img className="w-[200px] absolute " src="https://monetix-lookat1.quiztwiz.com/static/media/animation.82d3951ab49c98d92a06.gif" alt="gift"></img>
@@ -92,11 +98,12 @@ const Result = () => {
                                         </Col>
                                         <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer">
                                             <p>{earnedCoins}</p>
+                                            {/* <p>{coins}</p> */}
                                             <p>Coins Earned</p>
                                         </Col>
 
 
-                                        <p>{coins} COINS</p>
+                                        {/* <p> COINS</p> */}
                                     </div>
                                 </div>
 
@@ -120,7 +127,7 @@ const Result = () => {
 
                         </div>
                     </Col>
-                    <Col className="fixed ">
+                    <Col className="fixed">
 
                         <div className="flex justify-center py-16 md:py-10">
                             <img className="lg:w-[65%] md:w-[300px] " src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png" alt=""></img>

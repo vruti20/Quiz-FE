@@ -11,14 +11,40 @@ import axios from "axios"
 
 const Play = () => {
     const [isModalOpen, setModalOpen] = useState(false);
-    // const [category,setCategory]=useState([]);
     const [subcategories, setSubcategories] = useState([]);
     const { categoryid } = useParams();
-    // const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+    // const loginscore = localStorage.getItem('totalsocre');
+
+    const [loginscore, setLoginScore] = useState(localStorage.getItem('totalsocre'));
+
+    // Function to deduct coins
+    const deductCoins = () => {
+        const updatedScore = Math.max(0, loginscore - 100); // Deduct 100 coins, but ensure it doesn't go below zero
+        setLoginScore(updatedScore);
+        localStorage.setItem('totalsocre', updatedScore);
+        const earnedCoins = localStorage.getItem('earnedCoins');
+        const allcoins = parseInt(updatedScore) + parseInt(earnedCoins)
+        localStorage.setItem('allscore', allcoins)
+        console.log("updatedScore:", updatedScore);
+        console.log("earnedCoins:", earnedCoins);
+        console.log("allscore:", allcoins);
+    };
+   const loginpluscoin= localStorage.getItem('totalsocre');
+
+    const coins = localStorage.getItem('allscore')
+
+    const allcoin=parseInt(loginpluscoin)+parseInt(coins)
+    localStorage.setItem('allcoin',allcoin)
+   const newcoins= localStorage.getItem('allcoin',allcoin)
+
+    // const newcoin = localStorage.getItem('allcoin')
+    // const earnedCoins = localStorage.getItem('earnedCoins');
+
+    // const newcoins=parseInt(newcoin)+parseInt(earnedCoins)
 
 
-    console.log("USEPARAMS", categoryid);
-    // console.log("USEPARAMS",img);
+    // localStorage.clear()
+
     // Function to open the modal
     const openModal = () => {
         setModalOpen(true);
@@ -29,13 +55,12 @@ const Play = () => {
         setModalOpen(false);
     };
 
-    // const selectedCategory = subcategories.find(data => data.id === categoryid);
     useEffect(() => {
         const fetchCategory = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/quesation/questions?quiz=${categoryid}`);
                 const newQuizData = response.data.data.map(item => item.quiz);
-                setSubcategories(newQuizData.slice(0,1));
+                setSubcategories(newQuizData.slice(0, 1));
                 console.log("QUIZOBJECT", newQuizData);
                 console.log("HOMECTAEGORY:", response.data.data[0].quiz);
             } catch (error) {
@@ -69,11 +94,10 @@ const Play = () => {
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
                                     </div>
                                     <div className="mt-[3px] flex items-center ml-1">
-                                        <div class="text-[8px] flex w-[100px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                        <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                            100 COINS
-
+                                                {newcoins} COINS
                                             </p>
                                         </div>
                                     </div>
@@ -89,8 +113,8 @@ const Play = () => {
                             <div className="pb-[150px]">
 
                                 <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px]" style={{ borderColor: "rgb(75 85 99)" }}>
-                                    {/* <div className="px-5 gap-2 flex items-center py-6"> */}
-                                        {subcategories.map((quiz, index) => (
+
+                                    {subcategories.map((quiz, index) => (
                                         <div key={index} className="px-5 gap-2 flex items-center py-6">
                                             <img
                                                 className="w-[60px] sm:w-[52px] rounded-full "
@@ -105,15 +129,15 @@ const Play = () => {
                                                         className="w-5 ms-2"
                                                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                                                         alt="svg"
-                                                        />
+                                                    />
                                                     <p className="ms-2">{quiz.totalPrice}</p>
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
-                                   
+
                                     <div className="flex w-full justify-around pb-[25px]">
-                                        <Link to="/login">
+                                        <Link onClick={deductCoins} to="/login">
                                             <button class="bg-[#1A2F77] py-2 px-14 font-[700] text-white rounded-full">JOIN NOW</button>
                                         </Link>
                                         <p className="text-[20px] text-white">or</p>
@@ -136,7 +160,7 @@ const Play = () => {
                                                 </div>
                                             </div>
                                         )}
-                                        <Link to={`/question/${categoryid}`}>
+                                        <Link onClick={deductCoins} to={`/question/${categoryid}`}>
                                             <div class=" border-[1px] text-white text-center rounded-full font-bold text-sm py-3  px-10 cursor-pointer" onClick={openModal}>
                                                 PLAY AS GUEST
                                             </div>
