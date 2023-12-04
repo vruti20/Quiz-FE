@@ -225,7 +225,7 @@ const handleOptionClick = (answer) => {
                   <div className="modal-container ">
                     <div className="modal">
                       <div className="flex justify-end">
-                        <FaX onClick={closeModal} className="cursor-pointer" />
+                        <FaX  className="cursor-pointer" />
                       </div>
                       <div className="flex justify-center">
                         <img
@@ -244,7 +244,7 @@ const handleOptionClick = (answer) => {
                         Watch a simple ad and get rewarded
                       </p>
                       <div className="flex justify-center">
-                        <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">
+                        <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center" onClick={closeModal}>
                           Claim
                         </button>
                       </div>
