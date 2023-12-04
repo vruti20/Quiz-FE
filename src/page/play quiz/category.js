@@ -61,7 +61,7 @@ const Category = () => {
     );
     return (
         <>
-            <div className="bg-[#0F172A] ">
+            <div className="bg-[#0F172A] h-[100%]">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex" >

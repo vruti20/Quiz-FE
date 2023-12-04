@@ -70,7 +70,7 @@ const Result = () => {
             updateCoins(); 
           }, [coins,earnedCoins]);
 
-localStorage.setItem("coins")
+localStorage.setItem("coins",coins)
     return (
         <>
             <div className="bg-[#0F172A] bg-fixed">

@@ -18,7 +18,7 @@ const Profile = () => {
         <>
             <div className="bg-[#0F172A] ">
 
-                <Row className="">
+                <Row className="h-[100vh]">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
                         <div className="" >
                             <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0F172A] header">
