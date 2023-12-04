@@ -121,7 +121,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="bg-[#0F172A] w-full bg-scroll ">
+      <div className="bg-[#0F172A] h[100%] bg-scroll ">
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px] py-[1px] px-2 relative flex-col flex overflow-y-auto">
             <div className="">

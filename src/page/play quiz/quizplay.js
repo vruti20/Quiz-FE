@@ -8,7 +8,7 @@ const Quizplay = () => {
 
     return (
         <>
-            <div className="bg-[#0F172A] bg-fixed ">
+            <div className="bg-[#0F172A] h-[100vh] bg-fixed ">
 
                 <Row className="flex">
                     <Col className="md:w-[400px] items-end  lg:w-[530px] py-3 px-2">

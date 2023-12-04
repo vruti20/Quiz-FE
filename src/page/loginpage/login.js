@@ -35,7 +35,7 @@ const Login = () => {
     <>
       <div className="bg-[#0F172A]">
         <Row className="flex ">
-          <Col className="md:w-[410px] h-[739px] lg:w-[530px]  py-2 px-2">
+          <Col className="md:w-[410px] h-[100vh] lg:w-[530px]  py-2 px-2">
 
             <div className="flex py-[8px] cursor-pointer ">
               <span >
