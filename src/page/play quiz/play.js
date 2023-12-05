@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap"
+import { Button, Col, Row } from "react-bootstrap"
 import { BiCategory } from "react-icons/bi"
 import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
@@ -12,37 +12,26 @@ import axios from "axios"
 const Play = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [subcategories, setSubcategories] = useState([]);
+    const [isGuest, setIsGuest] = useState(true);
     const { categoryid } = useParams();
     // const loginscore = localStorage.getItem('totalsocre');
-    // const [loginscore, setLoginScore] = useState(localStorage.getItem('totalsocre'));
-    const newcoins= localStorage.getItem("coins");
+    const [loginscore, setLoginScore] = useState(localStorage.getItem('totalsocre'));
+    const newcoins = localStorage.getItem("coin");
 
 
 
     // Function to deduct coins
-    // const deductCoins = () => {
-    //     const updatedScore = Math.max(0, loginscore - 100); // Deduct 100 coins, but ensure it doesn't go below zero
-    //     setLoginScore(updatedScore);
-    //     localStorage.setItem('totalsocre', updatedScore);
-    //     const earnedCoins = localStorage.getItem('earnedCoins');
-    //     const allcoins = parseInt(updatedScore) + parseInt(earnedCoins)
-    //     localStorage.setItem('allscore', allcoins)
-    //     console.log("updatedScore:", updatedScore);
-    //     console.log("earnedCoins:", earnedCoins);
-    //     console.log("allscore:", allcoins);
-    // };
-//    const loginpluscoin= localStorage.getItem('totalsocre');
+    const deductCoins = () => {
+        const updatedScore = Math.max(0, loginscore - 100); // Deduct 100 coins, but ensure it doesn't go below zero
+        setLoginScore(updatedScore);
+        localStorage.setItem('totalsocre', updatedScore);
+    };
+    const updatedScore = localStorage.getItem('totalsocre');
 
-    // const coins = localStorage.getItem('allscore')
-
-    // const allcoin=parseInt(loginpluscoin)+parseInt(coins)
-    // localStorage.setItem('allcoin',allcoin)
-//    const newcoins= localStorage.getItem('allcoin',allcoin)
-
-    // const newcoin = localStorage.getItem('allcoin')
-    // const earnedCoins = localStorage.getItem('earnedCoins');
-
-    // const newcoins=parseInt(newcoin)+parseInt(earnedCoins)
+    const earnedCoins = localStorage.getItem('earnedCoins');
+    const allcoins = parseInt(updatedScore) + parseInt(earnedCoins)
+    localStorage.setItem('allcoin',allcoins)
+       console.log("LOGINPLUs",allcoins)
 
 
     // localStorage.clear()
@@ -73,9 +62,19 @@ const Play = () => {
         if (categoryid) {
             fetchCategory();
         }
+        const playerIsGuest = checkIfPlayerIsGuest();
 
+        // Set the isGuest state based on the result
+        setIsGuest(playerIsGuest);
 
     }, [categoryid]);
+
+    const checkIfPlayerIsGuest = () => {
+        const guestToken = localStorage.getItem('token');
+        // localStorage.removeItem('token');
+        console.log("TOKEN",guestToken);
+        return !!guestToken;
+      };
 
     return (
         <>
@@ -99,7 +98,7 @@ const Play = () => {
                                         <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                                {newcoins} COINS
+                                               {isGuest ? newcoins : allcoins} COINS
                                             </p>
                                         </div>
                                     </div>
@@ -120,7 +119,7 @@ const Play = () => {
                                         <div key={index} className="px-5 gap-2 flex items-center py-6">
                                             <img
                                                 className="w-[60px] sm:w-[52px] rounded-full "
-                                                src={quiz.img}
+                                                src={quiz.category.img} 
                                                 alt="category"
                                             />
                                             <div className="">
@@ -137,37 +136,48 @@ const Play = () => {
                                             </div>
                                         </div>
                                     ))}
-
-                                    <div className="flex w-full justify-around pb-[25px]">
-                                        <Link to="/login">
-                                            <button class="bg-[#1A2F77] py-2 px-14 font-[700] text-white rounded-full">JOIN NOW</button>
-                                        </Link>
-                                        <p className="text-[20px] text-white">or</p>
-                                        {isModalOpen && (
-                                            <div className="modal-container">
-                                                <div className="modal">
-                                                    <div className="flex justify-end">
-                                                        <FaX onClick={closeModal} className="cursor-pointer" />
-                                                    </div>
-                                                    <div className="flex justify-center">
-                                                        <img src="https://monetix-lookat1.quiztwiz.com/static/media/adpic.18b085351c262a96e5a9.png" alt="ads"></img>
-                                                    </div>
-
-                                                    <h2 class="text-4xl text-[#D8E91E] md:text-[1.5rem] mb-4 flex justify-center">oops!</h2>
-                                                    <p class="mb-6 text-[#8E8F98] flex justify-center">Not enough coins to play</p>
-                                                    <div className="flex justify-center">
-                                                        <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">Watch Ad</button>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        )}
+                                    {isGuest ? (
+                                        // Render only the "PLAY" button when the user is logged in
                                         <Link to={`/question/${categoryid}`}>
-                                            <div class=" border-[1px] text-white text-center rounded-full font-bold text-sm py-3  px-10 cursor-pointer" onClick={openModal}>
-                                                PLAY AS GUEST
+                                            <div className="flex justify-center pb-6">
+                                            <Button className=" py-[10px] px-8 bg-[#1F01FF] border-[1px] rounded-full text-white font-bold cursor-pointer">
+                                                PLAY QUIZ
+                                            </Button>
                                             </div>
                                         </Link>
-                                    </div>
+                                    ) : (
+
+                                        <div className="flex w-full justify-around pb-[25px]">
+                                            <Link to="/login">
+                                                <button  onClick={openModal} class="bg-[#1A2F77] py-2 px-14 font-[700] text-white rounded-full">JOIN NOW</button>
+                                            </Link>
+                                            <p className="text-[20px] text-white">or</p>
+                                            {isModalOpen && (
+                                                <div className="modal-container">
+                                                    <div className="modal">
+                                                        <div className="flex justify-end">
+                                                            <FaX onClick={closeModal} className="cursor-pointer" />
+                                                        </div>
+                                                        <div className="flex justify-center">
+                                                            <img src="https://monetix-lookat1.quiztwiz.com/static/media/adpic.18b085351c262a96e5a9.png" alt="ads"></img>
+                                                        </div>
+
+                                                        <h2 class="text-4xl text-[#D8E91E] md:text-[1.5rem] mb-4 flex justify-center">oops!</h2>
+                                                        <p class="mb-6 text-[#8E8F98] flex justify-center">Not enough coins to play</p>
+                                                        <div className="flex justify-center">
+                                                            <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">Watch Ad</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            )}
+                                            <Link to={`/question/${categoryid}`}>
+                                                <div onClick={deductCoins} class=" border-[1px] text-white text-center rounded-full font-bold text-sm py-3  px-10 cursor-pointer">
+                                                    PLAY AS GUEST
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    )}
 
                                     <ul class="list-disc text-white text-sm flex flex-col pb-[10px] gap-4 px-9 ">
                                         <li>You've got 90 - 150 seconds to answer all questions</li>

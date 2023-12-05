@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Quizplay = () => {
     const loginscore = localStorage.getItem('totalsocre');
+    // const newcoin= localStorage.getItem("coin");
     // const userCoins = localStorage.getItem("userCoins");
 
 

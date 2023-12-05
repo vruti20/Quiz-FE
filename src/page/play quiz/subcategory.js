@@ -9,7 +9,9 @@ import axios from "axios";
 const Subcategory = () => {
   const location = useLocation();
   const [subcategories, setSubcategories] = useState([]);
-  const userCoins = localStorage.getItem("coins");
+  const [isGuest, setIsGuest] = useState(true);
+  const allcoins=localStorage.getItem('allcoin')
+  const newcoins= localStorage.getItem("coin");
 
   useEffect(() => {
     const id = location.state._id; // Get the category ID from the location state
@@ -22,7 +24,18 @@ const Subcategory = () => {
       .catch(function (error) {
         console.log(error);
       });
+
+      const playerIsGuest = checkIfPlayerIsGuest();
+
+      // Set the isGuest state based on the result
+      setIsGuest(playerIsGuest);
   }, [location.state._id]);
+  const checkIfPlayerIsGuest = () => {
+    const guestToken = localStorage.getItem('token');
+    // localStorage.removeItem('token');
+    console.log("TOKEN",guestToken);
+    return !!guestToken;
+  };
   return (
     <>
       <div className="bg-[#0F172A] h-[100vh]">
@@ -57,7 +70,7 @@ const Subcategory = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      {userCoins} COINS
+                      {isGuest ? newcoins : allcoins} COINS
                     </div>
                   </div>
                 </div>
