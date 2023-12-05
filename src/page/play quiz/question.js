@@ -7,23 +7,24 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 
 const Question = () => {
-  const { categoryId } = useParams();
-  const navigate = useNavigate();
-  const [showLifelines, setShowLifelines] = useState(false);
+  const { categoryId } = useParams(); 
+  const navigate = useNavigate(); // page navigate
+  const [showLifelines, setShowLifelines] = useState(false);  // show the lifeline
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerStatus, setAnswerStatus] = useState(null);
-  const [questionData, setQuestionData] = useState([]);
-  const [score, setScore] = useState(0);
-  const [secondsRemaining, setSecondsRemaining] = useState(118);
-  const [progress, setProgress] = useState(100);
+  const [questionData, setQuestionData] = useState([]); // question data fetch in api
+  const [score, setScore] = useState(0); // show the score
+  const [secondsRemaining, setSecondsRemaining] = useState(118); 
+  const [progress, setProgress] = useState(100); // show progressbar
   const [FiftyFifty, setFiftyFifty] = useState(false); // show & hide 2 option
   const [audienceResponses, setAudienceResponses] = useState(Array(4).fill("")); // audienceResponses for
   const [audience, setAudience] = useState(false); // show & hide audienceResponses in ui
   const [isFrozen, setIsFrozen] = useState(false); // freeze time for this state
-  const [remainingAnswers, setRemainingAnswers] = useState([]);
-  const newcoin= localStorage.getItem("coins");
-
+  const [remainingAnswers, setRemainingAnswers] = useState([]); // firstlifeline answer set 
+  const [isGuest, setIsGuest] = useState(true);
+  const allcoins=localStorage.getItem('allcoin')
+  const newcoins= localStorage.getItem("coin");
 
   const handleLifelinesClick = () => {
     setShowLifelines(!showLifelines);
@@ -44,6 +45,9 @@ const Question = () => {
     if (categoryId) {
       fetchData();
     }
+    const playerIsGuest = checkIfPlayerIsGuest();
+    // Set the isGuest state based on the result
+    setIsGuest(playerIsGuest);
     const countdownInterval = setInterval(() => {
       if (!isFrozen) {
         setSecondsRemaining((prevSeconds) => prevSeconds - 1);
@@ -58,6 +62,12 @@ const Question = () => {
     }
     return () => clearInterval(countdownInterval);
   }, [categoryId, secondsRemaining, navigate, isFrozen]);
+  const checkIfPlayerIsGuest = () => {
+    const guestToken = localStorage.getItem('token');
+    // localStorage.removeItem('token');
+    console.log("TOKEN",guestToken);
+    return !!guestToken;
+  };
 
   const formatTime = (seconds) => {
     return `${seconds}`;
@@ -147,7 +157,7 @@ const Question = () => {
   };
   return (
     <>
-      <div className="bg-[#0F172A] bg-fixed h-[739px]">
+      <div className="bg-[#0F172A] bg-fixed h-[100vh]">
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div>
@@ -180,7 +190,7 @@ const Question = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                     {newcoin} COINS
+                     {isGuest ? newcoins : allcoins} COINS
                     </div>
                   </div>
                 </div>
@@ -244,48 +254,51 @@ const Question = () => {
                   </div>
                 </>
               )} */}
-              {currentQuestionIndex < questionData.length && (
-                <>
-                  <div
-                    key={questionData[currentQuestionIndex]._id}
-                    className="text-[14px] font-bold px-10 text-white text-center pt-5 pb-3"
-                  >
-                    <span>{questionData[currentQuestionIndex].question}</span>
-                  </div>
+      {currentQuestionIndex < questionData.length && (
+  <>
+    <div
+      key={questionData[currentQuestionIndex]._id}
+      className="text-[14px] font-bold px-10 text-white text-center pt-5 pb-3"
+    >
+      <span>{questionData[currentQuestionIndex].question}</span>
+    </div>
 
-                  <div className="grid-cols-2 grid text-white pt-2">
-                    {questionData[currentQuestionIndex]?.answer.map(
-                      (answer, index) => (
-                        <Col
-                          key={index}
-                          onClick={() => handleOptionClick(answer)}
-                          className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] rounded-full cursor-pointer ${
-                            FiftyFifty && remainingAnswers.length > 0
-                              ? remainingAnswers.includes(answer)
-                                ? answer === selectedAnswer
-                                  ? answerStatus
-                                    ? "bg-[#099623] !important" // Correct answer (green)
-                                    : "bg-[#f02d1f] !important" // Wrong answer (red)
-                                  : "bg-[#20213f] !important"
-                                : "hidden"
-                              : answer === selectedAnswer
-                              ? answerStatus
-                                ? "bg-[#099623] !important" // Correct answer (green)
-                                : "bg-[#f02d1f] !important" // Wrong answer (red)
-                              : answer ===
-                                  questionData[currentQuestionIndex]?.correct &&
-                                answerStatus === false
-                              ? "bg-[#099623] !important" // Correct answer (green)
-                              : "bg-[#20213f] !important" // Default background color
-                          }`}
-                        >
-                          {answer}
-                        </Col>
-                      )
-                    )}
-                  </div>
-                </>
-              )}
+    <div className="grid-cols-2 grid text-white pt-2">
+      {questionData[currentQuestionIndex]?.answer.map((answer, index) => (
+        <Col
+          key={index}
+          onClick={() => handleOptionClick(answer)}
+          className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] rounded-full cursor-pointer ${
+            FiftyFifty && remainingAnswers.length > 0
+              ? remainingAnswers.includes(answer)
+                ? answer === selectedAnswer
+                  ? answerStatus
+                    ? "bg-[#099623] !important" 
+                    : "bg-[#f02d1f] !important" 
+                  : answer ===
+                    questionData[currentQuestionIndex]?.correct &&
+                    answerStatus === false
+                  ? "bg-[#099623] !important" 
+                  : "bg-[#20213f] !important" 
+                : "hidden"
+              : answer === selectedAnswer
+              ? answerStatus
+                ? "bg-[#099623] !important" 
+                : "bg-[#f02d1f] !important" 
+              : answer ===
+                  questionData[currentQuestionIndex]?.correct &&
+                answerStatus === false
+              ? "bg-[#099623] !important" 
+              : "bg-[#20213f] !important" 
+          }`}
+        >
+          {answer}
+        </Col>
+      ))}
+    </div>
+  </>
+)}
+
 
               <div className="flex justify-center items-center pt-4 text-lg font-bold">
                 <p className="text-white">Your Score : </p>
