@@ -8,15 +8,9 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import Question from "./question"
-
-const Home = () => {
-  // const score = localStorage.getItem("score");
-  // const coins=localStorage.getItem("totalsocre")
-  // const userCoins = localStorage.getItem("userCoins");
-  // const loginscore = localStorage.getItem('totalsocre');
 
 
+const Home = () => {  
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
@@ -25,21 +19,16 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categoryid, setCategoryid] = useState(null);
   const [isClick, setIsClick] = useState(false);
-
-  // const coins=localStorage.getItem('allcoin')
+  const [isGuest, setIsGuest] = useState(true);
+  const allcoins=localStorage.getItem('allcoin')
+  const newcoins= localStorage.getItem("coin");
   const handleisClick = () => {
     setIsClick(!isClick);
   };
 
   const handleCategoryid = (categoryid) => {
 
-    //   const updatedCoins = parseInt(coins) - 100;
-    //   localStorage.setItem("totalsocre", updatedCoins);
-
-    //   const earnedCoins = localStorage.getItem("earnedCoins");
-    //   const allcoins=updatedCoins+earnedCoins
-    //  localStorage.setItem("earnedCoins", allcoins);
-
+    
 
     setCategoryid(categoryid);
 
@@ -92,12 +81,22 @@ const Home = () => {
     };
 
 
+    const playerIsGuest = checkIfPlayerIsGuest();
+
+    // Set the isGuest state based on the result
+    setIsGuest(playerIsGuest);
 
     fetchCategory();
     fetchSubCategory();
     fetchCategories();
   }, [selectedCategory, categoryid]);
-
+  
+ const checkIfPlayerIsGuest = () => {
+        const guestToken = localStorage.getItem('token');
+        // localStorage.removeItem('token');
+        console.log("TOKEN",guestToken);
+        return !!guestToken;
+      };
   // console.log(">>>>>>>>>",subcategories);
 
   const handleCategoryClick = (categoryId) => {
@@ -116,7 +115,6 @@ const Home = () => {
     }
   };
 
-  const newcoin= localStorage.getItem("coins");
   // localStorage.setItem("earnedCoins", allcoins);
 
   return (
@@ -152,7 +150,7 @@ const Home = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      <p> {newcoin} COINS</p>
+                      <p>  {isGuest ? newcoins : allcoins} COINS</p>
                     </div>
                   </div>
                 </div>

@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
-// import Cookies from 'js-cookie';
 
 
 const Result = () => {
@@ -54,13 +53,14 @@ const Result = () => {
                 );
 
                 // const data = response.data;
-                console.log("DATA",response.data.mobileNumber);
+                console.log("DATA",response.data.totalCoins);
 
                 // const totalCoins = data.coins;
                 // console.log("TOTALCOINS",totalCoins); 
 
                 setCoins(earnedCoins);
                 console.log("COINSSS",coins);
+                localStorage.setItem("coin",response.data.totalCoins)
               } catch (error) {
                 console.error('Error updating coins:', error);
 
@@ -70,7 +70,7 @@ const Result = () => {
             updateCoins(); 
           }, [coins,earnedCoins]);
 
-localStorage.setItem("coins",coins)
+// localStorage.clear()
     return (
         <>
             <div className="bg-[#0F172A] bg-fixed">

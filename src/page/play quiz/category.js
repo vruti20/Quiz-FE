@@ -14,12 +14,12 @@ const Category = () => {
     const { id } = useParams();
     console.log('**********',id);
     const navigate = useNavigate();
-    const userCoins = localStorage.getItem("coins");
-
-
+    const [isGuest, setIsGuest] = useState(true);
     const [categories, setCategories] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [click, setClick] = useState(false);
+    const allcoins=localStorage.getItem('allcoin')
+  const newcoins= localStorage.getItem("coin");
     
     const handleClicked = () => {
         setClick(!click);
@@ -36,8 +36,19 @@ const Category = () => {
             }
         };
 
+        const playerIsGuest = checkIfPlayerIsGuest();
+
+        // Set the isGuest state based on the result
+        setIsGuest(playerIsGuest);
         fetchCategories();
     }, []);
+
+    const checkIfPlayerIsGuest = () => {
+        const guestToken = localStorage.getItem('token');
+        // localStorage.removeItem('token');
+        console.log("TOKEN",guestToken);
+        return !!guestToken;
+      };
     const Subcategory =  (id) =>{
         
         axios.get(`http://localhost:5000/api/category/subcategories/${id}`)
@@ -80,7 +91,7 @@ const Category = () => {
                                         <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                            {userCoins} COINS
+                                            {isGuest ? newcoins : allcoins} COINS
                                             </p>
                                         </div>
                                     </div>
