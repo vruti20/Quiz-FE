@@ -28,7 +28,10 @@ const Category = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/category/allcategories");
+                const response = await axios.get("https://667e-223-179-148-39.ngrok-free.app/api/category/allcategories", 
+                {headers: {
+                    'ngrok-skip-browser-warning': 5000
+                  }});
                 setCategories(response.data.data);
                 console.log("CATEGORY LIST", response.data.data);
             } catch (error) {
@@ -51,7 +54,10 @@ const Category = () => {
       };
     const Subcategory =  (id) =>{
         
-        axios.get(`http://localhost:5000/api/category/subcategories/${id}`)
+        axios.get(`https://667e-223-179-148-39.ngrok-free.app/api/category/subcategories/${id}` ,
+        {headers: {
+            'ngrok-skip-browser-warning': 5000
+          }})
         .then(function (response) {
             navigate(`/subcategory/${id}`, { state: categories.find(category => category._id === id) });
             console.log(response.data.data);

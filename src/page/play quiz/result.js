@@ -39,7 +39,7 @@ const Result = () => {
                 // const earnedCoins= parseInt(localStorage.getItem('earnedCoins'), 10);
                 console.log("FCSSF",earnedCoins);
 
-                const response = await axios.post('http://localhost:5000/api/updateCoins', 
+                const response = await axios.post('https://667e-223-179-148-39.ngrok-free.app/api/updateCoins', 
                     {
                         // Uncomment if needed
                         // mobileNumber: mobileNumber,
@@ -48,6 +48,7 @@ const Result = () => {
                       {
                         headers: {
                           Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                          'ngrok-skip-browser-warning': 5000
                         },
                       }
                 );
