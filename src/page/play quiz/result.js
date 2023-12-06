@@ -74,7 +74,7 @@ const Result = () => {
 // localStorage.clear()
     return (
         <>
-            <div className="bg-[#0F172A] bg-fixed">
+            <div className="bg-[#0F172A] bg-fixed h-[100vh]">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >

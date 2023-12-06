@@ -108,7 +108,7 @@ const Play = () => {
 
                             </div>
 
-                            <div className="bg-transparent mt-[50px] mt-[50px] h-[370px] mx-auto mb-[8px]">
+                            <div className="bg-transparent mt-[50px] h-[370px] mx-auto mb-[8px]">
                                 <p className="text-center text-white">
                                     ads by goggle
                                 </p>
@@ -142,7 +142,7 @@ const Play = () => {
                                         // Render only the "PLAY" button when the user is logged in
                                         <Link to={`/question/${categoryid}`}>
                                             <div className="flex justify-center pb-6">
-                                            <Button className=" py-[10px] px-8 bg-[#1F01FF] border-[1px] rounded-full text-white font-bold cursor-pointer">
+                                            <Button onClick={deductCoins} className=" py-[10px] px-8 bg-[#1F01FF] border-[1px] rounded-full text-white font-bold cursor-pointer">
                                                 PLAY QUIZ
                                             </Button>
                                             </div>
