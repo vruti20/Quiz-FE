@@ -14,18 +14,21 @@ const Play = () => {
     const [subcategories, setSubcategories] = useState([]);
     const [isGuest, setIsGuest] = useState(true);
     const { categoryid } = useParams();
-    // const loginscore = localStorage.getItem('totalsocre');
-    const [loginscore, setLoginScore] = useState(localStorage.getItem('totalsocre'));
+    const loginscore = localStorage.getItem('allcoin');
+    // const [loginscore, setLoginScore] = useState(localStorage.getItem('allcoin'));
     const newcoins = localStorage.getItem("coin");
 
 
 
    // Function to deduct coins
     const deductCoins = async () => {
-        const updatedScore =Math.max(loginscore - 100);
-        setLoginScore(updatedScore);
+        // const updatedScore = parseInt(loginscore)-100;
+        // setLoginScore(updatedScore);
+        const updatedScore = parseInt(loginscore)-100;
+
         console.log(">>>>>>>>>>>>>why not",updatedScore);
         localStorage.setItem('coins',updatedScore)
+        //login player mate
         const updatedCoins = parseInt(newcoins) - 100;
         localStorage.setItem('coin', updatedCoins);
     };
