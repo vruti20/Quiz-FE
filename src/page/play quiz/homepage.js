@@ -27,9 +27,6 @@ const Home = () => {
   };
 
   const handleCategoryid = (categoryid) => {
-
-    
-
     setCategoryid(categoryid);
 
     console.log("???????????", categoryid);
@@ -43,7 +40,10 @@ const Home = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/category/allcategories"
+          "https://667e-223-179-148-39.ngrok-free.app/api/category/allcategories" ,
+          {headers: {
+            'ngrok-skip-browser-warning': 5000
+          }}
         );
         setCategories(response.data.data);
         console.log("CATEGORY LIST", response.data.data);
@@ -55,7 +55,10 @@ const Home = () => {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/category/allsubcategories"
+          "https://667e-223-179-148-39.ngrok-free.app/api/category/allsubcategories" , 
+          {headers: {
+            'ngrok-skip-browser-warning': 5000
+          }}    
         );
         setCategory(response.data.data);
         console.log("HOMECTAEGORY:", response.data.data);
@@ -69,7 +72,10 @@ const Home = () => {
       try {
         if (selectedCategory) {
           const response = await axios.get(
-            `http://localhost:5000/api/category/subcategories/${selectedCategory}`
+            `https://667e-223-179-148-39.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
+            {headers: {
+              'ngrok-skip-browser-warning': 5000
+            }}
           );
           setSubcategories(response.data.data);
           console.log("SUBCATEGORIES:", response.data.data);

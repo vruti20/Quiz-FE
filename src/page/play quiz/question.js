@@ -7,34 +7,46 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 
 const Question = () => {
-  const { categoryId } = useParams(); 
+  const { categoryId } = useParams();
   const navigate = useNavigate(); // page navigate
-  const [showLifelines, setShowLifelines] = useState(false);  // show the lifeline
+
+  const [showLifelines, setShowLifelines] = useState(false); // show the lifeline
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerStatus, setAnswerStatus] = useState(null);
   const [questionData, setQuestionData] = useState([]); // question data fetch in api
   const [score, setScore] = useState(0); // show the score
-  const [secondsRemaining, setSecondsRemaining] = useState(118); 
+  const [secondsRemaining, setSecondsRemaining] = useState(118);
   const [progress, setProgress] = useState(100); // show progressbar
   const [FiftyFifty, setFiftyFifty] = useState(false); // show & hide 2 option
   const [audienceResponses, setAudienceResponses] = useState(Array(4).fill("")); // audienceResponses for
   const [audience, setAudience] = useState(false); // show & hide audienceResponses in ui
   const [isFrozen, setIsFrozen] = useState(false); // freeze time for this state
-  const [remainingAnswers, setRemainingAnswers] = useState([]); // firstlifeline answer set 
+  const [remainingAnswers, setRemainingAnswers] = useState([]); // firstlifeline answer set
+  const [useFirstLifeline, setUseFirstLifeline] = useState(true);
+  const [useSecLifeline, setUseSecLifeline] = useState(true);
+  const [useThirdLifeline, setUseThirdLifeline] = useState(true);
+  const [useFourthLifeline, setUseFourthLifeline] = useState(true);
+
   const [isGuest, setIsGuest] = useState(true);
-  const allcoins=localStorage.getItem('allcoin')
-  const newcoins= localStorage.getItem("coin");
+  const allcoins = localStorage.getItem("allcoin");
+  const newcoins = localStorage.getItem("coin");
 
   const handleLifelinesClick = () => {
     setShowLifelines(!showLifelines);
+    // useLifeline(true);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/quesation/questions?quiz=${categoryId}`
+          `https://667e-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
+          {
+            headers: {
+              "ngrok-skip-browser-warning": 5000,
+            },
+          }
         );
         setQuestionData(response.data.data.slice(0, 15));
         // console.log(response.data.data);
@@ -63,9 +75,9 @@ const Question = () => {
     return () => clearInterval(countdownInterval);
   }, [categoryId, secondsRemaining, navigate, isFrozen]);
   const checkIfPlayerIsGuest = () => {
-    const guestToken = localStorage.getItem('token');
+    const guestToken = localStorage.getItem("token");
     // localStorage.removeItem('token');
-    console.log("TOKEN",guestToken);
+    console.log("TOKEN", guestToken);
     return !!guestToken;
   };
 
@@ -101,51 +113,83 @@ const Question = () => {
   };
   // 50: 50 lifeline
   const FirstLifeline = () => {
-    const currentQuestion = questionData[currentQuestionIndex];
-    setFiftyFifty(true);
-    const correctAnswer = currentQuestion.correct;
+    if (useFirstLifeline) {
+      const currentQuestion = questionData[currentQuestionIndex];
+      setFiftyFifty(true);
+      const correctAnswer = currentQuestion.correct;
 
-    const incorrectAnswers = currentQuestion.answer.filter(
-      (answer) => answer !== correctAnswer
-    );
-    const eliminatedAnswers = getRandomElements(incorrectAnswers, 2);
+      const incorrectAnswers = currentQuestion.answer.filter(
+        (answer) => answer !== correctAnswer
+      );
+      const eliminatedAnswers = getRandomElements(incorrectAnswers, 2);
 
-    const remaining = currentQuestion.answer.filter(
-      (answer) => !eliminatedAnswers.includes(answer)
-    );
-    console.log("Remaining Answers:", remaining);
-    setRemainingAnswers(remaining);
+      const remaining = currentQuestion.answer.filter(
+        (answer) => !eliminatedAnswers.includes(answer)
+      );
+      console.log("Remaining Answers:", remaining);
+      setRemainingAnswers(remaining);
+      setUseFirstLifeline(false);
+    }
   };
   const getRandomElements = (array, numElements) => {
     const shuffledArray = array.sort(() => Math.random() - 0.5);
     return shuffledArray.slice(0, numElements);
   };
   // Audiense lifeline
+  // const SecLifeline = () => {
+  //   if (useLifeline) {
+  //     const currentQuestion = questionData[currentQuestionIndex];
+  //     const simulatedResponses = simulateAudienceResponses(currentQuestion);
+
+  //     setAudienceResponses(simulatedResponses);
+  //     setAudience(true);
+  //   };
+
+  //   const simulateAudienceResponses = () => {
+  //     const totalResponses = 100;
+  //     const simulatedResponses = [
+  //       Math.floor(Math.random() * totalResponses),
+  //       Math.floor(Math.random() * totalResponses),
+  //       Math.floor(Math.random() * totalResponses),
+  //       Math.floor(Math.random() * totalResponses),
+  //     ];
+  //     setUseLifeline(false)
+  //     return simulatedResponses;
+  //   }
+  // };
   const SecLifeline = () => {
-    const currentQuestion = questionData[currentQuestionIndex];
-    const simulatedResponses = simulateAudienceResponses(currentQuestion);
+    const simulateAudienceResponses = () => {
+      const totalResponses = 100;
+      const simulatedResponses = [
+        Math.floor(Math.random() * totalResponses),
+        Math.floor(Math.random() * totalResponses),
+        Math.floor(Math.random() * totalResponses),
+        Math.floor(Math.random() * totalResponses),
+      ];
+      setUseSecLifeline(false);
 
-    setAudienceResponses(simulatedResponses);
-    setAudience(true);
+      return simulatedResponses;
+    };
+
+    if (useSecLifeline) {
+      const currentQuestion = questionData[currentQuestionIndex];
+      const simulatedResponses = simulateAudienceResponses(currentQuestion);
+
+      setAudienceResponses(simulatedResponses);
+      setAudience(true);
+    }
   };
 
-  const simulateAudienceResponses = () => {
-    const totalResponses = 100;
-    const simulatedResponses = [
-      Math.floor(Math.random() * totalResponses),
-      Math.floor(Math.random() * totalResponses),
-      Math.floor(Math.random() * totalResponses),
-      Math.floor(Math.random() * totalResponses),
-    ];
-    return simulatedResponses;
-  };
   useEffect(() => {
     console.log("Updated Audience Responses:", audienceResponses);
   }, [audienceResponses]);
 
   //Freeze Time lifeline
   const thirdLifeline = () => {
-    toggleFreeze();
+    if (useThirdLifeline) {
+      toggleFreeze();
+      setUseThirdLifeline(false);
+    }
   };
   const toggleFreeze = () => {
     setIsFrozen((prevIsFrozen) => !prevIsFrozen);
@@ -153,7 +197,10 @@ const Question = () => {
 
   // Flip Questions lifeline
   const fourthLifeline = () => {
-    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    if (useFourthLifeline) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      setUseFourthLifeline(false);
+    }
   };
   return (
     <>
@@ -190,7 +237,7 @@ const Question = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                     {isGuest ? newcoins : allcoins} COINS
+                      {isGuest ? newcoins : allcoins} COINS
                     </div>
                   </div>
                 </div>
@@ -254,51 +301,52 @@ const Question = () => {
                   </div>
                 </>
               )} */}
-      {currentQuestionIndex < questionData.length && (
-  <>
-    <div
-      key={questionData[currentQuestionIndex]._id}
-      className="text-[14px] font-bold px-10 text-white text-center pt-5 pb-3"
-    >
-      <span>{questionData[currentQuestionIndex].question}</span>
-    </div>
+              {currentQuestionIndex < questionData.length && (
+                <>
+                  <div
+                    key={questionData[currentQuestionIndex]._id}
+                    className="text-[14px] font-bold px-10 text-white text-center pt-5 pb-3"
+                  >
+                    <span>{questionData[currentQuestionIndex].question}</span>
+                  </div>
 
-    <div className="grid-cols-2 grid text-white pt-2">
-      {questionData[currentQuestionIndex]?.answer.map((answer, index) => (
-        <Col
-          key={index}
-          onClick={() => handleOptionClick(answer)}
-          className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] rounded-full cursor-pointer ${
-            FiftyFifty && remainingAnswers.length > 0
-              ? remainingAnswers.includes(answer)
-                ? answer === selectedAnswer
-                  ? answerStatus
-                    ? "bg-[#099623] !important" 
-                    : "bg-[#f02d1f] !important" 
-                  : answer ===
-                    questionData[currentQuestionIndex]?.correct &&
-                    answerStatus === false
-                  ? "bg-[#099623] !important" 
-                  : "bg-[#20213f] !important" 
-                : "hidden"
-              : answer === selectedAnswer
-              ? answerStatus
-                ? "bg-[#099623] !important" 
-                : "bg-[#f02d1f] !important" 
-              : answer ===
-                  questionData[currentQuestionIndex]?.correct &&
-                answerStatus === false
-              ? "bg-[#099623] !important" 
-              : "bg-[#20213f] !important" 
-          }`}
-        >
-          {answer}
-        </Col>
-      ))}
-    </div>
-  </>
-)}
-
+                  <div className="grid-cols-2 grid text-white pt-2">
+                    {questionData[currentQuestionIndex]?.answer.map(
+                      (answer, index) => (
+                        <Col
+                          key={index}
+                          onClick={() => handleOptionClick(answer)}
+                          className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] rounded-full cursor-pointer ${
+                            FiftyFifty && remainingAnswers.length > 0
+                              ? remainingAnswers.includes(answer)
+                                ? answer === selectedAnswer
+                                  ? answerStatus
+                                    ? "bg-[#099623] !important"
+                                    : "bg-[#f02d1f] !important"
+                                  : answer ===
+                                      questionData[currentQuestionIndex]
+                                        ?.correct && answerStatus === false
+                                  ? "bg-[#099623] !important"
+                                  : "bg-[#20213f] !important"
+                                : "hidden"
+                              : answer === selectedAnswer
+                              ? answerStatus
+                                ? "bg-[#099623] !important"
+                                : "bg-[#f02d1f] !important"
+                              : answer ===
+                                  questionData[currentQuestionIndex]?.correct &&
+                                answerStatus === false
+                              ? "bg-[#099623] !important"
+                              : "bg-[#20213f] !important"
+                          }`}
+                        >
+                          {answer}
+                        </Col>
+                      )
+                    )}
+                  </div>
+                </>
+              )}
 
               <div className="flex justify-center items-center pt-4 text-lg font-bold">
                 <p className="text-white">Your Score : </p>
@@ -338,7 +386,11 @@ const Question = () => {
                       <div className="flex gap-10 pt-8  relative">
                         <div>
                           <div
-                            class="h-[60px] w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center "
+                            className={`h-[60px] w-[60px] border-[1px] rounded-full flex justify-center items-center ${
+                              useFirstLifeline
+                                ? "text-[#FFCC5B] border-[#FFCC5B] "
+                                : "text-white border-white"
+                            } `}
                             onClick={FirstLifeline}
                           >
                             50:50
@@ -352,13 +404,16 @@ const Question = () => {
                         <div>
                           <div className="flex justify-center">
                             <div
-                              class="h-[60px] w-[60px] gap-1 border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center "
+                              className={`h-[60px] w-[60px] gap-1 border-[1px] rounded-full flex justify-center items-center ${
+                                useSecLifeline
+                                  ? " border-[#FFCC5B] ": " border-white" } `}
                               onClick={SecLifeline}
                             >
                               <img
                                 src="https://monetix-lookat1.quiztwiz.com/static/media/audience.c5d1df6dd75223d4733d68b4785d21c5.svg"
                                 alt="audience poll"
-                              />
+                                style={{ filter: useSecLifeline ? "" : "brightness(0) invert(1)" }}
+                                />
                             </div>
                           </div>
                           <p className="text-white text-[12px]">
@@ -369,12 +424,15 @@ const Question = () => {
                         <div>
                           <div className="flex justify-center">
                             <div
-                              class="h-[60px] w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center "
+                              className={`h-[60px] w-[60px] border-[1px] rounded-full flex justify-center items-center ${
+                                useThirdLifeline
+                                  ? " border-[#FFCC5B] ": " border-white" }`}
                               onClick={thirdLifeline}
                             >
                               <img
                                 src="https://monetix-lookat1.quiztwiz.com/static/media/freez.34d9b896bdb87fdf156faab0392be612.svg"
                                 alt="Freeze"
+                                style={{ filter: useThirdLifeline ? "" : "brightness(0) invert(1)" }}
                               />
                             </div>
                           </div>
@@ -384,12 +442,15 @@ const Question = () => {
                         <div>
                           <div className="flex justify-center">
                             <div
-                              class="h-[60px] w-[60px] border-[1px] border-[#FFCC5B] text-[#FFCC5B] rounded-full flex justify-center items-center "
+                              className={`h-[60px] w-[60px] border-[1px] rounded-full flex justify-center items-center ${
+                                useFourthLifeline
+                                  ? " border-[#FFCC5B] ": " border-white" }`}
                               onClick={fourthLifeline}
                             >
                               <img
                                 src="https://monetix-lookat1.quiztwiz.com/static/media/flip.9d50f995c4455c51e153268fcc5cbee5.svg"
                                 alt="Flip"
+                                style={{ filter: useFourthLifeline ? "" : "brightness(0) invert(1)" }}
                               />
                             </div>
                           </div>

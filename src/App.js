@@ -1,4 +1,6 @@
 import './CSS/App.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Quiz from './page/Home/quiz';
 import Login from './page/loginpage/login';
@@ -13,6 +15,7 @@ import Subcategory from './page/play quiz/subcategory';
 function App() {
   return (
     <>
+        <ToastContainer />
       <BrowserRouter>
         <Routes>
           <Route  path="/" element={<Quiz/>}/>

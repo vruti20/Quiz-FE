@@ -20,21 +20,20 @@ const Play = () => {
 
 
 
-    // Function to deduct coins
-    const deductCoins = () => {
-        const updatedScore = Math.max(0, loginscore - 100); // Deduct 100 coins, but ensure it doesn't go below zero
+   // Function to deduct coins
+    const deductCoins = async () => {
+        const updatedScore =Math.max(loginscore - 100);
         setLoginScore(updatedScore);
-        localStorage.setItem('totalsocre', updatedScore);
+        console.log(">>>>>>>>>>>>>why not",updatedScore);
+        localStorage.setItem('coins',updatedScore)
+        const updatedCoins = parseInt(newcoins) - 100;
+        localStorage.setItem('coin', updatedCoins);
     };
-    const updatedScore = localStorage.getItem('totalsocre');
-
+    const updated = localStorage.getItem('coins');
     const earnedCoins = localStorage.getItem('earnedCoins');
-    const allcoins = parseInt(updatedScore) + parseInt(earnedCoins)
-    localStorage.setItem('allcoin',allcoins)
-       console.log("LOGINPLUs",allcoins)
-
-
-    // localStorage.clear()
+    const allcoins = parseInt(updated) + parseInt(earnedCoins)
+    localStorage.setItem('allcoin', allcoins)
+    console.log("LOGINPLUs", allcoins)
 
     // Function to open the modal
     const openModal = () => {
@@ -49,7 +48,10 @@ const Play = () => {
     useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/quesation/questions?quiz=${categoryid}`);
+                const response = await axios.get(`https://667e-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
+                {headers: {
+                    'ngrok-skip-browser-warning': 5000
+                  }});
                 const newQuizData = response.data.data.map(item => item.quiz);
                 setSubcategories(newQuizData.slice(0, 1));
                 console.log("QUIZOBJECT", newQuizData);
