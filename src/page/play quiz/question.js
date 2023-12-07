@@ -41,7 +41,7 @@ const Question = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://667e-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
+          `https://8a8b-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,

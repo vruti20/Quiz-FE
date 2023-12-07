@@ -51,7 +51,7 @@ const Play = () => {
     useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(`https://667e-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
+                const response = await axios.get(`https://8a8b-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
                 {headers: {
                     'ngrok-skip-browser-warning': 5000
                   }});

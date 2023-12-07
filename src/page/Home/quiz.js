@@ -31,7 +31,7 @@ const Quiz = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          "https://667e-223-179-148-39.ngrok-free.app/api/quesation/loginquestions",{headers: {
+          "https://8a8b-223-179-148-39.ngrok-free.app/api/quesation/loginquestions",{headers: {
             'ngrok-skip-browser-warning': 5000
           }}
         );
