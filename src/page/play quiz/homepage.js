@@ -9,7 +9,7 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
+// localStorage.clear(); 
 const Home = () => {  
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -40,11 +40,12 @@ const Home = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://667e-223-179-148-39.ngrok-free.app/api/category/allcategories" ,
+          "https://8a8b-223-179-148-39.ngrok-free.app/api/category/allcategories" ,
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}
         );
+        // const response = await axios.get("http://localhost:5000/api/category/allcategories")
         setCategories(response.data.data);
         console.log("CATEGORY LIST", response.data.data);
       } catch (error) {
@@ -55,11 +56,12 @@ const Home = () => {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          "https://667e-223-179-148-39.ngrok-free.app/api/category/allsubcategories" , 
+          "https://8a8b-223-179-148-39.ngrok-free.app/api/category/allsubcategories" , 
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}    
         );
+        // const response = await axios.get("http://localhost:5000/api/category/allsubcategories")
         setCategory(response.data.data);
         console.log("HOMECTAEGORY:", response.data.data);
         console.log(">>>>>", categoryid);
@@ -72,11 +74,12 @@ const Home = () => {
       try {
         if (selectedCategory) {
           const response = await axios.get(
-            `https://667e-223-179-148-39.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
+            `https://8a8b-223-179-148-39.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
             {headers: {
               'ngrok-skip-browser-warning': 5000
             }}
           );
+          // const response = await axios.get(`http://localhost:5000/api/category/subcategories/${selectedCategory}`)
           setSubcategories(response.data.data);
           console.log("SUBCATEGORIES:", response.data.data);
           console.log(">>>>>>>iddddd", selectedCategory);
@@ -125,7 +128,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="bg-[#0F172A] h[100%] bg-scroll ">
+     <div className={`bg-[#0F172A] ${selectedCategory ? "h-[1400px]" :"h-[100%]"}`}>
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px] py-[1px] px-2 relative flex-col flex overflow-y-auto">
             <div className="">

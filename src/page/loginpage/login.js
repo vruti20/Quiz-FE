@@ -14,7 +14,7 @@ const Login = () => {
   const generateOTP = async () => {
     try {
       const response = await axios.post(
-        "https://667e-223-179-148-39.ngrok-free.app/api/login",
+        "https://8a8b-223-179-148-39.ngrok-free.app/api/login",
         { mobileNumber },
         {
           headers: {
@@ -22,7 +22,12 @@ const Login = () => {
           },
         }
       );
-      localStorage.clear();
+    //   const response=await axios.post("http://localhost:5000/api/login",
+    //   {
+    //     mobileNumber
+    //   }
+    // )
+      // localStorage.clear();
       localStorage.setItem("token", response.data.token);
 
       if (response.status === 200) {
