@@ -43,7 +43,6 @@ const Quiz = () => {
             'ngrok-skip-browser-warning': 5000
           }}
         );
-        // const response = await axios.get(`http://localhost:5000/api/quesation/loginquestions`)
         setQuestions(response.data.data.slice(0,2));
       } catch (error) {
         console.log("error", error);

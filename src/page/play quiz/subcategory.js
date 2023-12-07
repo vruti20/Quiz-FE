@@ -21,6 +21,7 @@ const Subcategory = () => {
       {headers: {
         'ngrok-skip-browser-warning': 5000
       }})
+      //  axios.get(`http://localhost:5000/api/category/subcategories/${id}`)
       .then(function (response) {
         setSubcategories(response.data.data); // Set the subcategories in the state
       })

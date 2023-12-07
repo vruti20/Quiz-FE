@@ -32,6 +32,7 @@ const Category = () => {
                 {headers: {
                     'ngrok-skip-browser-warning': 5000
                   }});
+                // const response = await axios.get("http://localhost:5000/api/category/allcategories")
                 setCategories(response.data.data);
                 console.log("CATEGORY LIST", response.data.data);
             } catch (error) {
@@ -58,6 +59,7 @@ const Category = () => {
         {headers: {
             'ngrok-skip-browser-warning': 5000
           }})
+        // axios.get(`http://localhost:5000/api/category/subcategories/${id}`)
         .then(function (response) {
             navigate(`/subcategory/${id}`, { state: categories.find(category => category._id === id) });
             console.log(response.data.data);

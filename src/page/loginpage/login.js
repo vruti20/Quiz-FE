@@ -22,8 +22,12 @@ const Login = () => {
           },
         },
       );
-      // const response = await axios.post(`http://localhost:5000/api/login`,{ mobileNumber })
-      localStorage.clear();
+    //   const response=await axios.post("http://localhost:5000/api/login",
+    //   {
+    //     mobileNumber
+    //   }
+    // )
+      // localStorage.clear();
       localStorage.setItem("token", response.data.token);
 
       if (response.status === 200) {

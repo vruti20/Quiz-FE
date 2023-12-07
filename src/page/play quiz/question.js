@@ -29,7 +29,8 @@ const Question = () => {
   const [useFourthLifeline, setUseFourthLifeline] = useState(true);
 
   const [isGuest, setIsGuest] = useState(true);
-  const allcoins = localStorage.getItem("allcoin");
+  const [earn,setEarn]=useState(false)
+  const allcoins = localStorage.getItem("coins");
   const newcoins = localStorage.getItem("coin");
 
   const handleLifelinesClick = () => {
@@ -48,6 +49,7 @@ const Question = () => {
             },
           }
         );
+        // const response = await axios.get(`http://localhost:5000/api/quesation/questions?quiz=${categoryId}`)
         setQuestionData(response.data.data.slice(0, 15));
         // console.log(response.data.data);
       } catch (error) {
@@ -73,7 +75,8 @@ const Question = () => {
       navigate("/result");
     }
     return () => clearInterval(countdownInterval);
-  }, [categoryId, secondsRemaining, navigate, isFrozen]);
+  }, [categoryId, secondsRemaining, navigate, isFrozen],earn);
+
   const checkIfPlayerIsGuest = () => {
     const guestToken = localStorage.getItem("token");
     // localStorage.removeItem('token');
@@ -97,6 +100,7 @@ const Question = () => {
     const newScore = isCorrect ? score + 50 : score - 25;
     localStorage.setItem("score", newScore);
 
+    setEarn(true)
     setTimeout(() => {
       setSelectedAnswer(null);
       setAnswerStatus(null);

@@ -14,29 +14,28 @@ const Play = () => {
     const [subcategories, setSubcategories] = useState([]);
     const [isGuest, setIsGuest] = useState(true);
     const { categoryid } = useParams();
+    //for without login player
     const loginscore = localStorage.getItem('allcoin');
-    // const [loginscore, setLoginScore] = useState(localStorage.getItem('allcoin'));
+    //for login player
     const newcoins = localStorage.getItem("coin");
-
-
-
-   // Function to deduct coins
+    
+    // Function to deduct coins
     const deductCoins = async () => {
-        // const updatedScore = parseInt(loginscore)-100;
-        // setLoginScore(updatedScore);
+        // for without login player
         const updatedScore = parseInt(loginscore)-100;
-
+        console.log("LOGINSCORE",loginscore);
         console.log(">>>>>>>>>>>>>why not",updatedScore);
         localStorage.setItem('coins',updatedScore)
-        //login player mate
+        // for login player 
         const updatedCoins = parseInt(newcoins) - 100;
         localStorage.setItem('coin', updatedCoins);
     };
-    const updated = localStorage.getItem('coins');
-    const earnedCoins = localStorage.getItem('earnedCoins');
-    const allcoins = parseInt(updated) + parseInt(earnedCoins)
-    localStorage.setItem('allcoin', allcoins)
-    console.log("LOGINPLUs", allcoins)
+    
+        const updated = localStorage.getItem('coins');
+        const earnedCoins = localStorage.getItem('earnedCoins');
+        const allcoins = parseInt(updated) + parseInt(earnedCoins)
+        localStorage.setItem('allcoin', allcoins)
+        console.log("LOGINPLUs", allcoins)
 
     // Function to open the modal
     const openModal = () => {
@@ -55,6 +54,7 @@ const Play = () => {
                 {headers: {
                     'ngrok-skip-browser-warning': 5000
                   }});
+                // const response = await axios.get(`http://localhost:5000/api/quesation/questions?quiz=${categoryid}`)
                 const newQuizData = response.data.data.map(item => item.quiz);
                 setSubcategories(newQuizData.slice(0, 1));
                 console.log("QUIZOBJECT", newQuizData);
@@ -80,7 +80,7 @@ const Play = () => {
         console.log("TOKEN",guestToken);
         return !!guestToken;
       };
-
+// localStorage.clear();
     return (
         <>
             <div className="bg-[#0F172A] ">
