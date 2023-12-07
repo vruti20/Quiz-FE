@@ -28,11 +28,11 @@ const Category = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                // const response = await axios.get("https://8a8b-223-179-148-39.ngrok-free.app/api/category/allcategories", 
-                // {headers: {
-                //     'ngrok-skip-browser-warning': 5000
-                //   }});
-                const response = await axios.get("http://localhost:5000/api/category/allcategories")
+                const response = await axios.get("https://8a8b-223-179-148-39.ngrok-free.app/api/category/allcategories", 
+                {headers: {
+                    'ngrok-skip-browser-warning': 5000
+                  }});
+                // const response = await axios.get("http://localhost:5000/api/category/allcategories")
                 setCategories(response.data.data);
                 console.log("CATEGORY LIST", response.data.data);
             } catch (error) {

@@ -390,7 +390,7 @@ const Question = () => {
                       <div className="flex gap-10 pt-8  relative">
                         <div>
                           <div
-                            className={`h-[60px] w-[60px] border-[1px] rounded-full flex justify-center items-center ${
+                            className={`h-[60px] w-[60px] border-[1px] rounded-full flex justify-center items-center cursor-default ${
                               useFirstLifeline
                                 ? "text-[#FFCC5B] border-[#FFCC5B] "
                                 : "text-white border-white"

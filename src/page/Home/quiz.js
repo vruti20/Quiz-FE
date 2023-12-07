@@ -4,6 +4,9 @@ import { Col, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FaX } from "react-icons/fa6";
 import axios from "axios";
+import { toast } from "react-toastify";
+
+localStorage.clear();
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -23,8 +26,13 @@ const Quiz = () => {
   // Function to close the modal
   const closeModal = () => {
     setModalOpen(false);
-    navigate("/quizplay")
-
+    navigate("/quizplay");
+    toast("100 Coins Rewarded!!" ,{
+      style: { background: "black", color: "white"},
+      progressStyle: { background: "purple" },
+      icon: <img src={require('../../image/coin.png')} className="w-full" alt="coin" />,
+    });
+    
   };
   //questions data
   useEffect(() => {
@@ -35,7 +43,6 @@ const Quiz = () => {
             'ngrok-skip-browser-warning': 5000
           }}
         );
-        // const response = await axios.get("http://localhost:5000/api/quesation/loginquestions")
         setQuestions(response.data.data.slice(0,2));
       } catch (error) {
         console.log("error", error);
