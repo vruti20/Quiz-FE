@@ -41,7 +41,7 @@ const Question = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://667e-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
+          `https://222f-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
@@ -386,7 +386,7 @@ const Question = () => {
                       <div className="flex gap-10 pt-8  relative">
                         <div>
                           <div
-                            className={`h-[60px] w-[60px] border-[1px] rounded-full flex justify-center items-center ${
+                            className={`h-[60px] w-[60px] border-[1px] rounded-full flex justify-center items-center cursor-default ${
                               useFirstLifeline
                                 ? "text-[#FFCC5B] border-[#FFCC5B] "
                                 : "text-white border-white"

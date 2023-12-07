@@ -51,10 +51,11 @@ const Play = () => {
     useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(`https://667e-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
-                {headers: {
-                    'ngrok-skip-browser-warning': 5000
-                  }});
+                // const response = await axios.get(`https://222f-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
+                // {headers: {
+                //     'ngrok-skip-browser-warning': 5000
+                //   }});
+                const response = await axios.get(`http://localhost:5000/api/quesation/questions?quiz=${categoryid}`)
                 const newQuizData = response.data.data.map(item => item.quiz);
                 setSubcategories(newQuizData.slice(0, 1));
                 console.log("QUIZOBJECT", newQuizData);
