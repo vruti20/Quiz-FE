@@ -3,32 +3,31 @@ import { IoSearch } from "react-icons/io5";
 import { BiCategory } from "react-icons/bi"
 import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import axios from "axios";
-// import { async } from "q";
 
 const Category = () => {
-    // const score = localStorage.getItem('score');
-    const { id } = useParams();
-    console.log('**********',id);
     const navigate = useNavigate();
-    const [isGuest, setIsGuest] = useState(true);
-    const [categories, setCategories] = useState([]);
-    const [searchInput, setSearchInput] = useState("");
-    const [click, setClick] = useState(false);
+
+    const [isGuest, setIsGuest] = useState(true); //show coins in header
+    const [categories, setCategories] = useState([]); // fetch the categories data
+    const [searchInput, setSearchInput] = useState(""); // serch the category name
+    const [click, setClick] = useState(false); //click event  change background color
+
     const allcoins=localStorage.getItem('allcoin')
-  const newcoins= localStorage.getItem("coin");
+    const newcoins= localStorage.getItem("coin");
     
+    // click event change background color
     const handleClicked = () => {
         setClick(!click);
     };
-
+ 
+    // featch the all category data
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get("https://8a8b-223-179-148-39.ngrok-free.app/api/category/allcategories", 
+                const response = await axios.get("https://d867-223-179-148-39.ngrok-free.app/api/category/allcategories", 
                 {headers: {
                     'ngrok-skip-browser-warning': 5000
                   }});
@@ -41,21 +40,22 @@ const Category = () => {
         };
 
         const playerIsGuest = checkIfPlayerIsGuest();
-
-        // Set the isGuest state based on the result
-        setIsGuest(playerIsGuest);
+        setIsGuest(playerIsGuest);  // Set the isGuest state based on the result
         fetchCategories();
     }, []);
 
+        // check player is login 
     const checkIfPlayerIsGuest = () => {
         const guestToken = localStorage.getItem('token');
         // localStorage.removeItem('token');
         console.log("TOKEN",guestToken);
         return !!guestToken;
       };
+
+      //subcategory data navigate subcategory page 
     const Subcategory =  (id) =>{
         
-        axios.get(`https://8a8b-223-179-148-39.ngrok-free.app/api/category/subcategories/${id}` ,
+        axios.get(`https://d867-223-179-148-39.ngrok-free.app/api/category/subcategories/${id}` ,
         {headers: {
             'ngrok-skip-browser-warning': 5000
           }})
@@ -65,11 +65,10 @@ const Category = () => {
             console.log(response.data.data);
           })
           .catch(function (error) {
-            // handle error
             console.log(error);
           })
     }
-  
+    // search category
     const handleSearchInputChange = (e) => {
       setSearchInput(e.target.value);
     };
@@ -78,10 +77,10 @@ const Category = () => {
     const filteredCategories = categories.filter((category) =>
       category.name.toLowerCase().includes(searchInput.toLowerCase())
     );
+
     return (
         <>
             <div className="bg-[#0F172A] h-[100%]">
-
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex" >
                         <div className="">

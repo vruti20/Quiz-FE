@@ -9,43 +9,54 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// localStorage.clear(); 
-const Home = () => {  
+// localStorage.clear();
+const Home = () => {
   const menuRef = useRef(null);
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
-  const [categorydata, setCategory] = useState([]);
-  const [subcategories, setSubcategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [categoryid, setCategoryid] = useState(null);
-  const [isClick, setIsClick] = useState(false);
-  const [isGuest, setIsGuest] = useState(true);
-  const allcoins=localStorage.getItem('allcoin')
-  const newcoins= localStorage.getItem("coin");
+
+  const [categories, setCategories] = useState([]); // fetch all category data
+  const [categorydata, setCategory] = useState([]); // fetch all subcategory data
+  const [subcategories, setSubcategories] = useState([]); // fetch single category data
+  const [selectedCategory, setSelectedCategory] = useState(null); //onclick event show category
+  const [categoryid, setCategoryid] = useState(null); // category data with page navigate
+  const [isClick, setIsClick] = useState(false); // click event change background color
+  const [isGuest, setIsGuest] = useState(true); //show coins in header
+
+  const allcoins = localStorage.getItem("allcoin");
+  const newcoins = localStorage.getItem("coin");
+
+  // click event change background color
   const handleisClick = () => {
     setIsClick(!isClick);
   };
 
+  //onclick page navigate
   const handleCategoryid = (categoryid) => {
     setCategoryid(categoryid);
 
-    console.log("???????????", categoryid);
     navigate(`/play/${categoryid}`);
+  };
 
-  };
+  //onclick event change background color
   const getBackgroundColorClass = (categoryId) => {
-    return selectedCategory === categoryId || (categoryId === 'All' && selectedCategory === null) ? 'bg-[#1A2F77]' : '';
+    return selectedCategory === categoryId ||
+      (categoryId === "All" && selectedCategory === null)
+      ? "bg-[#1A2F77]"
+      : "";
   };
+  //Show All Category Data
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://8a8b-223-179-148-39.ngrok-free.app/api/category/allcategories" ,
+          "https://d867-223-179-148-39.ngrok-free.app/api/category/allcategories" ,
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}
         );
-        // const response = await axios.get("http://localhost:5000/api/category/allcategories")
+        // const response = await axios.get(
+        //   "http://localhost:5000/api/category/allcategories"
+        // );
         setCategories(response.data.data);
         console.log("CATEGORY LIST", response.data.data);
       } catch (error) {
@@ -56,15 +67,15 @@ const Home = () => {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          "https://8a8b-223-179-148-39.ngrok-free.app/api/category/allsubcategories" , 
+          "https://d867-223-179-148-39.ngrok-free.app/api/category/allsubcategories" ,
           {headers: {
             'ngrok-skip-browser-warning': 5000
-          }}    
+          }}
         );
-        // const response = await axios.get("http://localhost:5000/api/category/allsubcategories")
+        // const response = await axios.get(
+        //   "http://localhost:5000/api/category/allsubcategories"
+        // );
         setCategory(response.data.data);
-        console.log("HOMECTAEGORY:", response.data.data);
-        console.log(">>>>>", categoryid);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -74,21 +85,20 @@ const Home = () => {
       try {
         if (selectedCategory) {
           const response = await axios.get(
-            `https://8a8b-223-179-148-39.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
+            `https://d867-223-179-148-39.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
             {headers: {
               'ngrok-skip-browser-warning': 5000
             }}
           );
-          // const response = await axios.get(`http://localhost:5000/api/category/subcategories/${selectedCategory}`)
+          // const response = await axios.get(
+          //   `http://localhost:5000/api/category/subcategories/${selectedCategory}`
+          // );
           setSubcategories(response.data.data);
-          console.log("SUBCATEGORIES:", response.data.data);
-          console.log(">>>>>>>iddddd", selectedCategory);
         }
       } catch (error) {
         console.error("Error fetching subcategories:", error);
       }
     };
-
 
     const playerIsGuest = checkIfPlayerIsGuest();
 
@@ -99,14 +109,13 @@ const Home = () => {
     fetchSubCategory();
     fetchCategories();
   }, [selectedCategory, categoryid]);
-  
- const checkIfPlayerIsGuest = () => {
-        const guestToken = localStorage.getItem('token');
-        // localStorage.removeItem('token');
-        console.log("TOKEN",guestToken);
-        return !!guestToken;
-      };
-  // console.log(">>>>>>>>>",subcategories);
+
+  const checkIfPlayerIsGuest = () => {
+    const guestToken = localStorage.getItem("token");
+    // localStorage.removeItem('token');
+    console.log("TOKEN", guestToken);
+    return !!guestToken;
+  };
 
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId === "All" ? null : categoryId);
@@ -128,7 +137,11 @@ const Home = () => {
 
   return (
     <>
-     <div className={`bg-[#0F172A] ${selectedCategory ? "h-[1400px]" :"h-[100%]"}`}>
+      <div
+        className={`bg-[#0F172A] ${
+          selectedCategory ? "h-[1400px]" : "h-[100%]"
+        }`}
+      >
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px] py-[1px] px-2 relative flex-col flex overflow-y-auto">
             <div className="">
@@ -159,7 +172,7 @@ const Home = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      <p>  {isGuest ? newcoins : allcoins} COINS</p>
+                      <p> {isGuest ? newcoins : allcoins} COINS</p>
                     </div>
                   </div>
                 </div>
@@ -181,14 +194,18 @@ const Home = () => {
                   <div className="flex text-white justify-center pl-[1240px] mx-2 ms-[220px]">
                     <div
                       onClick={() => handleCategoryClick("All")}
-                      className={`flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px] ${getBackgroundColorClass('All')}`}
+                      className={`flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px] ${getBackgroundColorClass(
+                        "All"
+                      )}`}
                     >
                       <p>All</p>
                     </div>
                     {categories.map((data) => (
                       <div
                         key={data._id}
-                        className={`flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px] ${getBackgroundColorClass(data._id)} `}
+                        className={`flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px] ${getBackgroundColorClass(
+                          data._id
+                        )} `}
                         onClick={() => handleCategoryClick(data._id)}
                       >
                         <p>{data.name}</p>
@@ -209,117 +226,117 @@ const Home = () => {
               <div className="pb-[125px]">
                 {selectedCategory
                   ? subcategories.map((data) => (
-                    <div
-                      onClick={() => handleCategoryid(data._id)}
-                      key={data._id}
-                      className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
-                      style={{ borderColor: "rgb(75 85 99)" }}
-                    >
-                      <div className="flex flex-col">
-                        <img
-                          className="rounded-full w-[125px] p-2"
-                          src={data.category.img}
-                          alt={data.title}
-                        ></img>
-                      </div>
-                      <div className="w-full ">
-                        <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                          <p className="text-[#64d2ff] max-h-[20px]  px-2">
-                            {data.category.name} | {data.title}
-                          </p>
-                        </div>
-                        <div className="flex justify-end my-[8px]">
-                          <p className="text-white font-[900] text-[14px]">
-                            Play & Win &nbsp;
-                          </p>
+                      <div
+                        onClick={() => handleCategoryid(data._id)}
+                        key={data._id}
+                        className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
+                        style={{ borderColor: "rgb(75 85 99)" }}
+                      >
+                        <div className="flex flex-col">
                           <img
-                            className="w-[14px]"
-                            src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
-                            alt="coins"
+                            className="rounded-full w-[125px] p-2"
+                            src={data.category.img}
+                            alt={data.title}
                           ></img>
-                          <p className="text-white font-[900] text-[14px]">
-                            &nbsp;{data.totalPrice}
-                          </p>
                         </div>
-                        <div className="flex justify-end my-[5px] text-[7px]">
-                          <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                            <p className="text-white">Entry Fee&nbsp;</p>
+                        <div className="w-full ">
+                          <div className="flex text-[10px] justify-end my-[5px] font-[900]">
+                            <p className="text-[#64d2ff] max-h-[20px]  px-2">
+                              {data.category.name} | {data.title}
+                            </p>
+                          </div>
+                          <div className="flex justify-end my-[8px]">
+                            <p className="text-white font-[900] text-[14px]">
+                              Play & Win &nbsp;
+                            </p>
                             <img
-                              className="w-[10px]"
+                              className="w-[14px]"
                               src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                               alt="coins"
                             ></img>
-                            <p className="text-white">
-                              &nbsp;{data.entryFee}
+                            <p className="text-white font-[900] text-[14px]">
+                              &nbsp;{data.totalPrice}
                             </p>
                           </div>
+                          <div className="flex justify-end my-[5px] text-[7px]">
+                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                              <p className="text-white">Entry Fee&nbsp;</p>
+                              <img
+                                className="w-[10px]"
+                                src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                                alt="coins"
+                              ></img>
+                              <p className="text-white">
+                                &nbsp;{data.entryFee}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="w-[120px]">
+                          <img
+                            className=" rounded-full p-2"
+                            src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                            alt="Play"
+                          />
                         </div>
                       </div>
-                      <div className="w-[120px]">
-                        <img
-                          className=" rounded-full p-2"
-                          src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
-                          alt="Play"
-                        />
-                      </div>
-                    </div>
-                  ))
+                    ))
                   : categorydata.map((category, index) => (
-                    <div
-                      onClick={() => handleCategoryid(category._id)}
-                      key={index}
-                      className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
-                      style={{ borderColor: "rgb(75 85 99)" }}
-                    >
-                      <div className="flex flex-col">
-                        <img
-                          className="rounded-full w-[125px] p-2"
-                          src={category.category.img}
-                          alt={category.title}
-                        ></img>
-                      </div>
-                      <div className="w-full ">
-                        <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                          <p className="text-[#64d2ff] max-h-[20px] px-2">
-                            {category.category.name} | {category.title}
-                          </p>
-                        </div>
-                        <div className="flex justify-end my-[8px]">
-                          <p className="text-white font-[900] text-[14px]">
-                            Play & Win &nbsp;
-                          </p>
+                      <div
+                        onClick={() => handleCategoryid(category._id)}
+                        key={index}
+                        className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
+                        style={{ borderColor: "rgb(75 85 99)" }}
+                      >
+                        <div className="flex flex-col">
                           <img
-                            className="w-[14px]"
-                            src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
-                            alt="coins"
+                            className="rounded-full w-[125px] p-2"
+                            src={category.category.img}
+                            alt={category.title}
                           ></img>
-                          <p className="text-white font-[900] text-[14px]">
-                            &nbsp;{category.totalPrice}
-                          </p>
                         </div>
-                        <div className="flex justify-end my-[5px] text-[7px]">
-                          <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
-                            <p className="text-white">Entry Fee&nbsp;</p>
+                        <div className="w-full ">
+                          <div className="flex text-[10px] justify-end my-[5px] font-[900]">
+                            <p className="text-[#64d2ff] max-h-[20px] px-2">
+                              {category.category.name} | {category.title}
+                            </p>
+                          </div>
+                          <div className="flex justify-end my-[8px]">
+                            <p className="text-white font-[900] text-[14px]">
+                              Play & Win &nbsp;
+                            </p>
                             <img
-                              className="w-[10px]"
+                              className="w-[14px]"
                               src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                               alt="coins"
                             ></img>
-                            <p className="text-white">
-                              &nbsp;{category.entryFee}
+                            <p className="text-white font-[900] text-[14px]">
+                              &nbsp;{category.totalPrice}
                             </p>
                           </div>
+                          <div className="flex justify-end my-[5px] text-[7px]">
+                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                              <p className="text-white">Entry Fee&nbsp;</p>
+                              <img
+                                className="w-[10px]"
+                                src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                                alt="coins"
+                              ></img>
+                              <p className="text-white">
+                                &nbsp;{category.entryFee}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="w-[120px]">
+                          <img
+                            className=" rounded-full p-2"
+                            src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                            alt="Play"
+                          />
                         </div>
                       </div>
-                      <div className="w-[120px]">
-                        <img
-                          className=" rounded-full p-2"
-                          src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
-                          alt="Play"
-                        />
-                      </div>
-                    </div>
-                  ))}
+                    ))}
               </div>
               {/* </Link> */}
             </div>
@@ -335,8 +352,9 @@ const Home = () => {
               </Link>
               <Link to="/quizhome">
                 <div
-                  className={`px-8 py-1 rounded-[28px] ${isClick ? "" : "bg-[#1A2F77]"
-                    }`}
+                  className={`px-8 py-1 rounded-[28px] ${
+                    isClick ? "" : "bg-[#1A2F77]"
+                  }`}
                   onClick={handleisClick}
                 >
                   <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
