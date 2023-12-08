@@ -17,7 +17,7 @@ const Subcategory = () => {
     const id = location.state._id; // Get the category ID from the location state
 
     axios
-      .get(`https://8a8b-223-179-148-39.ngrok-free.app/api/category/subcategories/${id}` ,
+      .get(`https://1810-223-179-148-39.ngrok-free.app /api/category/subcategories/${id}` ,
       {headers: {
         'ngrok-skip-browser-warning': 5000
       }})

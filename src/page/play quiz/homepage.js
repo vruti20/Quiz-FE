@@ -40,7 +40,7 @@ const Home = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://8a8b-223-179-148-39.ngrok-free.app/api/category/allcategories" ,
+          "https://1810-223-179-148-39.ngrok-free.app /api/category/allcategories" ,
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}
@@ -56,7 +56,7 @@ const Home = () => {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          "https://8a8b-223-179-148-39.ngrok-free.app/api/category/allsubcategories" , 
+          "https://1810-223-179-148-39.ngrok-free.app /api/category/allsubcategories" , 
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}    
@@ -74,7 +74,7 @@ const Home = () => {
       try {
         if (selectedCategory) {
           const response = await axios.get(
-            `https://8a8b-223-179-148-39.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
+            `https://1810-223-179-148-39.ngrok-free.app /api/category/subcategories/${selectedCategory}`,
             {headers: {
               'ngrok-skip-browser-warning': 5000
             }}
