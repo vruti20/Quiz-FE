@@ -42,7 +42,7 @@ const Question = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://8a8b-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
+          `https://d867-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
@@ -139,28 +139,6 @@ const Question = () => {
     const shuffledArray = array.sort(() => Math.random() - 0.5);
     return shuffledArray.slice(0, numElements);
   };
-  // Audiense lifeline
-  // const SecLifeline = () => {
-  //   if (useLifeline) {
-  //     const currentQuestion = questionData[currentQuestionIndex];
-  //     const simulatedResponses = simulateAudienceResponses(currentQuestion);
-
-  //     setAudienceResponses(simulatedResponses);
-  //     setAudience(true);
-  //   };
-
-  //   const simulateAudienceResponses = () => {
-  //     const totalResponses = 100;
-  //     const simulatedResponses = [
-  //       Math.floor(Math.random() * totalResponses),
-  //       Math.floor(Math.random() * totalResponses),
-  //       Math.floor(Math.random() * totalResponses),
-  //       Math.floor(Math.random() * totalResponses),
-  //     ];
-  //     setUseLifeline(false)
-  //     return simulatedResponses;
-  //   }
-  // };
   const SecLifeline = () => {
     const simulateAudienceResponses = () => {
       const totalResponses = 100;
