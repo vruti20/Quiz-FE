@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,30 +10,38 @@ localStorage.clear();
 const Quiz = () => {
   const navigate = useNavigate();
 
-  const [isModalOpen, setModalOpen] = useState(false); //model open & close
-  const [questions, setQuestions] = useState([]); // fatch to questions data
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); 
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [answerStatus, setAnswerStatus] = useState(null);
-  const [totalscore,setTotalScore]=useState(0)
+  const [isModalOpen, setModalOpen] = useState(false); //Model Open & Close
+  const [questions, setQuestions] = useState([]); // Fatch To Questions Data
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Questions Index Set
+  const [selectedAnswer, setSelectedAnswer] = useState(null); // Fetch The Answer
+  const [answerStatus, setAnswerStatus] = useState(null); //Answer True False Check
+  const [totalscore, setTotalScore] = useState(0); // Show The Score
 
-  // Function to open the modal
+  // Function To Open The Modal
   const openModal = () => {
     setModalOpen(true);
   };
-  
-  // Function to close the modal
+
+  // Function To Close The Modal
   const closeModal = () => {
     setModalOpen(false);
     navigate("/quizplay");
-    toast("100 Coins Rewarded!!" ,{
-      style: { background: "black", color: "white"},
-      progressStyle: { background: "purple" },
-      icon: <img src={require('../../image/coin.png')} className="w-full" alt="coin" />,
+
+    //Show The Tostify
+    toast("100 Coins Rewarded!!", {
+      style: { background: "black", color: "white" },
+      progressStyle: { background: "#cc00ff" },
+      icon: (
+        <img
+          src={require("../../image/coin-2.jpg")}
+          className="w-full"
+          alt="coin"
+        />
+      ),
     });
-    
   };
-  //questions data
+
+  //Fetch Questions Data
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -43,7 +50,7 @@ const Quiz = () => {
             'ngrok-skip-browser-warning': 5000
           }}
         );
-        setQuestions(response.data.data.slice(0,2));
+        setQuestions(response.data.data.slice(0, 2));
       } catch (error) {
         console.log("error", error);
       }
@@ -51,57 +58,36 @@ const Quiz = () => {
     fetchQuestions();
   }, []);
 
-  //correct and incorrect answer function
-//   const handleOptionClick = (answer) => {
-//   const currentQuestion = questions[currentQuestionIndex];
-
-//   const isCorrect = answer === currentQuestion.correct;   // Check if the selected answer is correct
-  
-//   setSelectedAnswer(answer);    // Update the state and use the updated value immediately
-//   setAnswerStatus(isCorrect);
-//   console.log("Handling option click. Current Index:", currentQuestionIndex);
-
-//   setTimeout(() => {
-//     setSelectedAnswer(null); // Clear the selected answer and answer status
-//     setAnswerStatus(null);
-//     if (currentQuestionIndex + 1 < questions.length) {
-//       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-//     }
-
-//     // Check if it's the second question and open the modal
-//     if (currentQuestionIndex === 1) {
-//       openModal();
-//     }
-//   }, 1000);
-// };
-const handleOptionClick = (answer) => {
+  // Check The Answer True & False
+  const handleOptionClick = (answer) => {
     const currentQuestion = questions[currentQuestionIndex];
-    // Check if the selected answer is correct
-    const isCorrect = answer === currentQuestion.correct;
-    // Update the state and use the updated value immediately
-    setSelectedAnswer(answer);
+
+    const isCorrect = answer === currentQuestion.correct; // Check  Selected Answer Is Correct
+
+    setSelectedAnswer(answer); // Update The State And Use The Updated Value
     setAnswerStatus(isCorrect);
+
     const correctScore = 50;
     const wrongScore = -50;
-    // Calculate the score based on correctness
-    const scoreChange = isCorrect ? correctScore : wrongScore;
-    // Update the total score
-    setTotalScore((prevScore) => prevScore  + scoreChange);
+
+    const scoreChange = isCorrect ? correctScore : wrongScore; // Calculate The Score Based on Correctness
+
+    setTotalScore((prevScore) => prevScore + scoreChange); // Update The Total Score
     setTimeout(() => {
-          setSelectedAnswer(null); // Clear the selected answer and answer status
-          setAnswerStatus(null);
-          if (currentQuestionIndex + 1 < questions.length) {
-            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-          }
-      
-          // Check if it's the second question and open the modal
-          if (currentQuestionIndex === 1) {
-            openModal();
-          }
-        }, 1000);
+      setSelectedAnswer(null); // Clear The Selected Answer And Answer Status
+      setAnswerStatus(null);
+      if (currentQuestionIndex + 1 < questions.length) {
+        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      }
+
+      // Check If it's The Second Question And Open The Modal
+      if (currentQuestionIndex === 1) {
+        openModal();
+      }
+    }, 1000);
   };
-  const defaultScore = 100+totalscore;
-  localStorage.setItem('totalsocre', defaultScore);
+  const defaultScore = 100 + totalscore;
+  localStorage.setItem("totalsocre", defaultScore);
   //   let interval = setInterval(() => {
   //     // Check if Adsense script is loaded every 300ms
   //     if (window.adsbygoogle) {
@@ -166,7 +152,6 @@ const handleOptionClick = (answer) => {
   //   };
   // }, []);
 
-  
   return (
     <>
       <div className="bg-[#0F172A]">
@@ -174,7 +159,7 @@ const handleOptionClick = (answer) => {
           <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
             <div className="bg-white h-[350px] mx-auto mb-[8px]">
               <p className="text-black text-center">ads by goggle</p>
-                  {/* <iframe data-aa='2279699' src='//ad.a-ads.com/2279699?size=300x250' style={{width:'300px', height:'250px', border:'0px', padding:'0', overflow:'hidden', backgroundColor: 'transparent'}}></iframe> */}
+              {/* <iframe data-aa='2279699' src='//ad.a-ads.com/2279699?size=300x250' style={{width:'300px', height:'250px', border:'0px', padding:'0', overflow:'hidden', backgroundColor: 'transparent'}}></iframe> */}
               {/* <script
                 async
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9720528266916800"
@@ -202,7 +187,7 @@ const handleOptionClick = (answer) => {
               </span>
             </div>
             <div className=" text-[#bac8ff] font-bold text-center pt-5 pb-3">
-              Question {currentQuestionIndex + 1 }/{questions.length}
+              Question {currentQuestionIndex + 1}/{questions.length}
             </div>
             {currentQuestionIndex < questions.length && (
               <>
@@ -213,29 +198,33 @@ const handleOptionClick = (answer) => {
                   <span>{questions[currentQuestionIndex].question}</span>
                 </div>
                 <div className="grid-cols-2 grid text-white pt-2">
-              {questions[currentQuestionIndex]?.answers.map((answer, index) => (
-                <Col
-                  key={index}
-                  onClick={() => handleOptionClick(answer)}
-                  className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${
-                    answer === selectedAnswer
-                      ? answerStatus
-                        ? "bg-[#099623] !important"
-                        : "bg-[#f02d1f] !important" || "bg-[#099623] !important"
-                        : answer === questions[currentQuestionIndex].correct && answerStatus === false
-                        ? "bg-[#099623] !important"  // Highlight correct answer in green
-                      : "bg-[#20213f] !important"
-                  } rounded-full cursor-pointer`} 
-                >
-                  {answer}
-                </Col>
-              ))}
-            </div>
+                  {questions[currentQuestionIndex]?.answers.map(
+                    (answer, index) => (
+                      <Col
+                        key={index}
+                        onClick={() => handleOptionClick(answer)}
+                        className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${
+                          answer === selectedAnswer
+                            ? answerStatus
+                              ? "bg-[#099623] !important"
+                              : "bg-[#f02d1f] !important"
+                            : answer ===
+                                questions[currentQuestionIndex].correct &&
+                              answerStatus === false
+                            ? "bg-[#099623] !important"
+                            : "bg-[#20213f] !important"
+                        } rounded-full cursor-pointer`}
+                      >
+                        {answer}
+                      </Col>
+                    )
+                  )}
+                </div>
                 {isModalOpen && (
                   <div className="modal-container ">
                     <div className="modal">
                       <div className="flex justify-end">
-                        <FaX  className="cursor-pointer" />
+                        <FaX className="cursor-pointer" />
                       </div>
                       <div className="flex justify-center">
                         <img
@@ -254,7 +243,10 @@ const handleOptionClick = (answer) => {
                         Watch a simple ad and get rewarded
                       </p>
                       <div className="flex justify-center">
-                        <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center" onClick={closeModal}>
+                        <button
+                          class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center"
+                          onClick={closeModal}
+                        >
                           Claim
                         </button>
                       </div>

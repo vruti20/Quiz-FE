@@ -139,28 +139,6 @@ const Question = () => {
     const shuffledArray = array.sort(() => Math.random() - 0.5);
     return shuffledArray.slice(0, numElements);
   };
-  // Audiense lifeline
-  // const SecLifeline = () => {
-  //   if (useLifeline) {
-  //     const currentQuestion = questionData[currentQuestionIndex];
-  //     const simulatedResponses = simulateAudienceResponses(currentQuestion);
-
-  //     setAudienceResponses(simulatedResponses);
-  //     setAudience(true);
-  //   };
-
-  //   const simulateAudienceResponses = () => {
-  //     const totalResponses = 100;
-  //     const simulatedResponses = [
-  //       Math.floor(Math.random() * totalResponses),
-  //       Math.floor(Math.random() * totalResponses),
-  //       Math.floor(Math.random() * totalResponses),
-  //       Math.floor(Math.random() * totalResponses),
-  //     ];
-  //     setUseLifeline(false)
-  //     return simulatedResponses;
-  //   }
-  // };
   const SecLifeline = () => {
     const simulateAudienceResponses = () => {
       const totalResponses = 100;

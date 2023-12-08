@@ -7,10 +7,11 @@ import { useState } from "react";
 import axios from "axios";
 
 const Login = () => {
-  const [showOtpDiv, setShowOtpDiv] = useState(false);
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [otp, setOtp] = useState("");
+  const [showOtpDiv, setShowOtpDiv] = useState(false); // show otp input box
+  const [mobileNumber, setMobileNumber] = useState(""); //set mobile number input
+  const [otp, setOtp] = useState("");// set otp input 
 
+  // otp Generate
   const generateOTP = async () => {
     try {
       const response = await axios.post(
@@ -22,7 +23,7 @@ const Login = () => {
           },
         },
       );
-    //   const response=await axios.post("http://localhost:5000/api/login",
+    //   // const response=await axios.post("http://localhost:5000/api/login",
     //   {
     //     mobileNumber
     //   }
