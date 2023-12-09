@@ -30,8 +30,8 @@ const Question = () => {
 
   const [isGuest, setIsGuest] = useState(true);
   const [earn,setEarn]=useState(false)
-  const allcoins = localStorage.getItem("coins");
-  const newcoins = localStorage.getItem("coin");
+  const allcoins = localStorage.getItem("coins") || 0;
+  const newcoins = localStorage.getItem("coin") || 0;
 
   const handleLifelinesClick = () => {
     setShowLifelines(!showLifelines);
@@ -42,7 +42,7 @@ const Question = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://1810-223-179-148-39.ngrok-free.app /api/quesation/questions?quiz=${categoryId}`,
+          ` https://0135-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
