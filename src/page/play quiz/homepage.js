@@ -22,8 +22,8 @@ const Home = () => {
   const [isClick, setIsClick] = useState(false); // click event change background color
   const [isGuest, setIsGuest] = useState(true); //show coins in header
 
-  const allcoins = localStorage.getItem("allcoin");
-  const newcoins = localStorage.getItem("coin");
+  const allcoins = localStorage.getItem("allcoin") || 0;
+  const newcoins = localStorage.getItem("coin") || 0;
 
   // click event change background color
   const handleisClick = () => {
@@ -49,7 +49,7 @@ const Home = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://1810-223-179-148-39.ngrok-free.app /api/category/allcategories" ,
+          ` https://0135-223-179-148-39.ngrok-free.app/api/category/allcategories` ,
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}
@@ -67,14 +67,11 @@ const Home = () => {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          "https://1810-223-179-148-39.ngrok-free.app /api/category/allsubcategories" , 
+          `https://0135-223-179-148-39.ngrok-free.app/api/category/allsubcategories`, 
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}
         );
-        // const response = await axios.get(
-        //   "http://localhost:5000/api/category/allsubcategories"
-        // );
         setCategory(response.data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -85,14 +82,11 @@ const Home = () => {
       try {
         if (selectedCategory) {
           const response = await axios.get(
-            `https://1810-223-179-148-39.ngrok-free.app /api/category/subcategories/${selectedCategory}`,
+            ` https://0135-223-179-148-39.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
             {headers: {
               'ngrok-skip-browser-warning': 5000
             }}
           );
-          // const response = await axios.get(
-          //   `http://localhost:5000/api/category/subcategories/${selectedCategory}`
-          // );
           setSubcategories(response.data.data);
         }
       } catch (error) {

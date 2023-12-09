@@ -8,8 +8,8 @@ import { useEffect, useState } from "react"
 const Profile = () => {
     const [isClicked, setIsClicked] = useState(false);
     const [isGuest, setIsGuest] = useState(true);
-    const allcoins=localStorage.getItem('allcoin')
-    const newcoins= localStorage.getItem("coin");
+    const allcoins=localStorage.getItem('allcoin') || 0;
+    const newcoins= localStorage.getItem("coin") || 0;
 
     useEffect(()=>{
         const playerIsGuest = checkIfPlayerIsGuest();

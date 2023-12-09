@@ -46,10 +46,11 @@ const Quiz = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          "https://1810-223-179-148-39.ngrok-free.app /api/quesation/loginquestions",{headers: {
+          ` https://0135-223-179-148-39.ngrok-free.app/api/quesation/loginquestions`,{headers: {
             'ngrok-skip-browser-warning': 5000
           }}
         );
+        // const response = await axios.get(`http://localhost:5000/api/quesation/loginquestions`)
         setQuestions(response.data.data.slice(0, 2));
       } catch (error) {
         console.log("error", error);
@@ -61,7 +62,6 @@ const Quiz = () => {
   // Check The Answer True & False
   const handleOptionClick = (answer) => {
     const currentQuestion = questions[currentQuestionIndex];
-
     const isCorrect = answer === currentQuestion.correct; // Check  Selected Answer Is Correct
 
     setSelectedAnswer(answer); // Update The State And Use The Updated Value

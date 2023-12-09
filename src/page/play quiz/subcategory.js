@@ -10,14 +10,14 @@ const Subcategory = () => {
   const location = useLocation();
   const [subcategories, setSubcategories] = useState([]);
   const [isGuest, setIsGuest] = useState(true);
-  const allcoins=localStorage.getItem('allcoin')
-  const newcoins= localStorage.getItem("coin");
+  const allcoins=localStorage.getItem('allcoin') || 0;
+  const newcoins= localStorage.getItem("coin") || 0;
 
   useEffect(() => {
     const id = location.state._id; // Get the category ID from the location state
 
     axios
-      .get(`https://1810-223-179-148-39.ngrok-free.app /api/category/subcategories/${id}` ,
+      .get(` https://0135-223-179-148-39.ngrok-free.app/api/category/subcategories/${id}` ,
       {headers: {
         'ngrok-skip-browser-warning': 5000
       }})

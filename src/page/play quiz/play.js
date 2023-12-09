@@ -14,29 +14,25 @@ const Play = () => {
     const [subcategories, setSubcategories] = useState([]);
     const [isGuest, setIsGuest] = useState(true);
     const { categoryid } = useParams();
-    const loginscore = localStorage.getItem('allcoin');
+    const loginscore = localStorage.getItem('allcoin') || 0;
     // const [loginscore, setLoginScore] = useState(localStorage.getItem('allcoin'));
-    const newcoins = localStorage.getItem("coin");
-
-
+    const newcoins = localStorage.getItem("coin") || 0;
 
    // Function to deduct coins
-    const deductCoins = async () => {
-        // const updatedScore = parseInt(loginscore)-100;
-        // setLoginScore(updatedScore);
-        const updatedScore = parseInt(loginscore)-100;
+const deductCoins = async () => {
+    const updatedScore = loginscore - 100;
+    console.log(">>>>>>>>>>>>>why not", updatedScore);
+    localStorage.setItem('coins', updatedScore);
 
-        console.log(">>>>>>>>>>>>>why not",updatedScore);
-        localStorage.setItem('coins',updatedScore)
-        //login player mate
-        const updatedCoins = parseInt(newcoins) - 100;
-        localStorage.setItem('coin', updatedCoins);
-    };
-    const updated = localStorage.getItem('coins');
-    const earnedCoins = localStorage.getItem('earnedCoins');
-    const allcoins = parseInt(updated) + parseInt(earnedCoins)
-    localStorage.setItem('allcoin', allcoins)
-    console.log("LOGINPLUs", allcoins)
+    // login player mate
+    const updatedCoins = newcoins - 100;
+    localStorage.setItem('coin', updatedCoins);
+};
+    const updated = parseInt(localStorage.getItem('coins')) || 0;
+const earnedCoins = parseInt(localStorage.getItem('earnedCoins')) || 0;
+const allcoins = parseInt(updated) + parseInt(earnedCoins);
+localStorage.setItem('allcoin', allcoins);
+console.log("LOGINPLUs", allcoins);
 
     // Function to open the modal
     const openModal = () => {
@@ -51,7 +47,7 @@ const Play = () => {
     useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(`https://1810-223-179-148-39.ngrok-free.app /api/quesation/questions?quiz=${categoryid}`,
+                const response = await axios.get(` https://0135-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
                 {headers: {
                     'ngrok-skip-browser-warning': 5000
                   }});

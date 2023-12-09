@@ -24,7 +24,7 @@ const Result = () => {
         }
     };
 
-    const score = localStorage.getItem('score');
+    const score = localStorage.getItem('score') || 0;
     // const mobileNumber = localStorage.getItem('mobileNumber')
 
     const earnedCoins = calculateEarnedCoins(score);
@@ -39,7 +39,7 @@ const Result = () => {
                 // const earnedCoins= parseInt(localStorage.getItem('earnedCoins'), 10);
                 console.log("FCSSF",earnedCoins);
 
-                const response = await axios.post('https://1810-223-179-148-39.ngrok-free.app /api/updateCoins', 
+                const response = await axios.post(`https://0135-223-179-148-39.ngrok-free.app/api/updateCoins`, 
                     {
                         // Uncomment if needed
                         // mobileNumber: mobileNumber,
@@ -62,6 +62,7 @@ const Result = () => {
                 setCoins(earnedCoins);
                 console.log("COINSSS",coins);
                 localStorage.setItem("coin",response.data.totalCoins)
+                console.log("coins",response.data.totalCoins);
               } catch (error) {
                 console.error('Error updating coins:', error);
 

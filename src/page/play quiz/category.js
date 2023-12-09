@@ -15,8 +15,8 @@ const Category = () => {
     const [searchInput, setSearchInput] = useState(""); // serch the category name
     const [click, setClick] = useState(false); //click event  change background color
 
-    const allcoins=localStorage.getItem('allcoin')
-    const newcoins= localStorage.getItem("coin");
+    const allcoins=localStorage.getItem('allcoin') || 0;
+    const newcoins= localStorage.getItem("coin") || 0;
     
     // click event change background color
     const handleClicked = () => {
@@ -27,7 +27,7 @@ const Category = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get("https://1810-223-179-148-39.ngrok-free.app /api/category/allcategories", 
+                const response = await axios.get(` https://0135-223-179-148-39.ngrok-free.app/api/category/allcategories`, 
                 {headers: {
                     'ngrok-skip-browser-warning': 5000
                   }});
@@ -55,7 +55,7 @@ const Category = () => {
       //subcategory data navigate subcategory page 
     const Subcategory =  (id) =>{
         
-        axios.get(`https://1810-223-179-148-39.ngrok-free.app /api/category/subcategories/${id}` ,
+        axios.get(` https://0135-223-179-148-39.ngrok-free.app/api/category/subcategories/${id}` ,
         {headers: {
             'ngrok-skip-browser-warning': 5000
           }})
