@@ -10,14 +10,15 @@ const Subcategory = () => {
   const location = useLocation();
   const [subcategories, setSubcategories] = useState([]);
   const [isGuest, setIsGuest] = useState(true);
+  const [databaseCoins, setDatabaseCoins] = useState(0);
   const allcoins=localStorage.getItem('allcoin') || 0;
-  const newcoins= localStorage.getItem("coin") || 0;
+  // const newcoins= localStorage.getItem("coin") || 0;
 
   useEffect(() => {
     const id = location.state._id; // Get the category ID from the location state
 
     axios
-      .get(` https://0135-223-179-148-39.ngrok-free.app/api/category/subcategories/${id}` ,
+      .get(` https://78db-106-201-183-58.ngrok-free.app/api/category/subcategories/${id}` ,
       {headers: {
         'ngrok-skip-browser-warning': 5000
       }})
@@ -33,6 +34,23 @@ const Subcategory = () => {
 
       // Set the isGuest state based on the result
       setIsGuest(playerIsGuest);
+      
+    const token = localStorage.getItem('token');
+    const fetchDatabaseCoins = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/updateCoins",{coins:databaseCoins},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setDatabaseCoins(response.data.totalCoins);
+        console.log("coins",response.data.totalCoins);// Update with your actual API response structure
+      } catch (error) {
+        console.error("Error fetching database coins:", error);
+      }
+    }
+    fetchDatabaseCoins();
   }, [location.state._id]);
   const checkIfPlayerIsGuest = () => {
     const guestToken = localStorage.getItem('token');
@@ -74,7 +92,7 @@ const Subcategory = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      {isGuest ? newcoins : allcoins} COINS
+                      {isGuest ? databaseCoins : allcoins} COINS
                     </div>
                   </div>
                 </div>

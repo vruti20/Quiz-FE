@@ -27,22 +27,20 @@ const Question = () => {
   const [useSecLifeline, setUseSecLifeline] = useState(true);
   const [useThirdLifeline, setUseThirdLifeline] = useState(true);
   const [useFourthLifeline, setUseFourthLifeline] = useState(true);
-
+  const [databaseCoins, setDatabaseCoins] = useState(0);
   const [isGuest, setIsGuest] = useState(true);
-  const [earn,setEarn]=useState(false)
   const allcoins = localStorage.getItem("coins") || 0;
-  const newcoins = localStorage.getItem("coin") || 0;
+  // const newcoins = localStorage.getItem("coin") || 0;
 
   const handleLifelinesClick = () => {
     setShowLifelines(!showLifelines);
-    // useLifeline(true);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          ` https://0135-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
+          ` https://78db-106-201-183-58.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
@@ -51,7 +49,6 @@ const Question = () => {
         );
         // const response = await axios.get(`http://localhost:5000/api/quesation/questions?quiz=${categoryId}`)
         setQuestionData(response.data.data.slice(0, 15));
-        // console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching question data:", error);
       }
@@ -69,13 +66,13 @@ const Question = () => {
       }
     }, 1000);
 
-    // console.log(">>>>>>>>??????", countdownInterval);
+    
     if (secondsRemaining === 0) {
       clearInterval(countdownInterval);
       navigate("/result");
     }
     return () => clearInterval(countdownInterval);
-  }, [categoryId, secondsRemaining, navigate, isFrozen],earn);
+  }, [categoryId, secondsRemaining, navigate, isFrozen]);
 
   const checkIfPlayerIsGuest = () => {
     const guestToken = localStorage.getItem("token");
@@ -87,34 +84,36 @@ const Question = () => {
   const formatTime = (seconds) => {
     return `${seconds}`;
   };
-
   const handleOptionClick = (answer) => {
     const currentQuestion = questionData[currentQuestionIndex];
     const isCorrect = answer === currentQuestion.correct;
-
-    const scoreChange = isCorrect ? 25 : -25;
+  
+    const scoreChange = isCorrect ? 50 : -25;
     setScore((prevScore) => prevScore + scoreChange);
-
+  
     setSelectedAnswer(answer);
     setAnswerStatus(isCorrect);
     const newScore = isCorrect ? score + 50 : score - 25;
     localStorage.setItem("score", newScore);
-
-    setEarn(true)
+  
     setTimeout(() => {
       setSelectedAnswer(null);
       setAnswerStatus(null);
-
-      if (currentQuestionIndex === questionData.length - 1) {
-        navigate("/result");
-      } else {
-        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+  
+      if (currentQuestionIndex < questionData.length - 1) {
+        setCurrentQuestionIndex((prevIndex) => {
+          const newIndex = prevIndex + 1;
+          return newIndex < questionData.length ? newIndex : prevIndex;
+        });        
         setFiftyFifty(false);
         setAudience(false);
         setIsFrozen(false);
+      } else {
+        navigate("/result");
       }
     }, 1000);
   };
+  
   // 50: 50 lifeline
   const FirstLifeline = () => {
     if (useFirstLifeline) {
@@ -162,8 +161,23 @@ const Question = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("Updated Audience Responses:", audienceResponses);
+  useEffect(() => {    
+    const token = localStorage.getItem('token');
+    const fetchDatabaseCoins = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/updateCoins",{coins:databaseCoins},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setDatabaseCoins(response.data.totalCoins);
+        console.log("coins",response.data.totalCoins);// Update with your actual API response structure
+      } catch (error) {
+        console.error("Error fetching database coins:", error);
+      }
+    }
+    fetchDatabaseCoins();
   }, [audienceResponses]);
 
   //Freeze Time lifeline
@@ -219,7 +233,7 @@ const Question = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      {isGuest ? newcoins : allcoins} COINS
+                      {isGuest ? databaseCoins : allcoins} COINS
                     </div>
                   </div>
                 </div>
@@ -249,40 +263,6 @@ const Question = () => {
                 </div>
                 <h3 className="text-white">{formatTime(secondsRemaining)}</h3>
               </div>
-              {/* {currentQuestionIndex < questionData.length && (
-                <>
-                  <div
-                    key={questionData[currentQuestionIndex]._id}
-                    className="text-[14px] font-bold px-10 text-white text-center pt-5 pb-3"
-                  >
-                    <span>{questionData[currentQuestionIndex].question}</span>
-                  </div>
-
-                  <div className="grid-cols-2 grid text-white pt-2">
-                    {questionData[currentQuestionIndex]?.answer
-                      .map((answer, index) => (
-                        <Col
-                          key={index}
-                          onClick={() => handleOptionClick(answer)}
-                          className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${
-                            answer === selectedAnswer
-                              ? answerStatus
-                                ? "bg-[#099623] !important"
-                                : "bg-[#f02d1f] !important" 
-                              : answer ===
-                                  questionData[currentQuestionIndex].correct &&
-                                answerStatus === false
-                              ? "bg-[#099623] !important"
-                              : "bg-[#20213f] !important"
-                          } rounded-full cursor-pointer`}
-                        >
-                          {answer}
-                        </Col>
-                      ))
-                      .slice(0, FiftyFifty ? 2 : 4)}
-                  </div>
-                </>
-              )} */}
               {currentQuestionIndex < questionData.length && (
                 <>
                   <div

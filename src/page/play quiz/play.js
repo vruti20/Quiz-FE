@@ -14,8 +14,9 @@ const Play = () => {
     const [subcategories, setSubcategories] = useState([]);
     const [isGuest, setIsGuest] = useState(true);
     const { categoryid } = useParams();
+    const [userCoins, setUserCoins] = useState(0);
+    const [databaseCoins, setDatabaseCoins] = useState(0);
     const loginscore = localStorage.getItem('allcoin') || 0;
-    // const [loginscore, setLoginScore] = useState(localStorage.getItem('allcoin'));
     const newcoins = localStorage.getItem("coin") || 0;
 
    // Function to deduct coins
@@ -24,9 +25,42 @@ const deductCoins = async () => {
     console.log(">>>>>>>>>>>>>why not", updatedScore);
     localStorage.setItem('coins', updatedScore);
 
-    // login player mate
-    const updatedCoins = newcoins - 100;
-    localStorage.setItem('coin', updatedCoins);
+    try {
+        // Check if the user has enough coins
+        if (isGuest ? newcoins < 100 : userCoins < 100) {
+          // Display an error message or take appropriate action
+          console.log('Not enough coins');
+          return;
+        }
+        const token = localStorage.getItem('token');
+        // Make an API request to update coins
+        const response = await axios.post('http://localhost:5000/api/updateCoins',
+         { coins: -100 },
+         {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      }
+         );
+        // Check if the API request was successful
+        if (response.data.status === 'Success') {
+          // Update the local state or storage with the new coin value
+          if (isGuest) {
+            localStorage.setItem('coin', newcoins - 100);
+          } else {
+            setUserCoins(userCoins - 100);
+          }
+          // Redirect or perform other actions after deducting coins
+          // For example, redirect to the quiz page
+          // history.push(`/question/${categoryid}`);
+        } else {
+          // Handle API request failure
+          console.log('API request failed:', response.data.message);
+        }
+      } catch (error) {
+        // Handle errors, e.g., network issues
+        console.error('Error deducting coins:', error);
+      }
 };
     const updated = parseInt(localStorage.getItem('coins')) || 0;
 const earnedCoins = parseInt(localStorage.getItem('earnedCoins')) || 0;
@@ -47,7 +81,7 @@ console.log("LOGINPLUs", allcoins);
     useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(` https://0135-223-179-148-39.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
+                const response = await axios.get(` https://78db-106-201-183-58.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
                 {headers: {
                     'ngrok-skip-browser-warning': 5000
                   }});
@@ -59,7 +93,23 @@ console.log("LOGINPLUs", allcoins);
                 console.error('Error fetching data:', error);
             }
         };
-
+        
+    const token = localStorage.getItem('token');
+    const fetchDatabaseCoins = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/updateCoins",{coins:databaseCoins},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setDatabaseCoins(response.data.totalCoins);
+        console.log("coins",response.data.totalCoins);// Update with your actual API response structure
+      } catch (error) {
+        console.error("Error fetching database coins:", error);
+      }
+    }
+    fetchDatabaseCoins();
         if (categoryid) {
             fetchCategory();
         }
@@ -99,7 +149,7 @@ console.log("LOGINPLUs", allcoins);
                                         <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                               {isGuest ? newcoins : allcoins} COINS
+                                               {isGuest ? databaseCoins : allcoins} COINS
                                             </p>
                                         </div>
                                     </div>

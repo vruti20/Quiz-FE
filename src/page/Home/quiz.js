@@ -5,7 +5,6 @@ import { FaX } from "react-icons/fa6";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-localStorage.clear();
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -15,7 +14,7 @@ const Quiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Questions Index Set
   const [selectedAnswer, setSelectedAnswer] = useState(null); // Fetch The Answer
   const [answerStatus, setAnswerStatus] = useState(null); //Answer True False Check
-  const [totalscore, setTotalScore] = useState(0); // Show The Score
+  // const [totalscore, setTotalScore] = useState(0); // Show The Score
 
   // Function To Open The Modal
   const openModal = () => {
@@ -46,7 +45,7 @@ const Quiz = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          ` https://0135-223-179-148-39.ngrok-free.app/api/quesation/loginquestions`,{headers: {
+          `https://78db-106-201-183-58.ngrok-free.app/api/quesation/loginquestions`,{headers: {
             'ngrok-skip-browser-warning': 5000
           }}
         );
@@ -62,32 +61,45 @@ const Quiz = () => {
   // Check The Answer True & False
   const handleOptionClick = (answer) => {
     const currentQuestion = questions[currentQuestionIndex];
-    const isCorrect = answer === currentQuestion.correct; // Check  Selected Answer Is Correct
+    const isCorrect = answer === currentQuestion.correct;
 
-    setSelectedAnswer(answer); // Update The State And Use The Updated Value
+    setSelectedAnswer(answer);
     setAnswerStatus(isCorrect);
-
     const correctScore = 50;
-    const wrongScore = -50;
+    const scoreChange = isCorrect ? correctScore : 0;
 
-    const scoreChange = isCorrect ? correctScore : wrongScore; // Calculate The Score Based on Correctness
-
-    setTotalScore((prevScore) => prevScore + scoreChange); // Update The Total Score
     setTimeout(() => {
-      setSelectedAnswer(null); // Clear The Selected Answer And Answer Status
+      setSelectedAnswer(null);
       setAnswerStatus(null);
       if (currentQuestionIndex + 1 < questions.length) {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       }
-
-      // Check If it's The Second Question And Open The Modal
       if (currentQuestionIndex === 1) {
         openModal();
       }
+      const defaultScore = 100
+      const totalScoreToBeUpdated = defaultScore + scoreChange - 50;
+  updateScoreInDatabase(totalScoreToBeUpdated)
+      localStorage.setItem('totalscore', totalScoreToBeUpdated);
     }, 1000);
+    const token = localStorage.getItem('token');
+    const updateScoreInDatabase = async (score, type) => {
+      try {
+        const response = await axios.post(
+          "https://78db-106-201-183-58.ngrok-free.app/api/updateCoins",
+          { coins: score, type: type }, // Add a 'type' parameter to distinguish defaultScore and scoreChange
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+        console.log(`${type} updated in the database`, response.data);
+      } catch (error) {
+        console.error(`Error updating ${type}:`, error);
+      }
+    };
   };
-  const defaultScore = 100 + totalscore;
-  localStorage.setItem("totalsocre", defaultScore);
   //   let interval = setInterval(() => {
   //     // Check if Adsense script is loaded every 300ms
   //     if (window.adsbygoogle) {
