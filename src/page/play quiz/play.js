@@ -34,7 +34,7 @@ const deductCoins = async () => {
         }
         const token = localStorage.getItem('token');
         // Make an API request to update coins
-        const response = await axios.post('https://0135-223-179-148-39.ngrok-free.app/api/updateCoins',
+        const response = await axios.post('https://78db-106-201-183-58.ngrok-free.app/api/updateCoins',
          { coins: -100 },
          {
           headers: {
@@ -82,7 +82,7 @@ console.log("LOGINPLUs", allcoins);
     useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(` https://78db-106-201-183-58.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
+                const response = await axios.get(`https://78db-106-201-183-58.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
                 {headers: {
                     'ngrok-skip-browser-warning': 5000
                   }});

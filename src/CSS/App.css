@@ -135,3 +135,8 @@
 .Toastify__zoom-enter {
   width: 15% !important;
 }
+/* @media  (max-width: 2500px) and (min-width: 1500px)   {
+  .bg-height{
+    height: 100vh;
+  }
+} */

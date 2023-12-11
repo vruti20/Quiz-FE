@@ -19,7 +19,7 @@ const Profile = () => {
     const token = localStorage.getItem('token');
     const fetchDatabaseCoins = async () => {
       try {
-        const response = await axios.post("https://0135-223-179-148-39.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
+        const response = await axios.post("https://78db-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
         {
           headers: {
             Authorization: `Bearer ${token}`,

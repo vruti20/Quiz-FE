@@ -79,7 +79,7 @@ const Result = () => {
 // localStorage.clear()
     return (
         <>
-            <div className="bg-[#0F172A] bg-fixed h-[100vh]">
+            <div className="bg-[#0F172A] h-[100vh] sm:h-[100%]">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
@@ -123,7 +123,7 @@ const Result = () => {
                                 <div class="w-[85%] mx-auto  my-6" style={{ border: "1px solid rgb(26, 47, 119)" }}></div>
 
                                 <Link to="/quizhome">
-                                    <div className="flex justify-center pb-[100px]">
+                                    <div className="flex justify-center ">
                                         <button class="rounded-full px-7 py-2 text-white flex justify-center " style={{ background: "rgb(26, 47, 119)" }}>
                                             Home
                                         </button>
