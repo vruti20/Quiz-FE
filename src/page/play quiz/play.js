@@ -34,11 +34,12 @@ const deductCoins = async () => {
         }
         const token = localStorage.getItem('token');
         // Make an API request to update coins
-        const response = await axios.post('http://localhost:5000/api/updateCoins',
+        const response = await axios.post('https://0135-223-179-148-39.ngrok-free.app/api/updateCoins',
          { coins: -100 },
          {
           headers: {
-              Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${token}`,
+              'ngrok-skip-browser-warning': 5000
           }
       }
          );
