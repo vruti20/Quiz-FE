@@ -4,14 +4,34 @@ import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
+import axios from "axios"
 
 const Profile = () => {
     const [isClicked, setIsClicked] = useState(false);
     const [isGuest, setIsGuest] = useState(true);
-    const allcoins=localStorage.getItem('allcoin') || 0;
-    const newcoins= localStorage.getItem("coin") || 0;
+    const [databaseCoins, setDatabaseCoins] = useState(0);
 
+    const allcoins=localStorage.getItem('allcoin') || 0;
+    // const newcoins= localStorage.getItem("coin") || 0;
+    let playCount  = localStorage.getItem('playCount')
     useEffect(()=>{
+        
+    const token = localStorage.getItem('token');
+    const fetchDatabaseCoins = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/updateCoins",{coins:databaseCoins},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setDatabaseCoins(response.data.totalCoins);
+        console.log("coins",response.data.totalCoins);// Update with your actual API response structure
+      } catch (error) {
+        console.error("Error fetching database coins:", error);
+      }
+    }
+    fetchDatabaseCoins();
         const playerIsGuest = checkIfPlayerIsGuest();
 
         // Set the isGuest state based on the result
@@ -47,10 +67,10 @@ const Profile = () => {
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
                                     </div>
                                     <div className="mt-[3px] flex items-center ml-1">
-                                        <div class="text-[8px] flex w-[100px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                        <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                            {isGuest ? newcoins : allcoins} COINS
+                                            {isGuest ? databaseCoins : allcoins} COINS
 
                                             </p>
                                         </div>
@@ -71,11 +91,11 @@ const Profile = () => {
                             <div className="flex items-center justify-center mt-6 gap-10">
                                 <div className="w-[150px] rounded-full py-2 px-4 flex justify-between items-center bg-orange-500 border-2">
                                     <p className="text-white text-sm">Coins </p>
-                                    <p className="text-white text-lg"> {isGuest ? newcoins : allcoins}</p>
+                                    <p className="text-white text-lg"> {isGuest ? databaseCoins : allcoins}</p>
                                 </div>
                                 <div class="w-[150px] py-2 px-4 rounded-full border-2 flex  items-center justify-between">
                                     <p class="text-white text-sm">Quiz Played</p>
-                                    <p class="text-white text-lg">0</p>
+                                    <p class="text-white text-lg">{playCount}</p>
                                 </div>
 
                             </div>

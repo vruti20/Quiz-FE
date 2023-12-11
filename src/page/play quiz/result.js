@@ -7,6 +7,8 @@ import { Link } from "react-router-dom"
 const Result = () => {
 
     const [coins, setCoins] = useState(0);
+    // const [playCount, setPlayCount] = useState(0);
+
 
     const calculateEarnedCoins = (score) => {
         if (score >= 50 && score <= 150) {
@@ -30,6 +32,8 @@ const Result = () => {
     const earnedCoins = calculateEarnedCoins(score);
     localStorage.setItem('earnedCoins', earnedCoins)
    
+   
+
     useEffect(() => {
         const updateCoins = async () => {
             try {
@@ -39,7 +43,7 @@ const Result = () => {
                 // const earnedCoins= parseInt(localStorage.getItem('earnedCoins'), 10);
                 console.log("FCSSF",earnedCoins);
 
-                const response = await axios.post(`https://0135-223-179-148-39.ngrok-free.app/api/updateCoins`, 
+                const response = await axios.post(`https://78db-106-201-183-58.ngrok-free.app/api/updateCoins`, 
                     {
                         // Uncomment if needed
                         // mobileNumber: mobileNumber,

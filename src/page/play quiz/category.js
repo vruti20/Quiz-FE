@@ -14,6 +14,7 @@ const Category = () => {
     const [categories, setCategories] = useState([]); // fetch the categories data
     const [searchInput, setSearchInput] = useState(""); // serch the category name
     const [click, setClick] = useState(false); //click event  change background color
+    const [databaseCoins, setDatabaseCoins] = useState(0);
 
     const allcoins=localStorage.getItem('allcoin') || 0;
     const newcoins= localStorage.getItem("coin") || 0;
@@ -27,7 +28,7 @@ const Category = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(` https://0135-223-179-148-39.ngrok-free.app/api/category/allcategories`, 
+                const response = await axios.get(` https://78db-106-201-183-58.ngrok-free.app/api/category/allcategories`, 
                 {headers: {
                     'ngrok-skip-browser-warning': 5000
                   }});
@@ -41,7 +42,24 @@ const Category = () => {
 
         const playerIsGuest = checkIfPlayerIsGuest();
         setIsGuest(playerIsGuest);  // Set the isGuest state based on the result
-        fetchCategories();
+        
+    const token = localStorage.getItem('token');
+    const fetchDatabaseCoins = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/updateCoins",{coins:databaseCoins},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setDatabaseCoins(response.data.totalCoins);
+        console.log("coins",response.data.totalCoins);// Update with your actual API response structure
+      } catch (error) {
+        console.error("Error fetching database coins:", error);
+      }
+    }
+     fetchCategories();
+    fetchDatabaseCoins();
     }, []);
 
         // check player is login 
@@ -55,7 +73,7 @@ const Category = () => {
       //subcategory data navigate subcategory page 
     const Subcategory =  (id) =>{
         
-        axios.get(` https://0135-223-179-148-39.ngrok-free.app/api/category/subcategories/${id}` ,
+        axios.get(` https://78db-106-201-183-58.ngrok-free.app/api/category/subcategories/${id}` ,
         {headers: {
             'ngrok-skip-browser-warning': 5000
           }})
@@ -98,7 +116,7 @@ const Category = () => {
                                         <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                            {isGuest ? newcoins : allcoins} COINS
+                                            {isGuest ? databaseCoins : allcoins} COINS
                                             </p>
                                         </div>
                                     </div>

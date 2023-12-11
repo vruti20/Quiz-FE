@@ -15,7 +15,7 @@ const Login = () => {
   const generateOTP = async () => {
     try {
       const response = await axios.post(
-        " https://0135-223-179-148-39.ngrok-free.app/api/login",
+        " https://78db-106-201-183-58.ngrok-free.app/api/login",
         { mobileNumber },
         {
           headers: {

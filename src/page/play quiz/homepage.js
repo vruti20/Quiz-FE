@@ -9,7 +9,6 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// localStorage.clear();
 const Home = () => {
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -21,22 +20,39 @@ const Home = () => {
   const [categoryid, setCategoryid] = useState(null); // category data with page navigate
   const [isClick, setIsClick] = useState(false); // click event change background color
   const [isGuest, setIsGuest] = useState(true); //show coins in header
+  const [playCount, setPlayCount] = useState(0);
+  const [databaseCoins, setDatabaseCoins] = useState(0);
 
   const allcoins = localStorage.getItem("allcoin") || 0;
-  const newcoins = localStorage.getItem("coin") || 0;
+  // const newcoins = localStorage.getItem("coin") || 0;
 
   // click event change background color
   const handleisClick = () => {
     setIsClick(!isClick);
   };
+  useEffect(() => {
+    console.log("useEffect triggered. Play count:", playCount);
+  }, [playCount]);
+
+  useEffect(() => {
+    const storedPlayCountString = localStorage.getItem('playCount');
+    const storedPlayCount = storedPlayCountString !== null ? parseInt(storedPlayCountString) : 0;
+    setPlayCount(storedPlayCount);
+  }, []);
 
   //onclick page navigate
   const handleCategoryid = (categoryid) => {
     setCategoryid(categoryid);
 
+    localStorage.setItem('playCount', (playCount + 1).toString());
+
+    // Set the state with the updated play count
+    setPlayCount(prevPlayCount => prevPlayCount + 1);
+  
+    // Navigate to the new page
     navigate(`/play/${categoryid}`);
   };
-
+  
   //onclick event change background color
   const getBackgroundColorClass = (categoryId) => {
     return selectedCategory === categoryId ||
@@ -45,11 +61,11 @@ const Home = () => {
       : "";
   };
   //Show All Category Data
-  useEffect(() => {
+  useEffect(() => { 
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          ` https://0135-223-179-148-39.ngrok-free.app/api/category/allcategories` ,
+          ` https://78db-106-201-183-58.ngrok-free.app/api/category/allcategories` ,
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}
@@ -62,12 +78,29 @@ const Home = () => {
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
+      
+    const token = localStorage.getItem('token');
+    const fetchDatabaseCoins = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/updateCoins",{coins:databaseCoins},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setDatabaseCoins(response.data.totalCoins);
+        console.log("coins",response.data.totalCoins);// Update with your actual API response structure
+      } catch (error) {
+        console.error("Error fetching database coins:", error);
+      }
+    }
+    fetchDatabaseCoins();
     };
 
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          `https://0135-223-179-148-39.ngrok-free.app/api/category/allsubcategories`, 
+          `https://78db-106-201-183-58.ngrok-free.app/api/category/allsubcategories`, 
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}
@@ -82,7 +115,7 @@ const Home = () => {
       try {
         if (selectedCategory) {
           const response = await axios.get(
-            ` https://0135-223-179-148-39.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
+            ` https://78db-106-201-183-58.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
             {headers: {
               'ngrok-skip-browser-warning': 5000
             }}
@@ -126,16 +159,13 @@ const Home = () => {
       menuRef.current.scrollLeft += 300;
     }
   };
-
-  // localStorage.setItem("earnedCoins", allcoins);
-
   return (
     <>
       <div
         className={`bg-[#0F172A] ${
           selectedCategory ? "h-[1400px]" : "h-[100%]"
         }`}
-      >
+        >
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px] py-[1px] px-2 relative flex-col flex overflow-y-auto">
             <div className="">
@@ -166,7 +196,7 @@ const Home = () => {
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      <p> {isGuest ? newcoins : allcoins} COINS</p>
+                      <p> {isGuest ? databaseCoins : allcoins} COINS</p>
                     </div>
                   </div>
                 </div>
