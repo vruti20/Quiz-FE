@@ -14,7 +14,7 @@ const Quiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Questions Index Set
   const [selectedAnswer, setSelectedAnswer] = useState(null); // Fetch The Answer
   const [answerStatus, setAnswerStatus] = useState(null); //Answer True False Check
-  // const [totalscore, setTotalScore] = useState(0); // Show The Score
+  const [totalscore, setTotalScore] = useState(0); // Show The Score
 
   // Function To Open The Modal
   const openModal = () => {
@@ -99,6 +99,14 @@ const Quiz = () => {
         console.error(`Error updating ${type}:`, error);
       }
     };
+    if (!token) {
+      const defaultScore=100
+      setTotalScore(scoreChange)
+      const scorecoin = defaultScore + parseInt(totalscore)+scoreChange
+      localStorage.setItem("usercoin", scorecoin)
+      console.log("SCORCOIN", scorecoin);
+      // console.log("TOTALSCORE",totalscore)
+    }
   };
   //   let interval = setInterval(() => {
   //     // Check if Adsense script is loaded every 300ms

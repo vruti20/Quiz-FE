@@ -31,8 +31,7 @@ const Result = () => {
 
     const earnedCoins = calculateEarnedCoins(score);
     localStorage.setItem('earnedCoins', earnedCoins)
-   
-   
+
 
     useEffect(() => {
         const updateCoins = async () => {
