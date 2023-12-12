@@ -45,7 +45,7 @@ const Quiz = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          `https://78db-106-201-183-58.ngrok-free.app/api/quesation/loginquestions`,{headers: {
+          `https://365c-106-201-183-58.ngrok-free.app/api/quesation/loginquestions`,{headers: {
             'ngrok-skip-browser-warning': 5000
           }}
         );
@@ -86,7 +86,7 @@ const Quiz = () => {
     const updateScoreInDatabase = async (score, type) => {
       try {
         const response = await axios.post(
-          "https://78db-106-201-183-58.ngrok-free.app/api/updateCoins",
+          "https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",
           { coins: score, type: type }, // Add a 'type' parameter to distinguish defaultScore and scoreChange
           {
             headers: {

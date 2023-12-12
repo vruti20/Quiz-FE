@@ -19,7 +19,7 @@ const Profile = () => {
     const token = localStorage.getItem('token');
     const fetchDatabaseCoins = async () => {
       try {
-        const response = await axios.post("https://78db-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
+        const response = await axios.post("https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ const Profile = () => {
         <>
             <div className="bg-[#0F172A] ">
 
-                <Row className="h-[100vh]">
+                <Row className="h-[100%] ">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
                         <div className="" >
                             <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0F172A] header">
