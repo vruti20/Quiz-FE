@@ -65,7 +65,7 @@ const Home = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          ` https://78db-106-201-183-58.ngrok-free.app/api/category/allcategories` ,
+          ` https://365c-106-201-183-58.ngrok-free.app/api/category/allcategories` ,
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}
@@ -82,7 +82,7 @@ const Home = () => {
     const token = localStorage.getItem('token');
     const fetchDatabaseCoins = async () => {
       try {
-        const response = await axios.post("https://78db-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
+        const response = await axios.post("https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -101,7 +101,7 @@ const Home = () => {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          `https://78db-106-201-183-58.ngrok-free.app/api/category/allsubcategories`, 
+          `https://365c-106-201-183-58.ngrok-free.app/api/category/allsubcategories`, 
           {headers: {
             'ngrok-skip-browser-warning': 5000
           }}
@@ -116,7 +116,7 @@ const Home = () => {
       try {
         if (selectedCategory) {
           const response = await axios.get(
-            ` https://78db-106-201-183-58.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
+            ` https://365c-106-201-183-58.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
             {headers: {
               'ngrok-skip-browser-warning': 5000
             }}
@@ -160,6 +160,27 @@ const Home = () => {
       menuRef.current.scrollLeft += 300;
     }
   };
+  // useEffect(() => {
+  //   // Replace the current history entry with the home page URL
+  //   window.history.replaceState(null, null, window.location.href);
+
+  //   const handleBeforeUnload = (event) => {
+  //     event.preventDefault();
+  //   };
+
+  //   const handlePopstate = () => {
+  //     navigate('/quizhome'); // Redirect to the desired path when the user tries to go back
+  //   };
+
+  //   window.addEventListener('beforeunload', handleBeforeUnload);
+  //   window.addEventListener('popstate', handlePopstate);
+
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+  //     window.removeEventListener('popstate', handlePopstate);
+  //   };
+  // }, [navigate]);
+
   return (
     <>
       <div

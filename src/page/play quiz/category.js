@@ -28,7 +28,7 @@ const Category = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(` https://78db-106-201-183-58.ngrok-free.app/api/category/allcategories`, 
+                const response = await axios.get(` https://365c-106-201-183-58.ngrok-free.app/api/category/allcategories`, 
                 {headers: {
                     'ngrok-skip-browser-warning': 5000
                   }});
@@ -46,7 +46,7 @@ const Category = () => {
     const token = localStorage.getItem('token');
     const fetchDatabaseCoins = async () => {
       try {
-        const response = await axios.post("https://78db-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
+        const response = await axios.post("https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -74,7 +74,7 @@ const Category = () => {
       //subcategory data navigate subcategory page 
     const Subcategory =  (id) =>{
         
-        axios.get(` https://78db-106-201-183-58.ngrok-free.app/api/category/subcategories/${id}` ,
+        axios.get(` https://365c-106-201-183-58.ngrok-free.app/api/category/subcategories/${id}` ,
         {headers: {
             'ngrok-skip-browser-warning': 5000
           }})

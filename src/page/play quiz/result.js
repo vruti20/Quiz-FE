@@ -43,7 +43,7 @@ const Result = () => {
                 // const earnedCoins= parseInt(localStorage.getItem('earnedCoins'), 10);
                 console.log("FCSSF",earnedCoins);
 
-                const response = await axios.post(`https://78db-106-201-183-58.ngrok-free.app/api/updateCoins`, 
+                const response = await axios.post(`https://365c-106-201-183-58.ngrok-free.app/api/updateCoins`, 
                     {
                         // Uncomment if needed
                         // mobileNumber: mobileNumber,

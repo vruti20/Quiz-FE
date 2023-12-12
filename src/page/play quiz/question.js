@@ -40,7 +40,7 @@ const Question = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          ` https://78db-106-201-183-58.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
+          ` https://365c-106-201-183-58.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
@@ -165,7 +165,7 @@ const Question = () => {
     const token = localStorage.getItem('token');
     const fetchDatabaseCoins = async () => {
       try {
-        const response = await axios.post("https://78db-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
+        const response = await axios.post("https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -201,7 +201,7 @@ const Question = () => {
   };
   return (
     <>
-      <div className="bg-[#0F172A] bg-fixed h-[100vh]">
+      <div className="bg-[#0F172A] bg-fixed h-[100%] bg-high">
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div>

@@ -18,7 +18,7 @@ const Subcategory = () => {
     const id = location.state._id; // Get the category ID from the location state
 
     axios
-      .get(` https://78db-106-201-183-58.ngrok-free.app/api/category/subcategories/${id}` ,
+      .get(` https://365c-106-201-183-58.ngrok-free.app/api/category/subcategories/${id}` ,
       {headers: {
         'ngrok-skip-browser-warning': 5000
       }})
@@ -38,7 +38,7 @@ const Subcategory = () => {
     const token = localStorage.getItem('token');
     const fetchDatabaseCoins = async () => {
       try {
-        const response = await axios.post("https://0135-223-179-148-39.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
+        const response = await axios.post("https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
         {
           headers: {
             Authorization: `Bearer ${token}`,
