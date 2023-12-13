@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
+const BaseUrl = process.env.REACT_APP_BASEURL;
 
 const Result = () => {
 
@@ -42,7 +43,7 @@ const Result = () => {
                 // const earnedCoins= parseInt(localStorage.getItem('earnedCoins'), 10);
                 console.log("FCSSF",earnedCoins);
 
-                const response = await axios.post(`https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins`, 
+                const response = await axios.post(`${BaseUrl}/api/updateCoins`, 
                     {
                         // Uncomment if needed
                         // mobileNumber: mobileNumber,

@@ -5,8 +5,9 @@ import { CgProfile } from "react-icons/cg"
 import { Link, useParams } from "react-router-dom"
 import React, { useState, useEffect } from 'react';
 import { FaX } from "react-icons/fa6";
-import axios from "axios"
-// import Question from "./question"
+import axios from "axios";
+
+const BaseUrl = process.env.REACT_APP_BASEURL;
 
 const Play = () => {
     const [isModalOpen, setModalOpen] = useState(false);
@@ -23,7 +24,6 @@ const Play = () => {
 
     const deductCoins = async () => {
         const updatedScore = loginscore - 100;
-        console.log(">>>>>>>>>>>>>why not", updatedScore);
         localStorage.setItem('coins', updatedScore);
 
         try {
@@ -35,7 +35,7 @@ const Play = () => {
             }
 
             const token = localStorage.getItem('token');
-            const response = await axios.post('https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins',
+            const response = await axios.post(`${BaseUrl}/api/updateCoins`,
                 { coins: -100 },
                 {
                     headers: {
@@ -84,7 +84,7 @@ const Play = () => {
     useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(`https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/quesation/questions?quiz=${categoryid}`,
+                const response = await axios.get(`${BaseUrl}/api/quesation/questions?quiz=${categoryid}`,
                     {
                         headers: {
                             'ngrok-skip-browser-warning': 5000
@@ -102,7 +102,7 @@ const Play = () => {
         const token = localStorage.getItem('token');
         const fetchDatabaseCoins = async () => {
             try {
-                const response = await axios.post("https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins", 
+                const response = await axios.post(`${BaseUrl}/api/updateCoins`, 
                 { coins: databaseCoins },
                     {
                         headers: {
@@ -123,7 +123,7 @@ const Play = () => {
 
         // Set the isGuest state based on the result
         setIsGuest(playerIsGuest);
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [categoryid]);
 
     const checkIfPlayerIsGuest = () => {

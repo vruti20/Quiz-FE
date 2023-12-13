@@ -5,6 +5,7 @@ import { FaX } from "react-icons/fa6";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const BaseUrl = process.env.REACT_APP_BASEURL;
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const Quiz = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          `https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/quesation/loginquestions`,{headers: {
+          `${BaseUrl}/api/quesation/loginquestions`,{headers: {
             'ngrok-skip-browser-warning': 5000
           }}
         );

@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const BaseUrl = process.env.REACT_APP_BASEURL;
+
 const Profile = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isGuest, setIsGuest] = useState(true);
@@ -22,7 +24,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
     const fetchDatabaseCoins = async () => {
       try {
         const response = await axios.post(
-          "https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",
+          `${BaseUrl}/api/updateCoins`,
           { coins: databaseCoins },
           {
             headers: {
@@ -42,6 +44,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
 
     // Set the isGuest state based on the result
     setIsGuest(playerIsGuest);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const checkIfPlayerIsGuest = () => {

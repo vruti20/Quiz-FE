@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
+const BaseUrl = process.env.REACT_APP_BASEURL;
+
 const Login = () => {
   const [showOtpDiv, setShowOtpDiv] = useState(false); // show otp input box
   const [mobileNumber, setMobileNumber] = useState(""); //set mobile number input
@@ -15,7 +17,7 @@ const Login = () => {
   const generateOTP = async () => {
     try {
       const response = await axios.post(
-        " https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/login",
+        `${BaseUrl}/api/login`,
         { mobileNumber },
         {
           headers: {
