@@ -9,6 +9,8 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const BaseUrl = process.env.REACT_APP_BASEURL;
+
 const Home = () => {
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -77,7 +79,7 @@ const Home = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          ` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/allcategories`,
+          `${BaseUrl}/api/category/allcategories`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
@@ -97,7 +99,7 @@ const Home = () => {
       const fetchDatabaseCoins = async () => {
         try {
           const response = await axios.post(
-            "https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",
+            `${BaseUrl}/api/updateCoins`,
             { coins: databaseCoins },
             {
               headers: {
@@ -114,11 +116,10 @@ const Home = () => {
       };
       fetchDatabaseCoins();
     };
-
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          `https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/allsubcategories`,
+          `${BaseUrl}/api/category/allsubcategories`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
@@ -135,7 +136,7 @@ const Home = () => {
       try {
         if (selectedCategory) {
           const response = await axios.get(
-            ` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
+            `${BaseUrl}/api/category/subcategories/${selectedCategory}`,
             {
               headers: {
                 "ngrok-skip-browser-warning": 5000,
@@ -157,6 +158,7 @@ const Home = () => {
     fetchCategory();
     fetchSubCategory();
     fetchCategories();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory, categoryid]);
 
   const checkIfPlayerIsGuest = () => {

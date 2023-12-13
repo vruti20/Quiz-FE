@@ -6,6 +6,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 
+const BaseUrl = process.env.REACT_APP_BASEURL;
+
 const Question = () => {
   const { categoryId } = useParams();
   const navigate = useNavigate(); // page navigate
@@ -30,7 +32,6 @@ const Question = () => {
   const [databaseCoins, setDatabaseCoins] = useState(0);
   const [isGuest, setIsGuest] = useState(true);
   const allcoins = localStorage.getItem("coins") || 0;
-  // const newcoins = localStorage.getItem("coin") || 0;
 
   const handleLifelinesClick = () => {
     setShowLifelines(!showLifelines);
@@ -40,7 +41,7 @@ const Question = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          ` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
+          `${BaseUrl}/api/quesation/questions?quiz=${categoryId}`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
@@ -165,7 +166,7 @@ const Question = () => {
     const token = localStorage.getItem('token');
     const fetchDatabaseCoins = async () => {
       try {
-        const response = await axios.post("https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
+        const response = await axios.post(`${BaseUrl}/api/updateCoins`,{coins:databaseCoins},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -179,6 +180,7 @@ const Question = () => {
       }
     }
     fetchDatabaseCoins();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audienceResponses]);
 
   //Freeze Time lifeline

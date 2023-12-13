@@ -6,6 +6,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const BaseUrl = process.env.REACT_APP_BASEURL;
+
 const Subcategory = () => {
   const location = useLocation();
   const [subcategories, setSubcategories] = useState([]);
@@ -18,7 +20,7 @@ const Subcategory = () => {
   useEffect(() => {
     const id = location.state._id; // Get the category ID from the location state
     axios
-      .get(` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/subcategories/${id}` ,
+      .get(`${BaseUrl}/api/category/subcategories/${id}` ,
       {headers: {
         'ngrok-skip-browser-warning': 5000
       }})
@@ -37,20 +39,21 @@ const Subcategory = () => {
       
     const fetchDatabaseCoins = async () => {
       try {
-        const response = await axios.post("https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
+        const response = await axios.post(`${BaseUrl}/api/updateCoins`,{coins:databaseCoins},
         {
           headers: {
             Authorization: `Bearer ${token}`,
             'ngrok-skip-browser-warning': 5000
           }
         });
-       setDatabaseCoins((prevDatabaseCoins) =>  response.data.totalCoins);
+        setDatabaseCoins(response.data.totalCoins);
         console.log("coins",response.data.totalCoins);// Update with your actual API response structure
       } catch (error) {
         console.error("Error fetching database coins:", error);
       }
     }
     fetchDatabaseCoins();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.state._id, token]);
 
   const checkIfPlayerIsGuest = () => {

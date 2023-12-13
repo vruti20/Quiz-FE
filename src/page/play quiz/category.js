@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const BaseUrl = process.env.REACT_APP_BASEURL;
+
 const Category = () => {
     const navigate = useNavigate();
 
@@ -27,7 +29,7 @@ const Category = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/allcategories`,
+                const response = await axios.get(`${BaseUrl}/api/category/allcategories`,
                     {
                         headers: {
                             'ngrok-skip-browser-warning': 5000
@@ -47,7 +49,7 @@ const Category = () => {
         const token = localStorage.getItem('token');
         const fetchDatabaseCoins = async () => {
             try {
-                const response = await axios.post("https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins", { coins: databaseCoins },
+                const response = await axios.post(`${BaseUrl}/api/updateCoins`, { coins: databaseCoins },
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -62,6 +64,7 @@ const Category = () => {
         }
         fetchCategories();
         fetchDatabaseCoins();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // check player is login 
@@ -75,7 +78,7 @@ const Category = () => {
     //subcategory data navigate subcategory page 
     const Subcategory = (id) => {
 
-        axios.get(` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/subcategories/${id}`,
+        axios.get(`${BaseUrl}/api/category/subcategories/${id}`,
             {
                 headers: {
                     'ngrok-skip-browser-warning': 5000
