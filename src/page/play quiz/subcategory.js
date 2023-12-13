@@ -12,11 +12,13 @@ const Subcategory = () => {
   const [isGuest, setIsGuest] = useState(true);
   const [databaseCoins, setDatabaseCoins] = useState(0);
   const allcoins=localStorage.getItem('allcoins') || 0;
+      const token = localStorage.getItem('token');
+
   // const newcoins= localStorage.getItem("coin") || 0;
   useEffect(() => {
     const id = location.state._id; // Get the category ID from the location state
     axios
-      .get(` https://365c-106-201-183-58.ngrok-free.app/api/category/subcategories/${id}` ,
+      .get(` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/subcategories/${id}` ,
       {headers: {
         'ngrok-skip-browser-warning': 5000
       }})
@@ -33,24 +35,24 @@ const Subcategory = () => {
       // Set the isGuest state based on the result
       setIsGuest(playerIsGuest);
       
-    const token = localStorage.getItem('token');
     const fetchDatabaseCoins = async () => {
       try {
-        const response = await axios.post("https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
+        const response = await axios.post("https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
         {
           headers: {
             Authorization: `Bearer ${token}`,
             'ngrok-skip-browser-warning': 5000
           }
         });
-        setDatabaseCoins(response.data.totalCoins);
+       setDatabaseCoins((prevDatabaseCoins) =>  response.data.totalCoins);
         console.log("coins",response.data.totalCoins);// Update with your actual API response structure
       } catch (error) {
         console.error("Error fetching database coins:", error);
       }
     }
     fetchDatabaseCoins();
-  }, [location.state._id]);
+  }, [location.state._id, token]);
+
   const checkIfPlayerIsGuest = () => {
     const guestToken = localStorage.getItem('token');
     // localStorage.removeItem('token');

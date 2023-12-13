@@ -40,7 +40,7 @@ const Question = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          ` https://365c-106-201-183-58.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
+          ` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/quesation/questions?quiz=${categoryId}`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
@@ -165,7 +165,7 @@ const Question = () => {
     const token = localStorage.getItem('token');
     const fetchDatabaseCoins = async () => {
       try {
-        const response = await axios.post("https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
+        const response = await axios.post("https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -222,7 +222,6 @@ const Question = () => {
                       alt="animation"
                     />
                     <p className="text-white text-[10px] font-[700] pt-1">
-                      {" "}
                       Daily Reward
                     </p>
                   </div>

@@ -16,6 +16,10 @@ const Quiz = () => {
   const [answerStatus, setAnswerStatus] = useState(null); //Answer True False Check
   const [totalscore, setTotalScore] = useState(0); // Show The Score
 
+  useEffect(()=>{
+    localStorage.clear()
+    sessionStorage.clear()
+  },[])
   // Function To Open The Modal
   const openModal = () => {
     setModalOpen(true);
@@ -45,7 +49,7 @@ const Quiz = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          `https://365c-106-201-183-58.ngrok-free.app/api/quesation/loginquestions`,{headers: {
+          `https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/quesation/loginquestions`,{headers: {
             'ngrok-skip-browser-warning': 5000
           }}
         );
@@ -86,7 +90,7 @@ const Quiz = () => {
     const updateScoreInDatabase = async (score, type) => {
       try {
         const response = await axios.post(
-          "https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",
+          "https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",
           { coins: score, type: type }, // Add a 'type' parameter to distinguish defaultScore and scoreChange
           {
             headers: {

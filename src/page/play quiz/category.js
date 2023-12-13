@@ -16,21 +16,23 @@ const Category = () => {
     const [click, setClick] = useState(false); //click event  change background color
     const [databaseCoins, setDatabaseCoins] = useState(0);
 
-    const allcoins=localStorage.getItem('allcoins') || 0;
-    
+    const allcoins = localStorage.getItem('allcoins') || 0;
+
     // click event change background color
     const handleClicked = () => {
         setClick(!click);
     };
- 
+
     // featch the all category data
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(` https://365c-106-201-183-58.ngrok-free.app/api/category/allcategories`, 
-                {headers: {
-                    'ngrok-skip-browser-warning': 5000
-                  }});
+                const response = await axios.get(` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/allcategories`,
+                    {
+                        headers: {
+                            'ngrok-skip-browser-warning': 5000
+                        }
+                    });
                 // const response = await axios.get("http://localhost:5000/api/category/allcategories")
                 setCategories(response.data.data);
                 console.log("CATEGORY LIST", response.data.data);
@@ -41,59 +43,61 @@ const Category = () => {
 
         const playerIsGuest = checkIfPlayerIsGuest();
         setIsGuest(playerIsGuest);  // Set the isGuest state based on the result
-        
-    const token = localStorage.getItem('token');
-    const fetchDatabaseCoins = async () => {
-      try {
-        const response = await axios.post("https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",{coins:databaseCoins},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'ngrok-skip-browser-warning': 5000
-          }
-        });
-        setDatabaseCoins(response.data.totalCoins);
-        console.log("coins",response.data.totalCoins);// Update with your actual API response structure
-      } catch (error) {
-        console.error("Error fetching database coins:", error);
-      }
-    }
-     fetchCategories();
-    fetchDatabaseCoins();
+
+        const token = localStorage.getItem('token');
+        const fetchDatabaseCoins = async () => {
+            try {
+                const response = await axios.post("https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins", { coins: databaseCoins },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'ngrok-skip-browser-warning': 5000
+                        }
+                    });
+                setDatabaseCoins(response.data.totalCoins);
+                console.log("coins", response.data.totalCoins);// Update with your actual API response structure
+            } catch (error) {
+                console.error("Error fetching database coins:", error);
+            }
+        }
+        fetchCategories();
+        fetchDatabaseCoins();
     }, []);
 
-        // check player is login 
+    // check player is login 
     const checkIfPlayerIsGuest = () => {
         const guestToken = localStorage.getItem('token');
         // localStorage.removeItem('token');
-        console.log("TOKEN",guestToken);
+        console.log("TOKEN", guestToken);
         return !!guestToken;
-      };
+    };
 
-      //subcategory data navigate subcategory page 
-    const Subcategory =  (id) =>{
-        
-        axios.get(` https://365c-106-201-183-58.ngrok-free.app/api/category/subcategories/${id}` ,
-        {headers: {
-            'ngrok-skip-browser-warning': 5000
-          }})
-        // axios.get(`http://localhost:5000/api/category/subcategories/${id}`)
-        .then(function (response) {
-            navigate(`/subcategory/${id}`, { state: categories.find(category => category._id === id) });
-            console.log(response.data.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
+    //subcategory data navigate subcategory page 
+    const Subcategory = (id) => {
+
+        axios.get(` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/subcategories/${id}`,
+            {
+                headers: {
+                    'ngrok-skip-browser-warning': 5000
+                }
+            })
+            // axios.get(`http://localhost:5000/api/category/subcategories/${id}`)
+            .then(function (response) {
+                navigate(`/subcategory/${id}`, { state: categories.find(category => category._id === id) });
+                console.log(response.data.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
     // search category
     const handleSearchInputChange = (e) => {
-      setSearchInput(e.target.value);
+        setSearchInput(e.target.value);
     };
-  
+
     // Function to filter categories based on search input
     const filteredCategories = categories.filter((category) =>
-      category.name.toLowerCase().includes(searchInput.toLowerCase())
+        category.name.toLowerCase().includes(searchInput.toLowerCase())
     );
 
     return (
@@ -103,15 +107,15 @@ const Category = () => {
                     <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex" >
                         <div className="">
                             <div className="flex justify-between lg:w-[520px] bg-[#0F172A] py-[8px] cursor-pointer header">
-                            <Link to={`/quizhome`} className="pl-[10px]">
-                <img
-                  src={require("../../image/download (1).png")}
-                  alt=""
-                  width={"40%"}
-                />
-              </Link>
+                                <Link to={`/quizhome`} className="pl-[10px]">
+                                    <img
+                                        src={require("../../image/download (1).png")}
+                                        alt=""
+                                        width={"40%"}
+                                    />
+                                </Link>
 
-                                    <div className="flex justify-between">
+                                <div className="flex justify-between">
                                     <div className="flex items-center">
                                         <img class="w-[25px] " src={require("../../../src/image/gift.gif")} alt="animation" />
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
@@ -120,7 +124,7 @@ const Category = () => {
                                         <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
-                                            {isGuest ? databaseCoins : allcoins} COINS
+                                                {isGuest ? databaseCoins : allcoins} COINS
                                             </p>
                                         </div>
                                     </div>
@@ -139,13 +143,13 @@ const Category = () => {
 
                             <div className="border-2 rounded-full border-white px-4 py-3 flex items-center gap-2">
                                 <IoSearch className="text-white text-[20px] " />
-                                <input 
-                                type="text"
-                                value={searchInput}
-                                onChange={handleSearchInputChange}
-                                 placeholder="Search Quiz Category"
-                                  className="bg-transparent text-lg text-white w-full outline-none"
-                                  ></input>
+                                <input
+                                    type="text"
+                                    value={searchInput}
+                                    onChange={handleSearchInputChange}
+                                    placeholder="Search Quiz Category"
+                                    className="bg-transparent text-lg text-white w-full outline-none"
+                                ></input>
                             </div>
                             <div className="flex flex-wrap pb-[100px]">
                                 {filteredCategories.map((data) => (
@@ -168,7 +172,7 @@ const Category = () => {
                         <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
                             <Link to="/category">
                                 <div
-                                    className={`px-8 py-1 rounded-[28px] ${click?  '':'bg-[#1A2F77]' }`}
+                                    className={`px-8 py-1 rounded-[28px] ${click ? '' : 'bg-[#1A2F77]'}`}
                                     onClick={handleClicked}
                                 >
                                     <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
