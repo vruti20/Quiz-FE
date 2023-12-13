@@ -3,15 +3,18 @@ import { Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Quizplay = () => {
-    const loginscore = localStorage.getItem('totalsocre');
+
+    const loginscore = localStorage.getItem('totalscore');
     const userCoins = localStorage.getItem("usercoin");
     const token = localStorage.getItem('token');
     const coins= token ? loginscore : userCoins
+
     useEffect(() => {
+
         function preventBack() { 
           window.history.forward();  
         } 
-      
+
         setTimeout(() => preventBack(), 0);
       
       }, []);

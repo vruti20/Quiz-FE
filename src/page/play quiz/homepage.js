@@ -20,22 +20,25 @@ const Home = () => {
   const [categoryid, setCategoryid] = useState(null); // category data with page navigate
   const [isClick, setIsClick] = useState(false); // click event change background color
   const [isGuest, setIsGuest] = useState(true); //show coins in header
-  const [playCount, setPlayCount] = useState(0);
-  const [databaseCoins, setDatabaseCoins] = useState(0);
+  const [playCount, setPlayCount] = useState(0);//quiz play numbers
+  const [databaseCoins, setDatabaseCoins] = useState(0);// databases coins show
 
   const updated = parseInt(localStorage.getItem('coins')) || 0;
   const earnedCoins = parseInt(localStorage.getItem('earnedCoins')) || 0;
   const allcoin = parseInt(updated) + parseInt(earnedCoins);
+
   localStorage.setItem('allcoin', allcoin);
   localStorage.setItem('additionDone', 'true');
   const additionDone = localStorage.getItem('additionDone');
   const usercoin = localStorage.getItem("usercoin") || 0;
+  
   if ( additionDone !== true ) {
     const updatedAllCoins = parseInt(allcoin) + parseInt(usercoin);
     console.log('updatedAllCoins:', updatedAllCoins);
     localStorage.setItem('allcoins', updatedAllCoins);
     localStorage.setItem('additionDone', 'false');
   }
+
   const allcoins=localStorage.getItem('allcoins')
 
   // click event change background color
@@ -74,7 +77,7 @@ const Home = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          ` https://365c-106-201-183-58.ngrok-free.app/api/category/allcategories`,
+          ` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/allcategories`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
@@ -94,7 +97,7 @@ const Home = () => {
       const fetchDatabaseCoins = async () => {
         try {
           const response = await axios.post(
-            "https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",
+            "https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",
             { coins: databaseCoins },
             {
               headers: {
@@ -115,7 +118,7 @@ const Home = () => {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          `https://365c-106-201-183-58.ngrok-free.app/api/category/allsubcategories`,
+          `https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/allsubcategories`,
           {
             headers: {
               "ngrok-skip-browser-warning": 5000,
@@ -132,7 +135,7 @@ const Home = () => {
       try {
         if (selectedCategory) {
           const response = await axios.get(
-            ` https://365c-106-201-183-58.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
+            ` https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/category/subcategories/${selectedCategory}`,
             {
               headers: {
                 "ngrok-skip-browser-warning": 5000,
@@ -229,7 +232,7 @@ const Home = () => {
               <div className="flex justify-between px-[3px] pb-[30px] pt-10 ">
                 <div className="flex items-center">
                   <BsChevronLeft
-                    className="text-white text-[14px] "
+                    className="text-white text-[14px] cursor-pointer"
                     onClick={scrollLeft}
                   />
                 </div>
@@ -259,7 +262,7 @@ const Home = () => {
                 </div>
                 <div className="flex items-center">
                   <BsChevronRight
-                    className="text-white text-[14px]"
+                    className="text-white text-[14px] cursor-pointer"
                     onClick={scrollRight}
                   />
                 </div>

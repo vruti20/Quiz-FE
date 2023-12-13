@@ -16,13 +16,13 @@ const Profile = () => {
 const mobileNumber = sessionStorage.getItem("moblieNumber");
 
 
-  let playCount = sessionStorage.getItem("playCount");
+  let playCount = sessionStorage.getItem("playCount") || 0;
   useEffect(() => {
     const token = localStorage.getItem("token");
     const fetchDatabaseCoins = async () => {
       try {
         const response = await axios.post(
-          "https://365c-106-201-183-58.ngrok-free.app/api/updateCoins",
+          "https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",
           { coins: databaseCoins },
           {
             headers: {
@@ -103,7 +103,15 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
                 </div>
                 <div class="flex gap-1 flex-col items-center justify-center text-white">
                   <p class="text-3xl">User X</p>
-                  <p class="text-sm">{mobileNumber}</p>
+                  {
+                    isGuest ?
+                  <p class="text-sm">
+                    {mobileNumber}
+                    </p> :
+                    <p>
+                      mobile not updated
+                    </p>
+                  }
                   <p class="text-sm">Email not updated</p>
                 </div>
               </div>
