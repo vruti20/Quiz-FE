@@ -78,7 +78,7 @@ const Question = () => {
   const checkIfPlayerIsGuest = () => {
     const guestToken = localStorage.getItem("token");
     // localStorage.removeItem('token');
-    console.log("TOKEN", guestToken);
+    // console.log("TOKEN", guestToken);
     return !!guestToken;
   };
 
@@ -174,7 +174,7 @@ const Question = () => {
           }
         });
         setDatabaseCoins(response.data.totalCoins);
-        console.log("coins",response.data.totalCoins);// Update with your actual API response structure
+        // console.log("coins",response.data.totalCoins);// Update with your actual API response structure
       } catch (error) {
         console.error("Error fetching database coins:", error);
       }

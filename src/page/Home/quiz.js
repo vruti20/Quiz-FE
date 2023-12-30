@@ -17,10 +17,10 @@ const Quiz = () => {
   const [answerStatus, setAnswerStatus] = useState(null); //Answer True False Check
   const [totalscore, setTotalScore] = useState(0); // Show The Score
 
-  useEffect(()=>{
+  useEffect(() => {
     localStorage.clear()
     sessionStorage.clear()
-  },[])
+  }, [])
   // Function To Open The Modal
   const openModal = () => {
     setModalOpen(true);
@@ -50,12 +50,17 @@ const Quiz = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          `${BaseUrl}/api/quesation/loginquestions`,{headers: {
+          `${BaseUrl}/api/quesation/loginquestions`, {
+          headers: {
             'ngrok-skip-browser-warning': 5000
-          }}
+          }
+        }
         );
-        // const response = await axios.get(`http://localhost:5000/api/quesation/loginquestions`)
-        setQuestions(response.data.data.slice(0, 2));
+        const allQuestions = response.data.data;
+        const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
+        const selectedQuestions = shuffledQuestions.slice(0, 2);
+
+        setQuestions(selectedQuestions);
       } catch (error) {
         console.log("error", error);
       }
@@ -76,23 +81,27 @@ const Quiz = () => {
     setTimeout(() => {
       setSelectedAnswer(null);
       setAnswerStatus(null);
+
       if (currentQuestionIndex + 1 < questions.length) {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       }
+
       if (currentQuestionIndex === 1) {
         openModal();
       }
+
       const defaultScore = 100
       const totalScoreToBeUpdated = defaultScore + scoreChange - 50;
-  updateScoreInDatabase(totalScoreToBeUpdated)
+      updateScoreInDatabase(totalScoreToBeUpdated)
       localStorage.setItem('totalscore', totalScoreToBeUpdated);
     }, 1000);
+
     const token = localStorage.getItem('token');
     const updateScoreInDatabase = async (score, type) => {
       try {
         const response = await axios.post(
           "https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",
-          { coins: score, type: type }, // Add a 'type' parameter to distinguish defaultScore and scoreChange
+          { coins: score, type: type }, //Add a 'type' parameter to distinguish defaultScore and scoreChange
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -105,9 +114,9 @@ const Quiz = () => {
       }
     };
     if (!token) {
-      const defaultScore=100
+      const defaultScore = 100
       setTotalScore(scoreChange)
-      const scorecoin = defaultScore + parseInt(totalscore)+scoreChange
+      const scorecoin = defaultScore + parseInt(totalscore) + scoreChange
       localStorage.setItem("usercoin", scorecoin)
       console.log("SCORCOIN", scorecoin);
       // console.log("TOTALSCORE",totalscore)
@@ -228,17 +237,16 @@ const Quiz = () => {
                       <Col
                         key={index}
                         onClick={() => handleOptionClick(answer)}
-                        className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${
-                          answer === selectedAnswer
-                            ? answerStatus
-                              ? "bg-[#099623] !important"
-                              : "bg-[#f02d1f] !important"
-                            : answer ===
-                                questions[currentQuestionIndex].correct &&
-                              answerStatus === false
+                        className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${answer === selectedAnswer
+                          ? answerStatus
+                            ? "bg-[#099623] !important"
+                            : "bg-[#f02d1f] !important"
+                          : answer ===
+                            questions[currentQuestionIndex].correct &&
+                            answerStatus === false
                             ? "bg-[#099623] !important"
                             : "bg-[#20213f] !important"
-                        } rounded-full cursor-pointer`}
+                          } rounded-full cursor-pointer`}
                       >
                         {answer}
                       </Col>

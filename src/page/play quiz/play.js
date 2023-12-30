@@ -6,10 +6,13 @@ import { Link, useParams } from "react-router-dom"
 import React, { useState, useEffect } from 'react';
 import { FaX } from "react-icons/fa6";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BaseUrl = process.env.REACT_APP_BASEURL;
 
 const Play = () => {
+    const navigate = useNavigate();
+
     const [isModalOpen, setModalOpen] = useState(false);
     const [subcategories, setSubcategories] = useState([]);
     const [isGuest, setIsGuest] = useState(true);
@@ -17,62 +20,14 @@ const Play = () => {
     const [userCoins, setUserCoins] = useState(0);
     const [databaseCoins, setDatabaseCoins] = useState(0);
     const loginscore = localStorage.getItem('allcoins') || 0;
-    const newcoins = localStorage.getItem("coin") || 0;
+    console.log(">>>>>>>>>>",loginscore);
+    const newcoins = localStorage.getItem("logincoin") || 0;
+    // console.log("<<<<<", newcoins);
     localStorage.setItem('usercoin', 0)
-
-    // Function to deduct coins
-
-    const deductCoins = async () => {
-        const updatedScore = loginscore - 100;
-        localStorage.setItem('coins', updatedScore);
-
-        try {
-            // Check if the user has enough coins
-            if (isGuest ? newcoins < 100 : loginscore < 100) {
-                // Display an error message or take appropriate action
-                console.log('Not enough coins');
-                return;
-            }
-
-            const token = localStorage.getItem('token');
-            const response = await axios.post(`${BaseUrl}/api/updateCoins`,
-                { coins: -100 },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'ngrok-skip-browser-warning': 5000
-                    }
-                }
-            );
-
-            // Check if the API request was successful
-            if (response.data.status === 'Success') {
-                // Update the local state or storage with the new coin value
-                if (isGuest) {
-                    localStorage.setItem('coin', newcoins - 100);
-                } else {
-                    setUserCoins(userCoins - 100);
-                }
-                // Redirect or perform other actions after deducting coins
-                // For example, redirect to the quiz page
-                // history.push(`/question/${categoryid}`);
-            } else {
-                // Handle API request failure
-                console.log('API request failed:', response.data.message);
-            }
-        } catch (error) {
-            // Handle errors, e.g., network issues
-            console.error('Error deducting coins:', error);
-        }
-    };
-    const updated = parseInt(localStorage.getItem('coins')) || 0;
-    const earnedCoins = parseInt(localStorage.getItem('earnedCoins')) || 0;
-    const allcoins = parseInt(updated) + parseInt(earnedCoins);
-    localStorage.setItem('allcoin', allcoins);
-    console.log("LOGINPLUs", allcoins);
 
     // Function to open the modal
     const openModal = () => {
+        console.log('Opening modal');
         setModalOpen(true);
     };
 
@@ -80,8 +35,125 @@ const Play = () => {
     const closeModal = () => {
         setModalOpen(false);
     };
+    // Function to deduct coins
 
+    // const deductCoins = async () => {
+    //     const updatedScore = loginscore - 100;
+    
+    //     // Check if the updated score is non-negative
+    //     if (databaseCoins >= 100) {
+    //         localStorage.setItem('coins', updatedScore);
+    
+    //         try {
+    //             const token = localStorage.getItem('token');
+    //             const response = await axios.post(
+    //                 `${BaseUrl}/api/updateCoins`,
+    //                 { coins: -100 },
+    //                 {
+    //                     headers: {
+    //                         Authorization: `Bearer ${token}`,
+    //                         'ngrok-skip-browser-warning': 5000,
+    //                     },
+    //                 }
+    //             );
+    
+    //             // Check if the API request was successful
+    //             if (response.data.status === 'Success') {
+    //                 // Update the local state or storage with the new coin value
+    //                 if (isGuest) {
+    //                     localStorage.setItem('coin', newcoins - 100);
+    //                     // navigate(`/question/${categoryid}`);
+    //                 } else {
+    //                     setUserCoins(userCoins - 100);
+    //                 }
+    
+    //                 if (isGuest && databaseCoins >= 100) {
+    //                     // Navigate to the question page
+    //                     console.log('user', databaseCoins);
+    //                     navigate(`/question/${categoryid}`);
+    //                 } else {
+    //                     openModal();
+    //                 }
+    //             } else {
+    //                 // Handle API request failure
+    //                 console.log('API request failed:', response.data.message);
+    //             }
+    //         } catch (error) {
+    //             // Handle errors, e.g., network issues
+    //             console.error('Error deducting coins:', error);
+    //         }
+    //     } else {
+    //         // Handle the case where the updated score is negative
+    //                     openModal();
+    //                     console.log('Score cannot be negative');
+    //         // You may want to show an error message to the user or handle it accordingly
+    //     }
+    // };
+    
+    const deductCoins = async () => {
+        if (loginscore >= 100) {
+            
+            const updatedScore = loginscore - 100;
+            localStorage.setItem('coins', updatedScore);
+            navigate(`/question/${categoryid}`);
+
+        } else {
+            console.log("no coins");
+            openModal();
+        }
+        // console.log("UPDATE", updatedScore);
+        try {
+            if(databaseCoins >= 100){
+
+                const token = localStorage.getItem('token');
+                const response = await axios.post(`${BaseUrl}/api/updateCoins`,
+                    { coins: -100 },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'ngrok-skip-browser-warning': 5000
+                        }
+                    }
+                );
+                // Check if the API request was successful
+                if (response.data.status === 'Success') {
+                    // Update the local state or storage with the new coin value
+                    if (isGuest) {
+                        localStorage.setItem('coin', newcoins - 100);
+                        // navigate(`/question/${categoryid}`);
+    
+                    } else {
+                        setUserCoins(userCoins - 100);
+                    }
+    
+                    if (isGuest && databaseCoins >= 100) {
+                        // Navigate to the question page
+                        console.log("user",databaseCoins);
+                        navigate(`/question/${categoryid}`);
+                    } else {
+                        openModal();
+                    }
+                    
+                } else {
+                    // Handle API request failure
+                    console.log('API request failed:', response.data.message);
+                }
+            }
+
+                
+        } catch (error) {
+            // Handle errors, e.g., network issues
+            openModal();
+            console.error('Error deducting coins:', error);
+        }
+    };
+    const updated = parseInt(localStorage.getItem('coins')) || 0;
+    const earnedCoins = parseInt(localStorage.getItem('earnedCoins')) || 0;
+    const allcoins = parseInt(updated) + parseInt(earnedCoins);
+    localStorage.setItem('allcoin', allcoins);
+   
     useEffect(() => {
+
         const fetchCategory = async () => {
             try {
                 const response = await axios.get(`${BaseUrl}/api/quesation/questions?quiz=${categoryid}`,
@@ -92,8 +164,8 @@ const Play = () => {
                     });
                 const newQuizData = response.data.data.map(item => item.quiz);
                 setSubcategories(newQuizData.slice(0, 1));
-                console.log("QUIZOBJECT", newQuizData);
-                console.log("HOMECTAEGORY:", response.data.data[0].quiz);
+                // console.log("QUIZOBJECT", newQuizData);
+                // console.log("HOMECTAEGORY:", response.data.data[0].quiz);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -102,15 +174,15 @@ const Play = () => {
         const token = localStorage.getItem('token');
         const fetchDatabaseCoins = async () => {
             try {
-                const response = await axios.post(`${BaseUrl}/api/updateCoins`, 
-                { coins: databaseCoins },
+                const response = await axios.post(`${BaseUrl}/api/updateCoins`,
+                    { coins: databaseCoins },
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
                     });
                 setDatabaseCoins(response.data.totalCoins);
-                console.log("coins", response.data.totalCoins);// Update with your actual API response structure
+                // console.log("coins", response.data.totalCoins);// Update with your actual API response structure
             } catch (error) {
                 console.error("Error fetching database coins:", error);
             }
@@ -129,7 +201,7 @@ const Play = () => {
     const checkIfPlayerIsGuest = () => {
         const guestToken = localStorage.getItem('token');
         // localStorage.removeItem('token');
-        console.log("TOKEN", guestToken);
+        // console.log("TOKEN", guestToken);
         return !!guestToken;
     };
 
@@ -198,23 +270,14 @@ const Play = () => {
                                     ))}
                                     {isGuest ? (
                                         // Render only the "PLAY" button when the user is logged in
-                                        <Link to={`/question/${categoryid}`}>
-                                            <div className="flex justify-center pb-6">
-                                                <Button onClick={deductCoins} className=" py-[10px] px-8 bg-[#1F01FF] border-[1px] rounded-full text-white font-bold cursor-pointer">
-                                                    PLAY QUIZ
-                                                </Button>
-                                            </div>
-                                        </Link>
-                                    ) : (
-
-                                        <div className="flex w-full justify-around pb-[25px]">
-                                            <Link to="/login">
-                                                <button onClick={openModal} class="bg-[#1A2F77] py-2 px-14 font-[700] text-white rounded-full">JOIN NOW</button>
-                                            </Link>
-                                            <p className="text-[20px] text-white">or</p>
+                                        // <Link to={`/question/${categoryid}`}>
+                                        <div className="flex justify-center pb-6">
+                                            <Button onClick={deductCoins} className=" py-[10px] px-8 bg-[#1F01FF] border-[1px] rounded-full text-white font-bold cursor-pointer">
+                                                PLAY QUIZ
+                                            </Button>
                                             {isModalOpen && (
-                                                <div className="modal-container">
-                                                    <div className="modal">
+                                                <div className="modal-container" >
+                                                <div className="modal" style={{padding:"30px 20px 40px 20px"}}>
                                                         <div className="flex justify-end">
                                                             <FaX onClick={closeModal} className="cursor-pointer" />
                                                         </div>
@@ -231,11 +294,38 @@ const Play = () => {
                                                     </div>
                                                 </div>
                                             )}
-                                            <Link to={`/question/${categoryid}`}>
+                                        </div>
+                                        // </Link>
+                                    ) : (
+
+                                        <div className="flex w-full justify-around pb-[25px]">
+                                            <Link to="/login">
+                                                <button  class="bg-[#1A2F77] py-2 px-14 font-[700] text-white rounded-full">JOIN NOW</button>
+                                            </Link>
+                                            <p className="text-[20px] text-white">or</p>
+                                           
                                                 <div onClick={deductCoins} class=" border-[1px] text-white text-center rounded-full font-bold text-sm py-3  px-10 cursor-pointer">
                                                     PLAY AS GUEST
                                                 </div>
-                                            </Link>
+                                                {isModalOpen && (
+                                                <div className="modal-container" >
+                                                <div className="modal" style={{padding:"30px 20px 40px 20px"}}>
+                                                        <div className="flex justify-end">
+                                                            <FaX onClick={closeModal} className="cursor-pointer" />
+                                                        </div>
+                                                        <div className="flex justify-center">
+                                                            <img src="https://monetix-lookat1.quiztwiz.com/static/media/adpic.18b085351c262a96e5a9.png" alt="ads"></img>
+                                                        </div>
+
+                                                        <h2 class="text-4xl text-[#D8E91E] md:text-[1.5rem] mb-4 flex justify-center">oops!</h2>
+                                                        <p class="mb-6 text-[#8E8F98] flex justify-center">Not enough coins to play</p>
+                                                        <div className="flex justify-center">
+                                                            <button class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center">Watch Ad</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     )}
 

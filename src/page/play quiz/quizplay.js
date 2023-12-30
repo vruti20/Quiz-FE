@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Quizplay = () => {
 
-    const loginscore = localStorage.getItem('totalscore');
+    const loginscore = localStorage.getItem('logincoin');
     const userCoins = localStorage.getItem("usercoin");
     const token = localStorage.getItem('token');
     const coins= token ? loginscore : userCoins

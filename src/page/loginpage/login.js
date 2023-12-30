@@ -32,12 +32,15 @@ const Login = () => {
       // )
       // localStorage.clear();
       console.log("*************",response.data.data.mobileNumber);
+
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("logincoin", response.data.data.coins);
       sessionStorage.setItem("moblieNumber",response.data.data.mobileNumber)
       if (response.status === 200) {
         const ganrateotp = response.data.otp;
         console.log("OTP generated:", ganrateotp);
-        setShowOtpDiv(true);
+        console.log("RESPONSE>>", response.data.data.coins);    
+            setShowOtpDiv(true);
         setOtp(ganrateotp);
         toast.success(response.data.message, {
           style: { background: "black", color: "white" },

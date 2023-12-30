@@ -36,7 +36,7 @@ const Home = () => {
   
   if ( additionDone !== true ) {
     const updatedAllCoins = parseInt(allcoin) + parseInt(usercoin);
-    console.log('updatedAllCoins:', updatedAllCoins);
+    // console.log('updatedAllCoins:', updatedAllCoins);
     localStorage.setItem('allcoins', updatedAllCoins);
     localStorage.setItem('additionDone', 'false');
   }
@@ -125,8 +125,9 @@ const Home = () => {
               "ngrok-skip-browser-warning": 5000,
             },
           }
-        );
-        setCategory(response.data.data);
+          );
+          setCategory(response.data.data);
+          console.log("categoryid",categoryid);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
