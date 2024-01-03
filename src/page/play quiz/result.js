@@ -10,7 +10,6 @@ const Result = () => {
     const [coins, setCoins] = useState(0);
     // const [playCount, setPlayCount] = useState(0);
 
-
     const calculateEarnedCoins = (score) => {
         if (score >= 50 && score <= 150) {
             return 500;
@@ -79,14 +78,14 @@ const Result = () => {
 // localStorage.clear()
     return (
         <>
-            <div className="bg-[#0F172A] h-[100vh] sm:h-[100%]">
+            <div className="bg-color h-[100vh] sm:h-[100%]">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
                         <div className="" >
                             <div className="pb-8">
-                                <div className="bg-[#0F172A] lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
-                                    <p className="text-white text-sm text-center">ads by goggle</p>
+                                <div className="bg-white lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
+                                    <p className="text-black text-sm text-center">ads by goggle</p>
                                 </div>
                             </div>
                             <div >
@@ -98,11 +97,11 @@ const Result = () => {
                                     </div>
 
                                     <div className="grid-cols-2 flex-col pt-[100px] justify-center gap-2 grid text-white mx-[50px]">
-                                        <Col className="flex flex-col items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer ">
+                                        <Col className="flex flex-col items-center py-2 pl-[10px] pr-[10px] bg-[#F29200]  rounded-xl cursor-pointer ">
                                             <p>{score}</p>
                                             <p>Your Score</p>
                                         </Col>
-                                        <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#0E1344] border-2 border-[#404380] rounded-full cursor-pointer">
+                                        <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#F29200] rounded-xl cursor-pointer">
                                             <p>{earnedCoins}</p>
                                             {/* <p>{coins}</p> */}
                                             <p>Coins Earned</p>
@@ -114,17 +113,17 @@ const Result = () => {
                                 </div>
 
                                 <div class="mt-5 cursor-pointer flex justify-center">
-                                    <button class=" flex gap-2 rounded-full px-7 py-2 border-2 border-[#1a2f77] text-white ">
+                                    <button class=" flex gap-2 rounded-full px-7 py-2 border-2 border-[#2DAAE2] text-white ">
                                         Double Your winnings
                                         <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coin" />
                                     </button>
                                 </div>
 
-                                <div class="w-[85%] mx-auto  my-6" style={{ border: "1px solid rgb(26, 47, 119)" }}></div>
+                                <div class="w-[85%] mx-auto  my-6" style={{ border: "1px solid #2DAAE2" }}></div>
 
                                 <Link to="/quizhome">
                                     <div className="flex justify-center ">
-                                        <button class="rounded-full px-7 py-2 text-white flex justify-center " style={{ background: "rgb(26, 47, 119)" }}>
+                                        <button class="rounded-full px-7 py-2 text-white flex justify-center bg-[#94C120]">
                                             Home
                                         </button>
                                     </div>
@@ -136,7 +135,7 @@ const Result = () => {
                     <Col className="fixed">
 
                         <div className="flex justify-center py-16 md:py-10">
-                            <img className="lg:w-[65%] md:w-[300px] " src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png" alt=""></img>
+                            <img className="lg:w-[65%] md:w-[300px] " src={require('../../../src/image/image2.png')} alt=""></img>
                         </div>
 
                         <div class="font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">

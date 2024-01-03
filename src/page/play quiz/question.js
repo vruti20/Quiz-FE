@@ -203,11 +203,11 @@ const Question = () => {
   };
   return (
     <>
-      <div className="bg-[#0F172A] bg-fixed h-[100%] bg-high">
+      <div className="bg-color bg-fixed h-[100%] bg-high">
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div>
-              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0F172A] header  z-10 ">
+              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-color header  z-10 ">
               <Link to={`/quizhome`} className="pl-[10px]">
                 <img
                   src={require("../../image/download (1).png")}
@@ -229,7 +229,7 @@ const Question = () => {
                   </div>
 
                   <div className="mt-[3px] flex items-center">
-                    <div class="text-[10px] flex text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                    <div class="text-[10px] flex text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-full">
                       <img
                         className="w-3 "
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -280,7 +280,7 @@ const Question = () => {
                         <Col
                           key={index}
                           onClick={() => handleOptionClick(answer)}
-                          className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] rounded-full cursor-pointer ${
+                          className={`flex flex-col items-center m-2 py-2 rounded-xl cursor-pointer ${
                             FiftyFifty && remainingAnswers.length > 0
                               ? remainingAnswers.includes(answer)
                                 ? answer === selectedAnswer
@@ -291,7 +291,7 @@ const Question = () => {
                                       questionData[currentQuestionIndex]
                                         ?.correct && answerStatus === false
                                   ? "bg-[#099623] !important"
-                                  : "bg-[#20213f] !important"
+                                  : "bg-color1 !important"
                                 : "hidden"
                               : answer === selectedAnswer
                               ? answerStatus
@@ -301,7 +301,7 @@ const Question = () => {
                                   questionData[currentQuestionIndex]?.correct &&
                                 answerStatus === false
                               ? "bg-[#099623] !important"
-                              : "bg-[#20213f] !important"
+                              : "bg-color1 !important"
                           }`}
                         >
                           {answer}
@@ -318,8 +318,8 @@ const Question = () => {
               </div>
 
               <div className="pb-8">
-                <div className="bg-[#0F172A] lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
-                  <p className="text-white text-sm text-center">
+                <div className="bg-white lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
+                  <p className="text-black text-sm text-center">
                     ads by goggle
                   </p>
                 </div>
@@ -327,20 +327,19 @@ const Question = () => {
             </div>
 
             <div
-              className="  footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4 border-t nborder"
-              style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}
+              className="  footer flex justify-around lg:w-[520px] bg-color pb-4 border-t border-[#94C120]"
+              style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.5)"}}
             >
               <div className="">
                 <div className="flex justify-center  pt-3 relative">
                   <p
                     onClick={handleLifelinesClick}
-                    className="text-white  transition duration-1000 absolute top-[-12px] bg-[#191A32] w-[180px] justify-center flex border cursor-pointer rounded-full  px-3 py-1 nborder"
+                    className="text-white  transition duration-1000 absolute top-[-12px] bg-color1 w-[180px] justify-center flex border cursor-pointer rounded-full  px-3 py-1 border-[#94C120]"
                   >
                     <VscHeartFilled
-                      className="pt-[3px] mr-2 text-[18px]"
-                      style={{ color: " rgb(2, 121, 211)" }}
+                      className="pt-[3px] mr-2 text-[18px] text-[#94C120]"
                     />
-                    <span className="text-[14px] font-[600] ">
+                    <span className="text-[14px] font-[600] text-white">
                       Tap To Use Lifelines
                     </span>
                   </p>
@@ -350,7 +349,7 @@ const Question = () => {
                       <div className="flex gap-10 pt-8  relative">
                         <div>
                           <div
-                            className={`h-[60px] w-[60px] border-[1px] rounded-full flex justify-center items-center cursor-default ${
+                            className={`h-[60px] w-[60px] border-[1px] rounded-full flex justify-center items-center cursor-default  ${
                               useFirstLifeline
                                 ? "text-[#FFCC5B] border-[#FFCC5B] "
                                 : "text-white border-white"
@@ -453,7 +452,7 @@ const Question = () => {
             <div className="flex justify-center py-16 md:py-10">
               <img
                 className="lg:w-[65%] md:w-[300px] "
-                src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png"
+                src={require('../../../src/image/image2.png')}
                 alt=""
               ></img>
             </div>

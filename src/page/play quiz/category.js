@@ -105,11 +105,11 @@ const Category = () => {
 
     return (
         <>
-            <div className="bg-[#0F172A] h-[100%]">
+            <div className="bg-color h-[100%]">
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex" >
                         <div className="">
-                            <div className="flex justify-between lg:w-[520px] bg-[#0F172A] py-[8px] cursor-pointer header">
+                            <div className="flex justify-between lg:w-[520px] bg-color py-[8px] cursor-pointer header">
                                 <Link to={`/quizhome`} className="pl-[10px]">
                                     <img
                                         src={require("../../image/download (1).png")}
@@ -124,7 +124,7 @@ const Category = () => {
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
                                     </div>
                                     <div className="mt-[3px] flex items-center ml-1">
-                                        <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                                        <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-full">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
                                                 {isGuest ? databaseCoins : allcoins} COINS
@@ -134,8 +134,8 @@ const Category = () => {
                                 </div>
 
                             </div>
-                            <div className="bg-transparent h-[350px] mx-auto mb-[8px]">
-                                <p className="text-center text-white">
+                            <div className="bg-white h-[350px] mx-auto mb-[8px]">
+                                <p className="text-center  text-black">
                                     ads by goggle
                                 </p>
                             </div>
@@ -144,7 +144,7 @@ const Category = () => {
                                 Select the Quiz category that you want to play
                             </p>
 
-                            <div className="border-2 rounded-full border-white px-4 py-3 flex items-center gap-2">
+                            <div className="border-2 rounded-full border-sky-300  px-4 py-3 flex items-center gap-2">
                                 <IoSearch className="text-white text-[20px] " />
                                 <input
                                     type="text"
@@ -157,7 +157,7 @@ const Category = () => {
                             <div className="flex flex-wrap pb-[100px]">
                                 {filteredCategories.map((data) => (
                                     <div key={data._id} className="px-2 pt-5 w-1/2" onClick={() => Subcategory(data._id)}>
-                                        <div className="flex gap-1 items-center border-[1px] border-white rounded-full p-2 cursor-pointer w-full">
+                                        <div className="flex gap-1 items-center border-[1px] border-[#afdeec]  rounded-xl p-2 cursor-pointer w-full">
                                             <img
                                                 className="w-[46px] rounded-full"
                                                 src={data.img}
@@ -172,10 +172,12 @@ const Category = () => {
                             </div>
                         </div>
 
-                        <div className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4" style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}>
+                        <div className="footer bg-color flex justify-around lg:w-[520px] pb-4" 
+                        style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.5)"}}
+                        >
                             <Link to="/category">
                                 <div
-                                    className={`px-8 py-1 rounded-[28px] ${click ? '' : 'bg-[#1A2F77]'}`}
+                                    className={`px-8 py-1 rounded-[28px] ${click ? '' : 'bg-[#94C120]'}`}
                                     onClick={handleClicked}
                                 >
                                     <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
@@ -204,7 +206,7 @@ const Category = () => {
                     <Col className="fixed ">
 
                         <div className="flex justify-center py-16 md:py-10">
-                            <img className="lg:w-[65%] md:w-[300px] " src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png" alt=""></img>
+                            <img className="lg:w-[65%] md:w-[300px] " src={require('../../../src/image/image2.png')} alt=""></img>
                         </div>
 
                         <div class="font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">

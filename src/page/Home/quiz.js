@@ -33,8 +33,7 @@ const Quiz = () => {
 
     //Show The Tostify
     toast("100 Coins Rewarded!!", {
-      style: { background: "black", color: "white" },
-      progressStyle: { background: "#cc00ff" },
+      style: { background: "#2DAAE2", color: "white" },
       icon: (
         <img
           src={require("../../image/coin-2.jpg")}
@@ -188,7 +187,7 @@ const Quiz = () => {
 
   return (
     <>
-      <div className="bg-[#0F172A]">
+      <div className="bg-color">
         <Row className="flex  ">
           <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
             <div className="bg-white h-[350px] mx-auto mb-[8px]">
@@ -237,7 +236,7 @@ const Quiz = () => {
                       <Col
                         key={index}
                         onClick={() => handleOptionClick(answer)}
-                        className={`flex flex-col items-center m-2 py-2 border-2 border-[#404380] ${answer === selectedAnswer
+                        className={`flex flex-col items-center m-2 py-2 ${answer === selectedAnswer
                           ? answerStatus
                             ? "bg-[#099623] !important"
                             : "bg-[#f02d1f] !important"
@@ -245,8 +244,8 @@ const Quiz = () => {
                             questions[currentQuestionIndex].correct &&
                             answerStatus === false
                             ? "bg-[#099623] !important"
-                            : "bg-[#20213f] !important"
-                          } rounded-full cursor-pointer`}
+                            : "bg-color1 !important"
+                          } rounded-xl cursor-pointer`}
                       >
                         {answer}
                       </Col>
@@ -277,7 +276,7 @@ const Quiz = () => {
                       </p>
                       <div className="flex justify-center">
                         <button
-                          class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center"
+                          class="bg-[#94C120] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center"
                           onClick={closeModal}
                         >
                           Claim
@@ -289,7 +288,7 @@ const Quiz = () => {
               </>
             )}
 
-            <p className="text-[#ffcc5b] text-center font-bold cursor-pointer pt-3">
+            <p className="text-[#54c05d] text-center font-bold cursor-pointer pt-3">
               <Link to="/login">Sign-Up - Login</Link>
             </p>
 
@@ -297,7 +296,7 @@ const Quiz = () => {
               <h1 className="w-full font-bold text-lg text-white">
                 Play Quiz and Win Coins!
               </h1>
-              <ul className="text-[#8789c3] text-[14px] list-disc my-3 px-4">
+              <ul className="text-[#9b9ba7] text-[14px] list-disc my-3 px-4">
                 <li className="mb-2">
                   {" "}
                   Play Quizzes in 25+ categories like GK, Sports, Bollywood,
@@ -312,8 +311,8 @@ const Quiz = () => {
               </ul>
             </div>
 
-            <div className="border-2 w-[100%] p-6 rounded-xl bg-white bg-opacity-10">
-              <h1 className="text-2xl text-center text-blue-500 ">Fun Facts</h1>
+            <div className="border-2 	 w-[100%] p-6 rounded-xl " style={{ borderColor: "#F29200",boxShadow: "5px  10px 15px rgba(242, 146, 0, 0.3)"}}>
+              <h1 className="text-2xl text-center text-[#54c05d] ">Fun Facts</h1>
               <p className="text-center text-white">
                 The insurance industry is one of the largest industries in the
                 United States, with over $1.5 trillion in annual premiums.The
@@ -328,13 +327,9 @@ const Quiz = () => {
               </p>
             </div>
           </Col>
-          <Col className="fixed ">
-            <div className="flex justify-center py-16 md:py-10">
-              <img
-                className="lg:w-[65%] md:w-[300px] "
-                src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png"
-                alt=""
-              ></img>
+          <Col className="fixed">
+            <div className="flex justify-center	 py-16 md:py-10">
+              <img src={require('../../../src/image/image2.png')}  className="lg:w-[65%] md:w-[300px]" alt="" />
             </div>
             <div className="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.

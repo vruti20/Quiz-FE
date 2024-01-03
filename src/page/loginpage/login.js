@@ -31,16 +31,16 @@ const Login = () => {
       //   }
       // )
       // localStorage.clear();
-      console.log("*************",response.data.data.mobileNumber);
+      console.log("*************", response.data.data.mobileNumber);
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("logincoin", response.data.data.coins);
-      sessionStorage.setItem("moblieNumber",response.data.data.mobileNumber)
+      sessionStorage.setItem("moblieNumber", response.data.data.mobileNumber);
       if (response.status === 200) {
         const ganrateotp = response.data.otp;
         console.log("OTP generated:", ganrateotp);
-        console.log("RESPONSE>>", response.data.data.coins);    
-            setShowOtpDiv(true);
+        console.log("RESPONSE>>", response.data.data.coins);
+        setShowOtpDiv(true);
         setOtp(ganrateotp);
         toast.success(response.data.message, {
           style: { background: "black", color: "white" },
@@ -81,7 +81,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="bg-[#0F172A]">
+      <div className="bg-color">
         <Row className="flex ">
           <Col className="md:w-[410px] h-[100vh] lg:w-[530px]  py-2 px-2">
             <div className="flex py-[8px] cursor-pointer ">
@@ -111,7 +111,7 @@ const Login = () => {
 
                 <div className="text-center">
                   <input
-                    className="bg-[#0F172A] text-white border-[3px] border-white border-solid rounded-full py-[10px] text-center px-8"
+                    className="bg-[#0a0a2911] text-white border-[3px] border-[#afdeec] border-solid rounded-full py-[10px] text-center px-8"
                     placeholder="Enter phone number"
                     type="tel"
                     value={mobileNumber}
@@ -121,7 +121,7 @@ const Login = () => {
 
                 <div className="text-center pt-5">
                   <Button
-                    className="bg-[#1A2F77] text-white font-bold text-[16px] border-[3px] border-white border-solid rounded-full py-[10px] text-center px-[85px]"
+                    className="bg-orange-500 text-white font-bold text-[16px] rounded-full py-[13px] text-center px-[88px]"
                     onClick={generateOTP}
                     value={otp}
                   >
@@ -141,7 +141,7 @@ const Login = () => {
                 </div>
                 <div
                   class="w-3/5 mx-auto  my-6"
-                  style={{ border: "1px solid rgb(26, 47, 119)" }}
+                  style={{ border: "1px solid rgba(122,172,178,1)" }}
                 ></div>
               </div>
             )}
@@ -150,7 +150,7 @@ const Login = () => {
               <div className="pt-[150px]">
                 <div className="text-center">
                   <input
-                    className="bg-[#0F172A] text-white border-[3px] border-white border-solid rounded-full py-[10px] text-center px-8"
+                    className="bg-[#07B4D5] text-white rounded-full py-[12px] text-center px-8"
                     placeholder="Enter Otp"
                     type="tel"
                     value={otp}
@@ -164,7 +164,7 @@ const Login = () => {
                     onClick={() => !otp && alert("Please enter OTP")}
                   >
                     <Button
-                      className={`bg-[#1A2F77] text-white font-bold text-[16px] border-[3px] border-white border-solid rounded-full py-[10px] text-center px-[85px]`}
+                      className={`bg-orange-500 text-white font-bold text-[16px] rounded-full py-[13px] text-center px-[88px]`}
                       disabled={!otp}
                     >
                       SUBMIT
@@ -174,7 +174,7 @@ const Login = () => {
 
                 <div
                   class="w-3/5 mx-auto my-6"
-                  style={{ border: "1px solid rgb(26, 47, 119)" }}
+                  style={{ border: "1px solid rgba(122,172,178,1)" }}
                 ></div>
               </div>
             )}
@@ -183,7 +183,7 @@ const Login = () => {
               <h1 className="w-full font-bold text-lg text-white">
                 Play Quiz and Win Coins!
               </h1>
-              <ul className="text-[#8789c3] text-[14px] list-disc my-3 px-4">
+              <ul className="text-[#9b9ba7] text-[14px] list-disc my-3 px-4">
                 <li className="mb-2">
                   {" "}
                   Play Quizzes in 25+ categories like GK, Sports, Bollywood,
@@ -201,8 +201,8 @@ const Login = () => {
           <Col className="fixed ">
             <div className="flex justify-center py-16 md:py-10">
               <img
-                className="lg:w-[65%] md:w-[300px] "
-                src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png"
+                className="lg:w-[800px] h-[400px] md:w-[300px] "
+                src={require('../../../src/image/image2.png')}
                 alt=""
               ></img>
             </div>

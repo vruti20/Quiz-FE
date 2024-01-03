@@ -105,10 +105,6 @@
     width: 425px;
   }
 }
-.nborder{
-  border-color: rgb(75 85 99);
-}
-
 .modal-container {
   position: fixed;
   top: 50%;
@@ -124,7 +120,8 @@
 }
 
 .modal {
-  background: #111827;
+  background-color: #821556;
+  background-image: linear-gradient(225deg, #821556 0%, #41106b 50%, #102d42 100%);;
   color: white;
   border: 2px solid  white;
   padding: 20px;
@@ -139,4 +136,12 @@
   .bg-height{
     height: 100vh !important;
   }
+}
+.bg-color{
+  background-color: #821556;
+  background-image: linear-gradient(225deg, #821556 0%, #47097f 35%, #052135 100%);
+}
+.bg-color1{
+  background-color: #7c295b;
+  background-image: linear-gradient(25deg, #df4ca4 0%, #64229e 50%, #2a648d 100%);
 }

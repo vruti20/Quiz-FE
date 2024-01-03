@@ -59,11 +59,11 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
   };
   return (
     <>
-      <div className="bg-[#0F172A] ">
+      <div className="bg-color">
         <Row className="h-[100%] ">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div className="">
-              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0F172A] header">
+              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-color header">
                 <Link to={`/quizhome`} className="pl-[10px]">
                   <img
                     src={require("../../image/download (1).png")}
@@ -85,7 +85,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
                     </p>
                   </div>
                   <div className="mt-[3px] flex items-center ml-1">
-                    <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                    <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-full">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -99,7 +99,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
               <div className="flex justify-center w-full gap-10 mt-6 pt-14">
                 <div className="w-32  rounded-full ">
                   <img
-                    className="h-32 rounded-full bg-[#1F2937]"
+                    className="h-32 rounded-full bg-[#f6f6f711]"
                     src={require("../../../src/image/download.png")}
                     alt="profile"
                   ></img>
@@ -119,14 +119,14 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
                 </div>
               </div>
               <div className="flex items-center justify-center mt-6 gap-10">
-                <div className="w-[150px] rounded-full py-2 px-4 flex justify-between items-center bg-orange-500 border-2">
+                <div className="w-[150px] rounded-xl py-2 px-4 flex justify-between items-center bg-[#2DAAE2] ">
                   <p className="text-white text-sm">Coins </p>
                   <p className="text-white text-lg">
                     {" "}
                     {isGuest ? databaseCoins : allcoins}
                   </p>
                 </div>
-                <div class="w-[150px] py-2 px-4 rounded-full border-2 flex  items-center justify-between">
+                <div class="w-[150px] py-2 px-4 rounded-xl border-2 border-[#2DAAE2]  flex  items-center justify-between">
                   <p class="text-white text-sm">Quiz Played</p>
                   <p class="text-white text-lg">{playCount}</p>
                 </div>
@@ -136,15 +136,15 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
               ) : (
                 <Link to={`/login`}>
                   <div class="flex justify-center mt-6">
-                    <p className="text-center mx-3 py-3 px-14 font-[700] bg-[#3957EA]  text-white rounded-full cursor-pointer">
+                    <p className="text-center mx-3 py-3 px-14 font-[700] bg-[#F9B234]  text-white rounded-full cursor-pointer">
                       Join Now
                     </p>
                   </div>
                 </Link>
               )}
               <div className="pb-8">
-                <div className="bg-[#0F172A] lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
-                  <p className="text-white text-sm text-center">
+                <div className="bg-white lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
+                  <p className="text-black text-sm text-center">
                     ads by goggle
                   </p>
                 </div>
@@ -152,8 +152,8 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
             </div>
 
             <div
-              className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4"
-              style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}
+              className=" footer flex justify-around lg:w-[520px] bg-color pb-4"
+              style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.5)"}}
             >
               <Link to="/category">
                 <div className={`px-8 py-1 rounded-[28px] `}>
@@ -171,7 +171,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
               <Link to="/profile">
                 <div
                   className={`px-8 py-1 rounded-[28px] ${
-                    isClicked ? "" : "bg-[#1A2F77]"
+                    isClicked ? "" : "bg-[#94C120]"
                   }`}
                   onClick={handleClick}
                 >
@@ -185,7 +185,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
             <div className="flex justify-center py-16 md:py-10">
               <img
                 className="lg:w-[65%] md:w-[300px] "
-                src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png"
+                src={require('../../../src/image/image2.png')}
                 alt=""
               ></img>
             </div>

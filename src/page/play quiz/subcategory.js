@@ -14,7 +14,7 @@ const Subcategory = () => {
   const [isGuest, setIsGuest] = useState(true);
   const [databaseCoins, setDatabaseCoins] = useState(0);
   const allcoins=localStorage.getItem('allcoins') || 0;
-      const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
   // const newcoins= localStorage.getItem("coin") || 0;
   useEffect(() => {
@@ -64,11 +64,11 @@ const Subcategory = () => {
   };
   return (
     <>
-      <div className="bg-[#0F172A] h-[100vh]">
+      <div className="bg-color h-[100vh]">
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex">
             <div className="">
-              <div className="flex justify-between lg:w-[520px] bg-[#0F172A] py-[8px] cursor-pointer header">
+              <div className="flex justify-between lg:w-[520px] bg-color py-[8px] cursor-pointer header">
               <Link to={`/quizhome`} className="pl-[10px]">
                 <img
                   src={require("../../image/download (1).png")}
@@ -89,7 +89,7 @@ const Subcategory = () => {
                     </p>
                   </div>
                   <div className="mt-[3px]  items-center">
-                    <div class="text-[10px] flex w-[110px] text-white bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                    <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-full">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -107,9 +107,7 @@ const Subcategory = () => {
                 <Link to={`/play/${subcategory._id}`}>
                   <div
                     key={subcategory._id}
-                    className="flex rounded-full gap-2 border border-border bg-[#1F2937] mb-[25px]"
-                    style={{ borderColor: "rgb(75 85 99)" }}
-                  >
+                    className="flex rounded-full gap-2 border border-border border-[#F9B234]  mb-[25px]">
                     <div className="flex flex-col">
                       <img
                         className="rounded-full w-[125px] p-2"
@@ -119,7 +117,7 @@ const Subcategory = () => {
                     </div>
                     <div className="w-full ">
                       <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                        <p className="text-[#64d2ff] max-h-[20px]  px-2">
+                        <p className="text-[#F9B234] max-h-[20px]  px-2">
                           {subcategory.category.name} | {subcategory.title}
                         </p>
                       </div>
@@ -137,7 +135,7 @@ const Subcategory = () => {
                         </p>
                       </div>
                       <div className="flex justify-end my-[5px] text-[7px]">
-                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                        <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#202255]  px-2 rounded-full">
                           <p className="text-white">Entry Fee&nbsp;</p>
                           <img
                             className="w-[10px]"
@@ -161,8 +159,8 @@ const Subcategory = () => {
             </div>
             {/* </div> */}
             <div
-              className=" footer flex justify-around lg:w-[520px]  bg-[#0F172A] pb-4"
-              style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}
+              className=" footer flex justify-around lg:w-[520px] bg-color pb-4"
+              style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.5)"}}
             >
               <Link to="/category">
                 <span className="  ">
@@ -188,7 +186,7 @@ const Subcategory = () => {
             <div className="flex justify-center py-16 md:py-10">
               <img
                 className="lg:w-[65%] md:w-[300px] "
-                src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png"
+                src={require('../../../src/image/image2.png')}
                 alt=""
               ></img>
             </div>

@@ -71,7 +71,7 @@ const Home = () => {
   const getBackgroundColorClass = (categoryId) => {
     return selectedCategory === categoryId ||
       (categoryId === "All" && selectedCategory === null)
-      ? "bg-[#1A2F77]"
+      ? "bg-[#94C120]"
       : "";
   };
   //Show All Category Data
@@ -188,14 +188,14 @@ const Home = () => {
   return (
     <>
       <div
-        className={`bg-[#0F172A] ${
+        className={`bg-color ${
           selectedCategory ? "h-[1400px]" : "h-[100%]"
         }`}
       >
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px] py-[1px] px-2 relative flex-col flex overflow-y-auto">
             <div className="">
-              <div className="flex justify-between items-center	 lg:w-[520px]  py-[8px] cursor-pointer bg-[#0F172A] header">
+              <div className="flex justify-between items-center	 lg:w-[520px]  py-[8px] cursor-pointer bg-color header">
                 <Link to={`/quizhome`} className="pl-[10px]">
                   <img
                     src={require("../../image/download (1).png")}
@@ -216,7 +216,7 @@ const Home = () => {
                     </p>
                   </div>
                   <div className="mt-[3px] flex items-center ml-1">
-                    <div class="text-[10px] flex text-white w-[110px] bg-[#1A2F77] px-[18px] py-[5px] rounded-full">
+                    <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-full">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -228,8 +228,8 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="bg-[#0F172A] mt-[50px] h-[350px] mx-auto mb-[8px]">
-                <p className="text-white text-center">ads by goggle</p>
+              <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">
+                <p className="text-black text-center">ads by goggle</p>
               </div>
 
               <div className="flex justify-between px-[3px] pb-[30px] pt-10 ">
@@ -244,7 +244,7 @@ const Home = () => {
                   <div className="flex text-white justify-center pl-[1240px] mx-2 ms-[220px]">
                     <div
                       onClick={() => handleCategoryClick("All")}
-                      className={`flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px] ${getBackgroundColorClass(
+                      className={`flex-none flex text-[10px] border cursor-pointer border-[#94C120] rounded-full items-center px-8 mx-4 py-[4px] h-[35px] ${getBackgroundColorClass(
                         "All"
                       )}`}
                     >
@@ -253,7 +253,7 @@ const Home = () => {
                     {categories.map((data) => (
                       <div
                         key={data._id}
-                        className={`flex-none flex text-[10px] nborder border-2 cursor-pointer border-border rounded-full items-center px-8 mx-4 py-[4px] h-[35px] ${getBackgroundColorClass(
+                        className={`flex-none flex text-[10px] border cursor-pointer border-[#94C120]  rounded-full items-center px-8 mx-4 py-[4px] h-[35px] ${getBackgroundColorClass(
                           data._id
                         )} `}
                         onClick={() => handleCategoryClick(data._id)}
@@ -279,8 +279,7 @@ const Home = () => {
                       <div
                         onClick={() => handleCategoryid(data._id)}
                         key={data._id}
-                        className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
-                        style={{ borderColor: "rgb(75 85 99)" }}
+                        className="flex rounded-full gap-2 border mb-[25px] border-[#F9B234]"
                       >
                         <div className="flex flex-col">
                           <img
@@ -291,7 +290,7 @@ const Home = () => {
                         </div>
                         <div className="w-full ">
                           <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                            <p className="text-[#64d2ff] max-h-[20px]  px-2">
+                            <p className="text-[#F9B234] max-h-[20px]  px-2">
                               {data.category.name} | {data.title}
                             </p>
                           </div>
@@ -309,7 +308,7 @@ const Home = () => {
                             </p>
                           </div>
                           <div className="flex justify-end my-[5px] text-[7px]">
-                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#202255] px-2 rounded-full">
                               <p className="text-white">Entry Fee&nbsp;</p>
                               <img
                                 className="w-[10px]"
@@ -335,8 +334,7 @@ const Home = () => {
                       <div
                         onClick={() => handleCategoryid(category._id)}
                         key={index}
-                        className="flex rounded-full gap-2 border border-border  bg-[#1F2937] mb-[25px]"
-                        style={{ borderColor: "rgb(75 85 99)" }}
+                        className="flex rounded-full gap-2 border border-[#F9B234]  mb-[25px]"
                       >
                         <div className="flex flex-col">
                           <img
@@ -347,7 +345,7 @@ const Home = () => {
                         </div>
                         <div className="w-full ">
                           <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                            <p className="text-[#64d2ff] max-h-[20px] px-2">
+                            <p className="text-[#F9B234] max-h-[20px] px-2">
                               {category.category.name} | {category.title}
                             </p>
                           </div>
@@ -365,7 +363,7 @@ const Home = () => {
                             </p>
                           </div>
                           <div className="flex justify-end my-[5px] text-[7px]">
-                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#30d158] bg-opacity-20 text-[#30d158] px-2 rounded-full">
+                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#202255]  px-2 rounded-full">
                               <p className="text-white">Entry Fee&nbsp;</p>
                               <img
                                 className="w-[10px]"
@@ -380,7 +378,7 @@ const Home = () => {
                         </div>
                         <div className="w-[120px]">
                           <img
-                            className=" rounded-full p-2"
+                            cxlassName=" rounded-full p-2"
                             src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
                             alt="Play"
                           />
@@ -391,8 +389,8 @@ const Home = () => {
               {/* </Link> */}
             </div>
             <div
-              className=" footer flex justify-around lg:w-[520px] bg-[#0F172A] pb-4"
-              style={{ boxShadow: "rgb(17, 24, 39) 0px -15px 15px" }}
+              className=" footer flex justify-around lg:w-[520px] bg-color pb-4"
+              style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.5)"}}
             >
               <Link to="/category">
                 <div className={`px-8 py-1 rounded-[28px] `}>
@@ -403,7 +401,7 @@ const Home = () => {
               <Link to="/quizhome">
                 <div
                   className={`px-8 py-1 rounded-[28px] ${
-                    isClick ? "" : "bg-[#1A2F77]"
+                    isClick ? "" : "bg-[#94C120]"
                   }`}
                   onClick={handleisClick}
                 >
@@ -425,7 +423,7 @@ const Home = () => {
             <div className="flex justify-center py-16 md:py-10">
               <img
                 className="lg:w-[65%] md:w-[300px] "
-                src="https://monetix-lookat1.quiztwiz.com/static/media/sidePoster.9c9656d2998c44eb6b57.png"
+                src={require('../../../src/image/image2.png')}
                 alt=""
               ></img>
             </div>
