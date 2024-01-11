@@ -64,17 +64,13 @@ const Subcategory = () => {
   };
   return (
     <>
-      <div className="bg-color h-[100vh]">
+      <div className="bg-[#05060D] h-[100vh]">
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex">
             <div className="">
-              <div className="flex justify-between lg:w-[520px] bg-color py-[8px] cursor-pointer header">
+              <div className="flex justify-between lg:w-[520px] bg-[#05060D] py-[8px] cursor-pointer header">
               <Link to={`/quizhome`} className="pl-[10px]">
-                <img
-                  src={require("../../image/download (1).png")}
-                  alt=""
-                  width={"40%"}
-                />
+              <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
               </Link>
                 <div className="flex w-[40%] justify-between">
                   <div className="flex items-center">
@@ -89,7 +85,7 @@ const Subcategory = () => {
                     </p>
                   </div>
                   <div className="mt-[3px]  items-center">
-                    <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-full">
+                    <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -107,7 +103,7 @@ const Subcategory = () => {
                 <Link to={`/play/${subcategory._id}`}>
                   <div
                     key={subcategory._id}
-                    className="flex rounded-full gap-2 border border-border border-[#F9B234]  mb-[25px]">
+                    className="flex rounded-full gap-2 border border-border border-[#35C6F6]  mb-[25px]">
                     <div className="flex flex-col">
                       <img
                         className="rounded-full w-[125px] p-2"
@@ -117,7 +113,7 @@ const Subcategory = () => {
                     </div>
                     <div className="w-full ">
                       <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                        <p className="text-[#F9B234] max-h-[20px]  px-2">
+                        <p className="text-[#35C6F6] max-h-[20px]  px-2">
                           {subcategory.category.name} | {subcategory.title}
                         </p>
                       </div>
@@ -159,8 +155,8 @@ const Subcategory = () => {
             </div>
             {/* </div> */}
             <div
-              className=" footer flex justify-around lg:w-[520px] bg-color pb-4"
-              style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.5)"}}
+              className=" footer flex justify-around lg:w-[520px] bg-[#0B0D26] pb-4"
+              style={{boxShadow: "0px -15px 15px rgba(8, 13, 87,0.5)"}}
             >
               <Link to="/category">
                 <span className="  ">
@@ -184,14 +180,10 @@ const Subcategory = () => {
           </Col>
           <Col className="fixed ">
             <div className="flex justify-center py-16 md:py-10">
-              <img
-                className="lg:w-[65%] md:w-[300px] "
-                src={require('../../../src/image/image2.png')}
-                alt=""
-              ></img>
+            <img className="lg:w-[65%] md:w-[300px] " src={require('../../image/img.jpg')} alt=""></img>
             </div>
 
-            <div class="font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+            <div class="xl:w-[100%] w-[300px] font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p class="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}

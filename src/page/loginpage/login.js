@@ -81,21 +81,17 @@ const Login = () => {
 
   return (
     <>
-      <div className="bg-color">
+      <div className="bg-[#05060D]">
         <Row className="flex ">
           <Col className="md:w-[410px] h-[100vh] lg:w-[530px]  py-2 px-2">
             <div className="flex py-[8px] cursor-pointer ">
               <span>
                 <Link to="/">
-                  <BsChevronLeft className="text-white text-lg  mt-1" />
+                  <BsChevronLeft className="text-white text-lg  mt-2" />
                 </Link>
               </span>
               <Link to={`/quizhome`} className="pl-[10px]">
-                <img
-                  src={require("../../image/download (1).png")}
-                  alt=""
-                  width={"40%"}
-                />
+              <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
               </Link>
             </div>
             {!showOtpDiv && (
@@ -111,7 +107,7 @@ const Login = () => {
 
                 <div className="text-center">
                   <input
-                    className="bg-[#0a0a2911] text-white border-[3px] border-[#afdeec] border-solid rounded-full py-[10px] text-center px-8"
+                    className="bg-[#0a0a2911] text-white border-[3px] border-[#afdeec] border-solid rounded-xl py-[10px] text-center px-8"
                     placeholder="Enter phone number"
                     type="tel"
                     value={mobileNumber}
@@ -121,7 +117,7 @@ const Login = () => {
 
                 <div className="text-center pt-5">
                   <Button
-                    className="bg-orange-500 text-white font-bold text-[16px] rounded-full py-[13px] text-center px-[88px]"
+                    className="bg-[#35C6F6] text-black font-bold text-[16px] rounded-xl py-[13px] text-center px-[88px]"
                     onClick={generateOTP}
                     value={otp}
                   >
@@ -141,7 +137,7 @@ const Login = () => {
                 </div>
                 <div
                   class="w-3/5 mx-auto  my-6"
-                  style={{ border: "1px solid rgba(122,172,178,1)" }}
+                  style={{ border: "1px solid rgb(136, 17, 157)" }}
                 ></div>
               </div>
             )}
@@ -150,7 +146,7 @@ const Login = () => {
               <div className="pt-[150px]">
                 <div className="text-center">
                   <input
-                    className="bg-[#07B4D5] text-white rounded-full py-[12px] text-center px-8"
+                    className="bg-[#0f1127] text-white rounded-xl py-[12px] text-center px-8"
                     placeholder="Enter Otp"
                     type="tel"
                     value={otp}
@@ -164,7 +160,7 @@ const Login = () => {
                     onClick={() => !otp && alert("Please enter OTP")}
                   >
                     <Button
-                      className={`bg-orange-500 text-white font-bold text-[16px] rounded-full py-[13px] text-center px-[88px]`}
+                      className={`bg-[#35C6F6] text-[#05060D] font-bold text-[16px] rounded-xl py-[13px] text-center px-[88px]`}
                       disabled={!otp}
                     >
                       SUBMIT
@@ -174,7 +170,7 @@ const Login = () => {
 
                 <div
                   class="w-3/5 mx-auto my-6"
-                  style={{ border: "1px solid rgba(122,172,178,1)" }}
+                  style={{ border: "1px solid #88119D" }}
                 ></div>
               </div>
             )}
@@ -200,11 +196,7 @@ const Login = () => {
           </Col>
           <Col className="fixed ">
             <div className="flex justify-center py-16 md:py-10">
-              <img
-                className="lg:w-[800px] h-[400px] md:w-[300px] "
-                src={require('../../../src/image/image2.png')}
-                alt=""
-              ></img>
+            <img className="lg:w-[65%] md:w-[300px] " src={require('../../image/img.jpg')} alt=""></img>
             </div>
 
             <div class="font-bold text-center text-white md:text-sm lg:text-2xl big:bottom-12  big:z-[-1]">

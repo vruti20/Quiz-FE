@@ -21,7 +21,7 @@ const Quizplay = () => {
 
     return (
         <>
-            <div className="bg-color h-[100%] bg-fixed  ">
+            <div className="bg-[#010204] h-[100%] bg-fixed  ">
 
                 <Row className="flex">
                     <Col className="md:w-[400px] items-end  lg:w-[530px] py-3 px-2">
@@ -30,9 +30,9 @@ const Quizplay = () => {
                                 ads by goggle
                             </p>
                         </div>
-                        <div className="border-2 w-full p-[15px] m-[5px] rounded-[30px]"  style={{ borderColor: "#F29200",boxShadow: "5px  10px 15px rgba(242, 146, 0, 0.3)"}}>
-                            <h1 class="text-[12px] text-center text-[#54c05d] font-black ">
-                                QuizTwiz
+                        <div className="border-2 w-full p-[15px] m-[5px] rounded-[30px]"  style={{ borderColor: "#88119D",boxShadow: "5px  10px 15px rgba(136, 17, 157, 0.3)"}}>
+                            <h1 class="text-[12px] text-center text-[#35C6F6] font-black ">
+                                QuizTime
                             </h1>
                             <h3 class="justify-center flex">
                                 <p className="font-[700] text-center text-[18px] text-white"> You have won {coins} </p>
@@ -40,7 +40,7 @@ const Quizplay = () => {
                             </h3>
                             <div className="text-center py-6">
                                 <Link to={`/quizhome`}>
-                                    <Button className="py-[10px] px-8 bg-orange-500  rounded-full text-white font-bold cursor-pointer" >
+                                    <Button className="py-[10px] px-8 bg-[#35C6F6]  rounded-md text-[#0d1e24] font-bold cursor-pointer" >
                                         PLAY QUIZ
                                     </Button>
                                 </Link>
@@ -58,10 +58,10 @@ const Quizplay = () => {
                     <Col className="fixed ">
 
                         <div className="flex justify-center py-16 md:py-10">
-                            <img className="lg:w-[50%] md:w-[300px] " src={require('../../../src/image/image2.png')} alt=""></img>
+                        <img className="lg:w-[50%] md:w-[300px]" src={require('../../image/img.jpg')} alt=""></img>
                         </div>
 
-                        <div class="font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+                        <div class="xl:w-[100%] w-[300px] font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
                             Welcome to Quiztwiz. Play a quiz and earn coins.
                             <p class="font-normal text-2xl pt-4 text-center">
                                 There's a quiz for everyone! </p>

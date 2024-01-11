@@ -59,17 +59,13 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
   };
   return (
     <>
-      <div className="bg-color">
+      <div className="bg-[#05060D]">
         <Row className="h-[100%] ">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div className="">
-              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-color header">
+              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header">
                 <Link to={`/quizhome`} className="pl-[10px]">
-                  <img
-                    src={require("../../image/download (1).png")}
-                    alt=""
-                    width={"40%"}
-                  />
+                <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
                 </Link>
 
                 <div className="flex justify-between">
@@ -85,7 +81,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
                     </p>
                   </div>
                   <div className="mt-[3px] flex items-center ml-1">
-                    <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-full">
+                    <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -136,7 +132,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
               ) : (
                 <Link to={`/login`}>
                   <div class="flex justify-center mt-6">
-                    <p className="text-center mx-3 py-3 px-14 font-[700] bg-[#F9B234]  text-white rounded-full cursor-pointer">
+                    <p className="text-center mx-3 py-3 px-12 font-[700] bg-[#88119D]  text-white rounded-md cursor-pointer">
                       Join Now
                     </p>
                   </div>
@@ -152,8 +148,8 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
             </div>
 
             <div
-              className=" footer flex justify-around lg:w-[520px] bg-color pb-4"
-              style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.5)"}}
+              className=" footer flex justify-around lg:w-[520px] bg-[#0B0D26] pb-4"
+              style={{boxShadow: "0px -15px 15px rgba(8, 13, 87,0.5)"}}
             >
               <Link to="/category">
                 <div className={`px-8 py-1 rounded-[28px] `}>
@@ -170,8 +166,8 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
 
               <Link to="/profile">
                 <div
-                  className={`px-8 py-1 rounded-[28px] ${
-                    isClicked ? "" : "bg-[#94C120]"
+                  className={`px-8 py-1 rounded-xl ${
+                    isClicked ? "" : "bg-[#13277A]"
                   }`}
                   onClick={handleClick}
                 >
@@ -183,14 +179,10 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
           </Col>
           <Col className="fixed ">
             <div className="flex justify-center py-16 md:py-10">
-              <img
-                className="lg:w-[65%] md:w-[300px] "
-                src={require('../../../src/image/image2.png')}
-                alt=""
-              ></img>
+            <img className="lg:w-[65%] md:w-[300px] " src={require('../../image/img.jpg')} alt=""></img>
             </div>
 
-            <div class="font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+            <div class="xl:w-[100%] w-[300px] font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p class="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}

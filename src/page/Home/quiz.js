@@ -33,10 +33,10 @@ const Quiz = () => {
 
     //Show The Tostify
     toast("100 Coins Rewarded!!", {
-      style: { background: "#2DAAE2", color: "white" },
+      style: { background: "black", color: "white" },
       icon: (
         <img
-          src={require("../../image/coin-2.jpg")}
+          src={require("../../image/coin-2.png")}
           className="w-full"
           alt="coin"
         />
@@ -187,7 +187,7 @@ const Quiz = () => {
 
   return (
     <>
-      <div className="bg-color">
+      <div className="bg-[#05060D]">
         <Row className="flex  ">
           <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
             <div className="bg-white h-[350px] mx-auto mb-[8px]">
@@ -215,11 +215,11 @@ const Quiz = () => {
 
             <div className="text-center">
               <h1 className="font-bold text-white text-18">Let's begin!</h1>
-              <span className="text-[12px] text-[#8789c3]">
+              <span className="text-[12px] text-[#aa9bee]">
                 Answer few questions and win 150 free!
               </span>
             </div>
-            <div className=" text-[#bac8ff] font-bold text-center pt-5 pb-3">
+            <div className=" text-[#35C6F6] font-bold text-center pt-5 pb-3">
               Question {currentQuestionIndex + 1}/{questions.length}
             </div>
             {currentQuestionIndex < questions.length && (
@@ -244,7 +244,7 @@ const Quiz = () => {
                             questions[currentQuestionIndex].correct &&
                             answerStatus === false
                             ? "bg-[#099623] !important"
-                            : "bg-color1 !important"
+                            : "bg-[#1d1d2c] !important"
                           } rounded-xl cursor-pointer`}
                       >
                         {answer}
@@ -265,7 +265,7 @@ const Quiz = () => {
                         ></img>
                       </div>
 
-                      <h2 class="text-2xl mb-4 text-[#D8E91E] flex justify-center">
+                      <h2 class="text-2xl mb-4 text-[#D8D524] flex justify-center">
                         New Reward Available
                       </h2>
                       <h2 class="lg:text-4xl md:text-[1.5rem] mb-4 flex justify-center">
@@ -276,7 +276,7 @@ const Quiz = () => {
                       </p>
                       <div className="flex justify-center">
                         <button
-                          class="bg-[#94C120] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center"
+                          class="bg-[#D8E91E] w-[50%] rounded-[1.5rem] text-black font-bold py-4 px-4 mr-2 flex justify-center"
                           onClick={closeModal}
                         >
                           Claim
@@ -288,7 +288,7 @@ const Quiz = () => {
               </>
             )}
 
-            <p className="text-[#54c05d] text-center font-bold cursor-pointer pt-3">
+            <p className="text-[#FFCC5B] text-center font-bold cursor-pointer pt-3">
               <Link to="/login">Sign-Up - Login</Link>
             </p>
 
@@ -296,7 +296,7 @@ const Quiz = () => {
               <h1 className="w-full font-bold text-lg text-white">
                 Play Quiz and Win Coins!
               </h1>
-              <ul className="text-[#9b9ba7] text-[14px] list-disc my-3 px-4">
+              <ul className="text-[#818185] text-[14px] list-disc my-3 px-4">
                 <li className="mb-2">
                   {" "}
                   Play Quizzes in 25+ categories like GK, Sports, Bollywood,
@@ -311,8 +311,8 @@ const Quiz = () => {
               </ul>
             </div>
 
-            <div className="border-2 	 w-[100%] p-6 rounded-xl " style={{ borderColor: "#F29200",boxShadow: "5px  10px 15px rgba(242, 146, 0, 0.3)"}}>
-              <h1 className="text-2xl text-center text-[#54c05d] ">Fun Facts</h1>
+            <div className="border-2 	 w-[100%] p-6 rounded-xl " style={{ borderColor: "#88119D",boxShadow: "5px  10px 15px rgba(136, 17, 157, 0.3)"}}>
+              <h1 className="text-2xl text-center text-[#35C6F6] ">Fun Facts</h1>
               <p className="text-center text-white">
                 The insurance industry is one of the largest industries in the
                 United States, with over $1.5 trillion in annual premiums.The
@@ -329,9 +329,9 @@ const Quiz = () => {
           </Col>
           <Col className="fixed">
             <div className="flex justify-center	 py-16 md:py-10">
-              <img src={require('../../../src/image/image2.png')}  className="lg:w-[65%] md:w-[300px]" alt="" />
+            <img className="lg:w-[65%] md:w-[300px]" src={require('../../image/img.jpg')} alt=""></img>
             </div>
-            <div className="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
+            <div className="xl:w-[100%] w-[300px] lg:text-2xl font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p className="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}

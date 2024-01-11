@@ -78,7 +78,7 @@ const Result = () => {
 // localStorage.clear()
     return (
         <>
-            <div className="bg-color h-[100vh] sm:h-[100%]">
+            <div className="bg-[#05060D] h-[100vh] sm:h-[100%]">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
@@ -96,12 +96,12 @@ const Result = () => {
                                         <img className="w-[200px] absolute " src="https://monetix-lookat1.quiztwiz.com/static/media/animation.82d3951ab49c98d92a06.gif" alt="gift"></img>
                                     </div>
 
-                                    <div className="grid-cols-2 flex-col pt-[100px] justify-center gap-2 grid text-white mx-[50px]">
-                                        <Col className="flex flex-col items-center py-2 pl-[10px] pr-[10px] bg-[#F29200]  rounded-xl cursor-pointer ">
+                                    <div className="grid-cols-2 flex-col pt-[100px] justify-center gap-2 grid text-white mx-[50px] font">
+                                        <Col className="flex flex-col items-center py-2 pl-[10px] pr-[10px] bg-[#1D1D2C]  rounded-xl cursor-pointer ">
                                             <p>{score}</p>
                                             <p>Your Score</p>
                                         </Col>
-                                        <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#F29200] rounded-xl cursor-pointer">
+                                        <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#1D1D2C] rounded-xl cursor-pointer">
                                             <p>{earnedCoins}</p>
                                             {/* <p>{coins}</p> */}
                                             <p>Coins Earned</p>
@@ -123,7 +123,7 @@ const Result = () => {
 
                                 <Link to="/quizhome">
                                     <div className="flex justify-center ">
-                                        <button class="rounded-full px-7 py-2 text-white flex justify-center bg-[#94C120]">
+                                        <button class="rounded-full px-7 py-2 text-white flex justify-center bg-[#88119D]">
                                             Home
                                         </button>
                                     </div>
@@ -135,10 +135,10 @@ const Result = () => {
                     <Col className="fixed">
 
                         <div className="flex justify-center py-16 md:py-10">
-                            <img className="lg:w-[65%] md:w-[300px] " src={require('../../../src/image/image2.png')} alt=""></img>
+                            <img className="lg:w-[65%] md:w-[300px] " src={require('../../image/img.jpg')} alt=""></img>
                         </div>
 
-                        <div class="font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+                        <div class="xl:w-[100%] w-[300px] font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
                             Welcome to Quiztwiz. Play a quiz and earn coins.
                             <p class="font-normal text-2xl pt-4 text-center">
                                 There's a quiz for everyone! </p>

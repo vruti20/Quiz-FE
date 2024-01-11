@@ -120,8 +120,7 @@
 }
 
 .modal {
-  background-color: #821556;
-  background-image: linear-gradient(225deg, #821556 0%, #41106b 50%, #102d42 100%);;
+  background-color:#03030B;
   color: white;
   border: 2px solid  white;
   padding: 20px;
@@ -142,6 +141,6 @@
   background-image: linear-gradient(225deg, #821556 0%, #47097f 35%, #052135 100%);
 }
 .bg-color1{
-  background-color: #7c295b;
+  background-color: #7c295b !important;
   background-image: linear-gradient(25deg, #df4ca4 0%, #64229e 50%, #2a648d 100%);
 }

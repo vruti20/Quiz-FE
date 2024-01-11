@@ -203,17 +203,13 @@ const Question = () => {
   };
   return (
     <>
-      <div className="bg-color bg-fixed h-[100%] bg-high">
+      <div className="bg-[#05060D] bg-fixed h-[100%] bg-high">
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div>
-              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-color header  z-10 ">
+              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header  z-10 ">
               <Link to={`/quizhome`} className="pl-[10px]">
-                <img
-                  src={require("../../image/download (1).png")}
-                  alt=""
-                  width={"40%"}
-                />
+              <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
               </Link>
 
                 <div className="flex w-[40%] justify-between">
@@ -229,7 +225,7 @@ const Question = () => {
                   </div>
 
                   <div className="mt-[3px] flex items-center">
-                    <div class="text-[10px] flex text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-full">
+                    <div class="text-[10px] flex text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md">
                       <img
                         className="w-3 "
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -253,7 +249,7 @@ const Question = () => {
                   }}
                 >
                   <LinearProgress
-                    className="bg-[green]"
+                    className="bg-[#75f207]"
                     variant="determinate"
                     value={progress}
                     sx={{ height: 5 }}
@@ -291,7 +287,7 @@ const Question = () => {
                                       questionData[currentQuestionIndex]
                                         ?.correct && answerStatus === false
                                   ? "bg-[#099623] !important"
-                                  : "bg-color1 !important"
+                                  : "bg-[#1D1D2C] !important"
                                 : "hidden"
                               : answer === selectedAnswer
                               ? answerStatus
@@ -301,7 +297,7 @@ const Question = () => {
                                   questionData[currentQuestionIndex]?.correct &&
                                 answerStatus === false
                               ? "bg-[#099623] !important"
-                              : "bg-color1 !important"
+                              : "bg-[#1D1D2C] !important"
                           }`}
                         >
                           {answer}
@@ -327,17 +323,17 @@ const Question = () => {
             </div>
 
             <div
-              className="  footer flex justify-around lg:w-[520px] bg-color pb-4 border-t border-[#94C120]"
+              className="  footer flex justify-around lg:w-[520px] bg-[#0B0D26] pb-4 border-t border-[#88119D]"
               style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.5)"}}
             >
               <div className="">
                 <div className="flex justify-center  pt-3 relative">
                   <p
                     onClick={handleLifelinesClick}
-                    className="text-white  transition duration-1000 absolute top-[-12px] bg-color1 w-[180px] justify-center flex border cursor-pointer rounded-full  px-3 py-1 border-[#94C120]"
+                    className="text-white  transition duration-1000 absolute top-[-12px] bg-[#0B0D26] w-[180px] justify-center flex border cursor-pointer rounded-full  px-3 py-1 border-[#88119D]"
                   >
                     <VscHeartFilled
-                      className="pt-[3px] mr-2 text-[18px] text-[#94C120]"
+                      className="pt-[3px] mr-2 text-[18px] text-[#3FCAFF]"
                     />
                     <span className="text-[14px] font-[600] text-white">
                       Tap To Use Lifelines
@@ -450,14 +446,10 @@ const Question = () => {
           </Col>
           <Col className="fixed ">
             <div className="flex justify-center py-16 md:py-10">
-              <img
-                className="lg:w-[65%] md:w-[300px] "
-                src={require('../../../src/image/image2.png')}
-                alt=""
-              ></img>
+            <img className="lg:w-[65%] md:w-[300px] " src={require('../../image/img.jpg')} alt=""></img>
             </div>
 
-            <div class="font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+            <div class="xl:w-[100%] w-[300px] font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p class="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}
