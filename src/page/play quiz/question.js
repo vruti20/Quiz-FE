@@ -203,11 +203,11 @@ const Question = () => {
   };
   return (
     <>
-      <div className="bg-[#05060D] bg-fixed h-[100%] bg-high">
+      <div className="bg-[#050230] bg-fixed h-[100%] bg-high">
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div>
-              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header  z-10 ">
+              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header  z-10 " style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}>
               <Link to={`/quizhome`} className="pl-[10px]">
               <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
               </Link>
@@ -287,7 +287,7 @@ const Question = () => {
                                       questionData[currentQuestionIndex]
                                         ?.correct && answerStatus === false
                                   ? "bg-[#099623] !important"
-                                  : "bg-[#1D1D2C] !important"
+                                  : "bg-[#171349] !important"
                                 : "hidden"
                               : answer === selectedAnswer
                               ? answerStatus
@@ -297,7 +297,7 @@ const Question = () => {
                                   questionData[currentQuestionIndex]?.correct &&
                                 answerStatus === false
                               ? "bg-[#099623] !important"
-                              : "bg-[#1D1D2C] !important"
+                              : "bg-[#171349] !important"
                           }`}
                         >
                           {answer}
@@ -323,14 +323,14 @@ const Question = () => {
             </div>
 
             <div
-              className="  footer flex justify-around lg:w-[520px] bg-[#0B0D26] pb-4 border-t border-[#88119D]"
+              className="  footer flex justify-around lg:w-[520px] bg-[#0B0D26] pb-4 border-t border-[#389A06]"
               style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.5)"}}
             >
               <div className="">
                 <div className="flex justify-center  pt-3 relative">
                   <p
                     onClick={handleLifelinesClick}
-                    className="text-white  transition duration-1000 absolute top-[-12px] bg-[#0B0D26] w-[180px] justify-center flex border cursor-pointer rounded-full  px-3 py-1 border-[#88119D]"
+                    className="text-white  transition duration-1000 absolute top-[-12px] bg-[#0B0D26] w-[180px] justify-center flex border cursor-pointer rounded-full  px-3 py-1 border-[#389A06]"
                   >
                     <VscHeartFilled
                       className="pt-[3px] mr-2 text-[18px] text-[#3FCAFF]"
@@ -444,12 +444,12 @@ const Question = () => {
               </div>
             </div>
           </Col>
-          <Col className="fixed ">
-            <div className="flex justify-center py-16 md:py-10">
-            <img className="lg:w-[65%] md:w-[300px] " src={require('../../image/img.jpg')} alt=""></img>
-            </div>
+          <Col className="fixed me-[15%] bg-image">
+          <div className="py-16 md:py-10">
+                        <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
+                        </div>
 
-            <div class="xl:w-[100%] w-[300px] font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+            <div class="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p class="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}

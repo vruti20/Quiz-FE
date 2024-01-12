@@ -105,11 +105,12 @@ const Category = () => {
 
     return (
         <>
-            <div className="bg-[#03040C] h-[100%]">
+            <div className="bg-[#050230] h-[100%]">
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex" >
                         <div className="">
-                            <div className="flex justify-between lg:w-[520px] bg-[#0B0D26] py-[8px] cursor-pointer header">
+                            <div className="flex justify-between lg:w-[520px] bg-[#0B0D26] py-[8px] cursor-pointer header"  style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}
+>
                                 <Link to={`/quizhome`} className="pl-[10px]">
                                 <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
                                 </Link>
@@ -169,11 +170,11 @@ const Category = () => {
                         </div>
 
                         <div className="footer bg-[#0B0D26] flex justify-around lg:w-[520px] pb-4" 
-                                      style={{boxShadow: "0px -15px 15px rgba(8, 13, 87,0.5)"}}
+                                      style={{boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)"}}
                         >
                             <Link to="/category">
                                 <div
-                                    className={`px-8 py-1 rounded-xl ${click ? '' : 'bg-[#13277A]'}`}
+                                    className={`px-8 py-1 rounded-xl ${click ? '' : 'bg-[#389A06]'}`}
                                     onClick={handleClicked}
                                 >
                                     <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
@@ -199,13 +200,13 @@ const Category = () => {
                             </Link>
                         </div>
                     </Col>
-                    <Col className="fixed ">
+                    <Col className="fixed me-[15%] bg-image">
 
-                        <div className="flex justify-center py-16 md:py-10">
-                        <img className="lg:w-[65%] md:w-[300px] " src={require('../../image/img.jpg')} alt=""></img>
+                        <div className="py-16 md:py-10">
+                        <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
                         </div>
 
-                        <div class="xl:w-[100%] w-[300px] font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+                        <div class=" font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
                             Welcome to Quiztwiz. Play a quiz and earn coins.
                             <p class="font-normal text-2xl pt-4 text-center">
                                 There's a quiz for everyone! </p>

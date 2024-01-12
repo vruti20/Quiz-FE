@@ -43,13 +43,13 @@ const Login = () => {
         setShowOtpDiv(true);
         setOtp(ganrateotp);
         toast.success(response.data.message, {
-          style: { background: "black", color: "white" },
+          style: { background: "#050230", color: "white" },
           progressStyle: { background: "green" },
         });
       } else {
         console.log("Error generating OTP:", response.data.message);
         toast.error(response.data.data.message, {
-          style: { background: "black", color: "white" },
+          style: { background: "#050230", color: "white" },
           progressStyle: { background: "red" },
         });
       }
@@ -67,12 +67,12 @@ const Login = () => {
         error.response.data.message
       ) {
         toast.error(error.response.data.message, {
-          style: { background: "black", color: "white" },
+          style: { background: "#050230", color: "white" },
           progressStyle: { background: "red" },
         });
       } else {
         toast.error(` ${error.message}`, {
-          style: { background: "black", color: "white" },
+          style: { background: "#050230", color: "white" },
           progressStyle: { background: "red" },
         });
       }
@@ -81,7 +81,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="bg-[#05060D]">
+      <div className="bg-[#050230]">
         <Row className="flex ">
           <Col className="md:w-[410px] h-[100vh] lg:w-[530px]  py-2 px-2">
             <div className="flex py-[8px] cursor-pointer ">
@@ -107,7 +107,7 @@ const Login = () => {
 
                 <div className="text-center">
                   <input
-                    className="bg-[#0a0a2911] text-white border-[3px] border-[#afdeec] border-solid rounded-xl py-[10px] text-center px-8"
+                    className="bg-[#0a0a2911] text-white border-[3px] border-[#4376c9] border-solid rounded-xl py-[10px] text-center px-8"
                     placeholder="Enter phone number"
                     type="tel"
                     value={mobileNumber}
@@ -117,7 +117,7 @@ const Login = () => {
 
                 <div className="text-center pt-5">
                   <Button
-                    className="bg-[#35C6F6] text-black font-bold text-[16px] rounded-xl py-[13px] text-center px-[88px]"
+                    className="bg-[#D85B00] text-white font-bold text-[16px] rounded-xl py-[13px] text-center px-[88px]"
                     onClick={generateOTP}
                     value={otp}
                   >
@@ -126,7 +126,7 @@ const Login = () => {
                 </div>
 
                 <div className="text-center w-full flex justify-center">
-                  <div className="bg-white flex py-[8px] mt-3 px-3 rounded-[5px]">
+                  <div className="bg-white flex py-[8px] mt-3 px-3 rounded-[5px] cursor-pointer	">
                     <span className="align-middle pt-[2px]">
                       <FcGoogle className="fs-4" />
                     </span>
@@ -137,7 +137,7 @@ const Login = () => {
                 </div>
                 <div
                   class="w-3/5 mx-auto  my-6"
-                  style={{ border: "1px solid rgb(136, 17, 157)" }}
+                  style={{ border: "1px solid #389A06" }}
                 ></div>
               </div>
             )}
@@ -146,7 +146,7 @@ const Login = () => {
               <div className="pt-[150px]">
                 <div className="text-center">
                   <input
-                    className="bg-[#0f1127] text-white rounded-xl py-[12px] text-center px-8"
+                    className="bg-[#171349] border-[2px] border-[#4376c9] text-white rounded-xl py-[12px] text-center px-8"
                     placeholder="Enter Otp"
                     type="tel"
                     value={otp}
@@ -160,7 +160,7 @@ const Login = () => {
                     onClick={() => !otp && alert("Please enter OTP")}
                   >
                     <Button
-                      className={`bg-[#35C6F6] text-[#05060D] font-bold text-[16px] rounded-xl py-[13px] text-center px-[88px]`}
+                      className={`bg-[#D85B00] text-white font-bold text-[16px] rounded-xl py-[13px] text-center px-[88px]`}
                       disabled={!otp}
                     >
                       SUBMIT
@@ -170,7 +170,7 @@ const Login = () => {
 
                 <div
                   class="w-3/5 mx-auto my-6"
-                  style={{ border: "1px solid #88119D" }}
+                  style={{ border: "1px solid #389A06" }}
                 ></div>
               </div>
             )}
@@ -194,12 +194,12 @@ const Login = () => {
               </ul>
             </div>
           </Col>
-          <Col className="fixed ">
-            <div className="flex justify-center py-16 md:py-10">
-            <img className="lg:w-[65%] md:w-[300px] " src={require('../../image/img.jpg')} alt=""></img>
-            </div>
+          <Col className="fixed me-[15%] bg-image">
+          <div className="py-16 md:py-10">
+                        <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
+                        </div>
 
-            <div class="font-bold text-center text-white md:text-sm lg:text-2xl big:bottom-12  big:z-[-1]">
+            <div class="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p class="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}

@@ -207,12 +207,12 @@ const Play = () => {
 
     return (
         <>
-            <div className="bg-[#05060D]">
+            <div className="bg-[#050230]">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[500px]  px-2 relative flex-col flex" >
                         <div className="" >
-                            <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header">
+                            <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header"   style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}>
                                 <Link to={`/quizhome`} className="pl-[10px]">
                                 <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
                                 </Link>
@@ -241,7 +241,7 @@ const Play = () => {
                             </div>
                             <div className="pb-[150px]">
 
-                                <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px] " style={{ borderColor: "#88119D",boxShadow: "5px  10px 15px rgba(136, 17, 157, 0.3)"}}>
+                                <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px] " style={{ borderColor: "#0060FF",boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)"}}>
 
                                     {subcategories.map((quiz, index) => (
                                         <div key={index} className="px-5 gap-2 flex items-center py-6">
@@ -251,7 +251,7 @@ const Play = () => {
                                                 alt="category"
                                             />
                                             <div className="">
-                                                <p className="text-[10px] text-[#35C6F6] font-black ">{quiz.title}</p>
+                                                <p className="text-[10px] text-[#D85B00] font-black ">{quiz.title}</p>
                                                 <div className="flex text-white text-[18px] font-black cursor-pointer">
                                                     <p>Play Win</p>
                                                     <img
@@ -268,7 +268,7 @@ const Play = () => {
                                         // Render only the "PLAY" button when the user is logged in
                                         // <Link to={`/question/${categoryid}`}>
                                         <div className="flex justify-center pb-6">
-                                            <Button onClick={deductCoins} className=" py-[10px] px-8 bg-[#3FCAFF]  rounded-md text-[#05060D] font-bold cursor-pointer">
+                                            <Button onClick={deductCoins} className=" py-[10px] px-8 bg-[#389A06]  rounded-md text-white font-bold cursor-pointer">
                                                 PLAY QUIZ
                                             </Button>
                                             {isModalOpen && (
@@ -296,11 +296,11 @@ const Play = () => {
 
                                         <div className="flex w-full justify-around pb-[25px]">
                                             <Link to="/login">
-                                                <button  class="bg-[#3FCAFF] py-2 px-14 font-[700] text-[#05060D] rounded-md">JOIN NOW</button>
+                                                <button  class="bg-[#389A06] py-2 px-14 font-[700] text-white rounded-md">JOIN NOW</button>
                                             </Link>
                                             <p className="text-[20px] text-white">or</p>
                                            
-                                                <div onClick={deductCoins} class="border border-[#3FCAFF] text-white text-center rounded-md font-bold text-sm py-3  px-10 cursor-pointer">
+                                                <div onClick={deductCoins} class="border border-[#389A06] text-white text-center rounded-md font-bold text-sm py-3  px-10 cursor-pointer">
                                                     PLAY AS GUEST
                                                 </div>
                                                 {isModalOpen && (
@@ -338,7 +338,7 @@ const Play = () => {
                         </div>
 
                         <div className="footer  bg-[#0B0D26] flex justify-around lg:w-[520px]  pb-4" 
-                        style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.5)"}}
+                        style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.7)"}}
                         >
                             <Link to="/category">
                                 <span >
@@ -363,13 +363,13 @@ const Play = () => {
 
 
                     </Col>
-                    <Col className="fixed ">
+                    <Col className="fixed me-[15%] bg-image">
 
-                        <div className="flex justify-center py-16 md:py-10">
-                        <img className="lg:w-[65%] md:w-[300px] " src={require('../../image/img.jpg')} alt=""></img>
+                    <div className="py-16 md:py-10">
+                        <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
                         </div>
 
-                        <div class="xl:w-[100%] w-[300px] font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+                        <div class="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
                             Welcome to Quiztwiz. Play a quiz and earn coins.
                             <p class="font-normal text-2xl pt-4 text-center">
                                 There's a quiz for everyone! </p>

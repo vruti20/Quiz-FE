@@ -33,7 +33,7 @@ const Quiz = () => {
 
     //Show The Tostify
     toast("100 Coins Rewarded!!", {
-      style: { background: "black", color: "white" },
+      style: { background: "#050230", color: "white" },
       icon: (
         <img
           src={require("../../image/coin-2.png")}
@@ -48,17 +48,14 @@ const Quiz = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get(
-          `${BaseUrl}/api/quesation/loginquestions`, {
-          headers: {
-            'ngrok-skip-browser-warning': 5000
-          }
-        }
-        );
+        const response = await axios.get(`https://4996-122-170-48-60.ngrok-free.app/api/quesation/loginquestions`,{headers: {
+          'ngrok-skip-browser-warning': 5000
+        }});
+        console.log("response",response);
         const allQuestions = response.data.data;
         const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
         const selectedQuestions = shuffledQuestions.slice(0, 2);
-
+        
         setQuestions(selectedQuestions);
       } catch (error) {
         console.log("error", error);
@@ -71,6 +68,7 @@ const Quiz = () => {
   const handleOptionClick = (answer) => {
     const currentQuestion = questions[currentQuestionIndex];
     const isCorrect = answer === currentQuestion.correct;
+    console.log("Questions array:", questions);
 
     setSelectedAnswer(answer);
     setAnswerStatus(isCorrect);
@@ -81,14 +79,15 @@ const Quiz = () => {
       setSelectedAnswer(null);
       setAnswerStatus(null);
 
-      if (currentQuestionIndex + 1 < questions.length) {
-        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      }
-
-      if (currentQuestionIndex === 1) {
+      if (currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestionIndex((prevIndex) => {
+          const newIndex = prevIndex + 1;
+          return newIndex < questions.length ? newIndex : prevIndex;
+        });
+      } else {
         openModal();
-      }
-
+    }
+    
       const defaultScore = 100
       const totalScoreToBeUpdated = defaultScore + scoreChange - 50;
       updateScoreInDatabase(totalScoreToBeUpdated)
@@ -99,7 +98,7 @@ const Quiz = () => {
     const updateScoreInDatabase = async (score, type) => {
       try {
         const response = await axios.post(
-          "https://f504-2409-40c1-46-b463-a039-6a1e-5e6e-212f.ngrok-free.app/api/updateCoins",
+          `${BaseUrl}/api/updateCoins`,
           { coins: score, type: type }, //Add a 'type' parameter to distinguish defaultScore and scoreChange
           {
             headers: {
@@ -187,7 +186,7 @@ const Quiz = () => {
 
   return (
     <>
-      <div className="bg-[#05060D]">
+      <div className="bg-[#050230]">
         <Row className="flex  ">
           <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
             <div className="bg-white h-[350px] mx-auto mb-[8px]">
@@ -215,11 +214,11 @@ const Quiz = () => {
 
             <div className="text-center">
               <h1 className="font-bold text-white text-18">Let's begin!</h1>
-              <span className="text-[12px] text-[#aa9bee]">
+              <span className="text-[12px] text-[#8f8f8f]">
                 Answer few questions and win 150 free!
               </span>
             </div>
-            <div className=" text-[#35C6F6] font-bold text-center pt-5 pb-3">
+            <div className=" text-[#67d1fc] font-bold text-center pt-5 pb-3">
               Question {currentQuestionIndex + 1}/{questions.length}
             </div>
             {currentQuestionIndex < questions.length && (
@@ -244,7 +243,7 @@ const Quiz = () => {
                             questions[currentQuestionIndex].correct &&
                             answerStatus === false
                             ? "bg-[#099623] !important"
-                            : "bg-[#1d1d2c] !important"
+                            : "bg-[#171349] !important"
                           } rounded-xl cursor-pointer`}
                       >
                         {answer}
@@ -288,7 +287,7 @@ const Quiz = () => {
               </>
             )}
 
-            <p className="text-[#FFCC5B] text-center font-bold cursor-pointer pt-3">
+            <p className="text-[#f7d619] text-center font-bold cursor-pointer pt-3">
               <Link to="/login">Sign-Up - Login</Link>
             </p>
 
@@ -311,8 +310,8 @@ const Quiz = () => {
               </ul>
             </div>
 
-            <div className="border-2 	 w-[100%] p-6 rounded-xl " style={{ borderColor: "#88119D",boxShadow: "5px  10px 15px rgba(136, 17, 157, 0.3)"}}>
-              <h1 className="text-2xl text-center text-[#35C6F6] ">Fun Facts</h1>
+            <div className="border-2 	 w-[100%] p-6 rounded-xl " style={{ borderColor: "#0060FF",boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)"}}>
+              <h1 className="text-2xl text-center text-[#67d1fc] ">Fun Facts</h1>
               <p className="text-center text-white">
                 The insurance industry is one of the largest industries in the
                 United States, with over $1.5 trillion in annual premiums.The
@@ -327,11 +326,11 @@ const Quiz = () => {
               </p>
             </div>
           </Col>
-          <Col className="fixed">
-            <div className="flex justify-center	 py-16 md:py-10">
-            <img className="lg:w-[65%] md:w-[300px]" src={require('../../image/img.jpg')} alt=""></img>
-            </div>
-            <div className="xl:w-[100%] w-[300px] lg:text-2xl font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
+          <Col className="fixed me-[15%] bg-image">
+          <div className="py-16 md:py-10">
+                        <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
+                        </div>
+            <div className="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p className="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}

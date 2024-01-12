@@ -59,11 +59,12 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
   };
   return (
     <>
-      <div className="bg-[#05060D]">
+      <div className="bg-[#050230]">
         <Row className="h-[100%] ">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div className="">
-              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header">
+              <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header" style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}
+>
                 <Link to={`/quizhome`} className="pl-[10px]">
                 <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
                 </Link>
@@ -115,14 +116,14 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
                 </div>
               </div>
               <div className="flex items-center justify-center mt-6 gap-10">
-                <div className="w-[150px] rounded-xl py-2 px-4 flex justify-between items-center bg-[#2DAAE2] ">
+                <div className="w-[150px] rounded-xl py-2 px-4 flex justify-between items-center bg-[#1A2F77] ">
                   <p className="text-white text-sm">Coins </p>
                   <p className="text-white text-lg">
                     {" "}
                     {isGuest ? databaseCoins : allcoins}
                   </p>
                 </div>
-                <div class="w-[150px] py-2 px-4 rounded-xl border-2 border-[#2DAAE2]  flex  items-center justify-between">
+                <div class="w-[150px] py-2 px-4 rounded-xl border-2 border-[#1A2F77]  flex  items-center justify-between">
                   <p class="text-white text-sm">Quiz Played</p>
                   <p class="text-white text-lg">{playCount}</p>
                 </div>
@@ -132,7 +133,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
               ) : (
                 <Link to={`/login`}>
                   <div class="flex justify-center mt-6">
-                    <p className="text-center mx-3 py-3 px-12 font-[700] bg-[#88119D]  text-white rounded-md cursor-pointer">
+                    <p className="text-center mx-3 py-3 px-12 font-[700] bg-[#D85B00]  text-white rounded-md cursor-pointer">
                       Join Now
                     </p>
                   </div>
@@ -149,7 +150,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
 
             <div
               className=" footer flex justify-around lg:w-[520px] bg-[#0B0D26] pb-4"
-              style={{boxShadow: "0px -15px 15px rgba(8, 13, 87,0.5)"}}
+              style={{boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)"}}
             >
               <Link to="/category">
                 <div className={`px-8 py-1 rounded-[28px] `}>
@@ -167,7 +168,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
               <Link to="/profile">
                 <div
                   className={`px-8 py-1 rounded-xl ${
-                    isClicked ? "" : "bg-[#13277A]"
+                    isClicked ? "" : "bg-[#389A06]"
                   }`}
                   onClick={handleClick}
                 >
@@ -177,12 +178,12 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
               </Link>
             </div>
           </Col>
-          <Col className="fixed ">
-            <div className="flex justify-center py-16 md:py-10">
-            <img className="lg:w-[65%] md:w-[300px] " src={require('../../image/img.jpg')} alt=""></img>
-            </div>
+          <Col className="fixed me-[15%] bg-image">
+          <div className="py-16 md:py-10">
+                        <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
+                        </div>
 
-            <div class="xl:w-[100%] w-[300px] font-bold text-center text-white md:text-sm lg:text-2xl  big:bottom-12  big:z-[-1]">
+            <div class="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p class="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}

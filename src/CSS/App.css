@@ -120,7 +120,7 @@
 }
 
 .modal {
-  background-color:#03030B;
+  background-color:#050230;
   color: white;
   border: 2px solid  white;
   padding: 20px;
@@ -136,11 +136,8 @@
     height: 100vh !important;
   }
 }
-.bg-color{
-  background-color: #821556;
-  background-image: linear-gradient(225deg, #821556 0%, #47097f 35%, #052135 100%);
-}
-.bg-color1{
-  background-color: #7c295b !important;
-  background-image: linear-gradient(25deg, #df4ca4 0%, #64229e 50%, #2a648d 100%);
+@media  (max-width: 1024px) and (min-width: 769px)   {
+  .bg-image{
+    margin-right: 9%;
+  }
 }
