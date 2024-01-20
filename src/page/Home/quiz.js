@@ -18,9 +18,9 @@ const Quiz = () => {
   const [totalscore, setTotalScore] = useState(0); // Show The Score
 
   useEffect(() => {
-    localStorage.clear()
-    sessionStorage.clear()
-  }, [])
+    localStorage.clear();
+    sessionStorage.clear();
+  }, []);
   // Function To Open The Modal
   const openModal = () => {
     setModalOpen(true);
@@ -48,14 +48,14 @@ const Quiz = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get(`https://4996-122-170-48-60.ngrok-free.app/api/quesation/loginquestions`,{headers: {
-          'ngrok-skip-browser-warning': 5000
-        }});
-        console.log("response",response);
+        const response = await axios.get(
+          `${BaseUrl}/api/quesation/loginquestions`
+        );
+        console.log("response", response);
         const allQuestions = response.data.data;
         const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
         const selectedQuestions = shuffledQuestions.slice(0, 2);
-        
+
         setQuestions(selectedQuestions);
       } catch (error) {
         console.log("error", error);
@@ -86,15 +86,15 @@ const Quiz = () => {
         });
       } else {
         openModal();
-    }
-    
-      const defaultScore = 100
+      }
+
+      const defaultScore = 100;
       const totalScoreToBeUpdated = defaultScore + scoreChange - 50;
-      updateScoreInDatabase(totalScoreToBeUpdated)
-      localStorage.setItem('totalscore', totalScoreToBeUpdated);
+      updateScoreInDatabase(totalScoreToBeUpdated);
+      localStorage.setItem("totalscore", totalScoreToBeUpdated);
     }, 1000);
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     const updateScoreInDatabase = async (score, type) => {
       try {
         const response = await axios.post(
@@ -102,8 +102,8 @@ const Quiz = () => {
           { coins: score, type: type }, //Add a 'type' parameter to distinguish defaultScore and scoreChange
           {
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         console.log(`${type} updated in the database`, response.data);
@@ -112,10 +112,10 @@ const Quiz = () => {
       }
     };
     if (!token) {
-      const defaultScore = 100
-      setTotalScore(scoreChange)
-      const scorecoin = defaultScore + parseInt(totalscore) + scoreChange
-      localStorage.setItem("usercoin", scorecoin)
+      const defaultScore = 100;
+      setTotalScore(scoreChange);
+      const scorecoin = defaultScore + parseInt(totalscore) + scoreChange;
+      localStorage.setItem("usercoin", scorecoin);
       console.log("SCORCOIN", scorecoin);
       // console.log("TOTALSCORE",totalscore)
     }
@@ -235,16 +235,17 @@ const Quiz = () => {
                       <Col
                         key={index}
                         onClick={() => handleOptionClick(answer)}
-                        className={`flex flex-col items-center m-2 py-2 ${answer === selectedAnswer
-                          ? answerStatus
-                            ? "bg-[#099623] !important"
-                            : "bg-[#f02d1f] !important"
-                          : answer ===
-                            questions[currentQuestionIndex].correct &&
-                            answerStatus === false
+                        className={`flex flex-col items-center m-2 py-2 ${
+                          answer === selectedAnswer
+                            ? answerStatus
+                              ? "bg-[#099623] !important"
+                              : "bg-[#f02d1f] !important"
+                            : answer ===
+                                questions[currentQuestionIndex].correct &&
+                              answerStatus === false
                             ? "bg-[#099623] !important"
                             : "bg-[#171349] !important"
-                          } rounded-xl cursor-pointer`}
+                        } rounded-xl cursor-pointer`}
                       >
                         {answer}
                       </Col>
@@ -310,8 +311,16 @@ const Quiz = () => {
               </ul>
             </div>
 
-            <div className="border-2 	 w-[100%] p-6 rounded-xl " style={{ borderColor: "#0060FF",boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)"}}>
-              <h1 className="text-2xl text-center text-[#67d1fc] ">Fun Facts</h1>
+            <div
+              className="border-2 	 w-[100%] p-6 rounded-xl "
+              style={{
+                borderColor: "#0060FF",
+                boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)",
+              }}
+            >
+              <h1 className="text-2xl text-center text-[#67d1fc] ">
+                Fun Facts
+              </h1>
               <p className="text-center text-white">
                 The insurance industry is one of the largest industries in the
                 United States, with over $1.5 trillion in annual premiums.The
@@ -327,9 +336,13 @@ const Quiz = () => {
             </div>
           </Col>
           <Col className="fixed me-[15%] bg-image">
-          <div className="py-16 md:py-10">
-                        <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
-                        </div>
+            <div className="py-16 md:py-10">
+              <img
+                className="lg:w-[100%] md:w-[300px] "
+                src={require("../../image/quiz-1.png")}
+                alt=""
+              ></img>
+            </div>
             <div className="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p className="font-normal text-2xl pt-4 text-center">
