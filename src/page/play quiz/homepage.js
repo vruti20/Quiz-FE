@@ -8,13 +8,10 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 const BaseUrl = process.env.REACT_APP_BASEURL;
-
 const Home = () => {
   const menuRef = useRef(null);
   const navigate = useNavigate();
-
   const [categories, setCategories] = useState([]); // fetch all category data
   const [categorydata, setCategory] = useState([]); // fetch all subcategory data
   const [subcategories, setSubcategories] = useState([]); // fetch single category data
@@ -22,51 +19,42 @@ const Home = () => {
   const [categoryid, setCategoryid] = useState(null); // category data with page navigate
   const [isClick, setIsClick] = useState(false); // click event change background color
   const [isGuest, setIsGuest] = useState(true); //show coins in header
-  const [playCount, setPlayCount] = useState(0);//quiz play numbers
-  const [databaseCoins, setDatabaseCoins] = useState(0);// databases coins show
-
-  const updated = parseInt(localStorage.getItem('coins')) || 0;
-  const earnedCoins = parseInt(localStorage.getItem('earnedCoins')) || 0;
+  const [playCount, setPlayCount] = useState(0); //quiz play numbers
+  const [databaseCoins, setDatabaseCoins] = useState(0); // databases coins show
+  const updated = parseInt(localStorage.getItem("coins")) || 0;
+  const earnedCoins = parseInt(localStorage.getItem("earnedCoins")) || 0;
   const allcoin = parseInt(updated) + parseInt(earnedCoins);
-
-  localStorage.setItem('allcoin', allcoin);
-  localStorage.setItem('additionDone', 'true');
-  const additionDone = localStorage.getItem('additionDone');
+  localStorage.setItem("allcoin", allcoin);
+  localStorage.setItem("additionDone", "true");
+  const additionDone = localStorage.getItem("additionDone");
   const usercoin = localStorage.getItem("usercoin") || 0;
-  
-  if ( additionDone !== true ) {
+
+  if (additionDone !== true) {
     const updatedAllCoins = parseInt(allcoin) + parseInt(usercoin);
     // console.log('updatedAllCoins:', updatedAllCoins);
-    localStorage.setItem('allcoins', updatedAllCoins);
-    localStorage.setItem('additionDone', 'false');
+    localStorage.setItem("allcoins", updatedAllCoins);
+    localStorage.setItem("additionDone", "false");
   }
-
-  const allcoins=localStorage.getItem('allcoins')
-
+  const allcoins = localStorage.getItem("allcoins");
   // click event change background color
   const handleisClick = () => {
     setIsClick(!isClick);
   };
-
   useEffect(() => {
     const storedPlayCountString = sessionStorage.getItem("playCount");
     const storedPlayCount =
       storedPlayCountString !== null ? parseInt(storedPlayCountString) : 0;
     setPlayCount(storedPlayCount);
   }, []);
-
   //onclick page navigate
   const handleCategoryid = (categoryid) => {
     setCategoryid(categoryid);
     sessionStorage.setItem("playCount", (playCount + 1).toString());
-
     // Set the state with the updated play count
     setPlayCount((prevPlayCount) => prevPlayCount + 1);
-
     // Navigate to the new page
     navigate(`/play/${categoryid}`);
   };
-
   //onclick event change background color
   const getBackgroundColorClass = (categoryId) => {
     return selectedCategory === categoryId ||
@@ -74,75 +62,62 @@ const Home = () => {
       ? "bg-[#1A2F77]"
       : "";
   };
+  const fetchDatabaseCoins = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        `${BaseUrl}/api/updateCoins`,
+        { coins: databaseCoins },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setDatabaseCoins(response.data.totalCoins);
+      console.log("coins", response.data.totalCoins);
+    } catch (error) {
+      console.error("Error fetching database coins:", error);
+    }
+  };
+  useEffect(() => {
+    // console.log('Checking conditions for fetching database coins...');
+    if (selectedCategory === null && categories.length === 0) {
+      // console.log('Fetching database coins...');
+      fetchDatabaseCoins();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory, categories]);
+
   //Show All Category Data
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          `${BaseUrl}/api/category/allcategories`,
-          {
-            headers: {
-              "ngrok-skip-browser-warning": 5000,
-            },
-          }
+          `${BaseUrl}/api/category/allcategories`
         );
-        // const response = await axios.get(
-        //   "http://localhost:5000/api/category/allcategories"
-        // );
         setCategories(response.data.data);
         console.log("CATEGORY LIST", response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
-
-      const token = localStorage.getItem("token");
-      const fetchDatabaseCoins = async () => {
-        try {
-          const response = await axios.post(
-            `${BaseUrl}/api/updateCoins`,
-            { coins: databaseCoins },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "ngrok-skip-browser-warning": 5000,
-              },
-            }
-          );
-          setDatabaseCoins(response.data.totalCoins);
-          console.log("coins", response.data.totalCoins); // Update with your actual API response structure
-        } catch (error) {
-          console.error("Error fetching database coins:", error);
-        }
-      };
-      fetchDatabaseCoins();
     };
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          `${BaseUrl}/api/category/allsubcategories`,
-          {
-            headers: {
-              "ngrok-skip-browser-warning": 5000,
-            },
-          }
-          );
-          setCategory(response.data.data);
-          console.log("categoryid",categoryid);
+          `${BaseUrl}/api/category/allsubcategories`
+        );
+        setCategory(response.data.data);
+        console.log("categoryid", categoryid);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
     const fetchSubCategory = async () => {
       try {
         if (selectedCategory) {
           const response = await axios.get(
-            `${BaseUrl}/api/category/subcategories/${selectedCategory}`,
-            {
-              headers: {
-                "ngrok-skip-browser-warning": 5000,
-              },
-            }
+            `${BaseUrl}/api/category/subcategories/${selectedCategory}`
           );
           setSubcategories(response.data.data);
         }
@@ -150,41 +125,33 @@ const Home = () => {
         console.error("Error fetching subcategories:", error);
       }
     };
-
     const playerIsGuest = checkIfPlayerIsGuest();
-
     // Set the isGuest state based on the result
     setIsGuest(playerIsGuest);
-
     fetchCategory();
     fetchSubCategory();
     fetchCategories();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory, categoryid]);
-
   const checkIfPlayerIsGuest = () => {
     const guestToken = localStorage.getItem("token");
     // localStorage.removeItem('token');
     console.log("TOKEN", guestToken);
     return !!guestToken;
   };
-
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId === "All" ? null : categoryId);
   };
-
   const scrollLeft = () => {
     if (menuRef.current) {
       menuRef.current.scrollLeft -= 300;
     }
   };
-
   const scrollRight = () => {
     if (menuRef.current) {
       menuRef.current.scrollLeft += 300;
     }
   };
-
   return (
     <>
       <div
@@ -195,11 +162,15 @@ const Home = () => {
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px] py-[1px] px-2 relative flex-col flex overflow-y-auto">
             <div className="">
-              <div className="flex  justify-between items-center	 lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header" style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}>
+              <div
+                className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
+                style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}
+              >
                 <Link to={`/quizhome`} className="px-[10px] m-0 p-0">
-                  <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
+                  <div className="text-[#3FCAFF] text-2xl font-bold italic font-serif">
+                    QuizTime !
+                  </div>
                 </Link>
-
                 <div className="flex  justify-between">
                   <div className="flex items-center">
                     <img
@@ -223,11 +194,9 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-
               <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">
                 <p className="text-black text-center">ads by goggle</p>
               </div>
-
               <div className="flex justify-between px-[3px] pb-[30px] pt-10 ">
                 <div className="flex items-center">
                   <BsChevronLeft
@@ -235,7 +204,6 @@ const Home = () => {
                     onClick={scrollLeft}
                   />
                 </div>
-
                 <div ref={menuRef} className="overflow-hidden">
                   <div className="flex text-white justify-center pl-[1240px] mx-2 ms-[220px]">
                     <div
@@ -266,9 +234,7 @@ const Home = () => {
                   />
                 </div>
               </div>
-
               {/* <Link to={`/play/${categoryid}`}> */}
-
               <div className="pb-[125px]">
                 {selectedCategory
                   ? subcategories.map((data) => (
@@ -386,7 +352,7 @@ const Home = () => {
             </div>
             <div
               className=" footer flex justify-around lg:w-[520px] bg-[#0B0D26] pb-4"
-              style={{boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)"}}
+              style={{ boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)" }}
             >
               <Link to="/category">
                 <div className={`px-8 py-1 rounded-[28px] `}>
@@ -405,7 +371,6 @@ const Home = () => {
                   <p className="text-white text-[12px]">Home</p>
                 </div>
               </Link>
-
               <Link to="/profile">
                 <div className={`px-8 py-1 rounded-[28px] `}>
                   <CgProfile className={`text-white text-[20px] mx-2 my-1`} />
@@ -414,12 +379,14 @@ const Home = () => {
               </Link>
             </div>
           </Col>
-
           <Col className="fixed me-[15%] bg-image">
-          <div className="py-16 md:py-10">
-                        <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
-                        </div>
-
+            <div className="py-16 md:py-10">
+              <img
+                className="lg:w-[100%] md:w-[300px] "
+                src={require("../../image/quiz-1.png")}
+                alt=""
+              ></img>
+            </div>
             <div class="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
               Welcome to Quiztwiz. Play a quiz and earn coins.
               <p class="font-normal text-2xl pt-4 text-center">
