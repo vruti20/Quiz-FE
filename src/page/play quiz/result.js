@@ -50,8 +50,7 @@ const Result = () => {
                       },
                       {
                         headers: {
-                          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-                          'ngrok-skip-browser-warning': 5000
+                          Authorization: `Bearer ${token}`,
                         },
                       }
                 );
@@ -78,16 +77,16 @@ const Result = () => {
 // localStorage.clear()
     return (
         <>
-            <div className="bg-[#050230] h-[100vh] sm:h-[100%]">
+            <div className="bg-[#050230] h-[100vh] ">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
                         <div className="" >
-                            <div className="pb-8">
+                            {/* <div className="pb-8">
                                 <div className="bg-white lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
                                     <p className="text-black text-sm text-center">ads by goggle</p>
                                 </div>
-                            </div>
+                            </div> */}
                             <div >
 
                                 <div>

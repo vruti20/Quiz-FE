@@ -194,9 +194,9 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">
+              {/* <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">
                 <p className="text-black text-center">ads by goggle</p>
-              </div>
+              </div> */}
               <div className="flex justify-between px-[3px] pb-[30px] pt-10 ">
                 <div className="flex items-center">
                   <BsChevronLeft

@@ -20,10 +20,7 @@ const Subcategory = () => {
   useEffect(() => {
     const id = location.state._id; // Get the category ID from the location state
     axios
-      .get(`${BaseUrl}/api/category/subcategories/${id}` ,
-      {headers: {
-        'ngrok-skip-browser-warning': 5000
-      }})
+      .get(`${BaseUrl}/api/category/subcategories/${id}`)
       //  axios.get(`http://localhost:5000/api/category/subcategories/${id}`)
       .then(function (response) {
         setSubcategories(response.data.data); // Set the subcategories in the state
@@ -43,7 +40,6 @@ const Subcategory = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'ngrok-skip-browser-warning': 5000
           }
         });
         setDatabaseCoins(response.data.totalCoins);

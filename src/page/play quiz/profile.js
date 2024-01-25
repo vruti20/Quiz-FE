@@ -29,7 +29,6 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              "ngrok-skip-browser-warning": 5000,
             },
           }
         );
@@ -60,7 +59,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
   return (
     <>
       <div className="bg-[#050230]">
-        <Row className="h-[100%] ">
+        <Row className="h-[100vh] ">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div className="">
               <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header" style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}
@@ -139,13 +138,13 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
                   </div>
                 </Link>
               )}
-              <div className="pb-8">
+              {/* <div className="pb-8">
                 <div className="bg-white lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
                   <p className="text-black text-sm text-center">
                     ads by goggle
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div

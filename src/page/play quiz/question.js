@@ -41,14 +41,8 @@ const Question = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${BaseUrl}/api/quesation/questions?quiz=${categoryId}`,
-          {
-            headers: {
-              "ngrok-skip-browser-warning": 5000,
-            },
-          }
-        );
-        // const response = await axios.get(`http://localhost:5000/api/quesation/questions?quiz=${categoryId}`)
+          `${BaseUrl}/api/quesation/questions?quiz=${categoryId}`);
+       
         setQuestionData(response.data.data.slice(0, 15));
       } catch (error) {
         console.error("Error fetching question data:", error);
@@ -170,7 +164,6 @@ const Question = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'ngrok-skip-browser-warning': 5000
           }
         });
         setDatabaseCoins(response.data.totalCoins);
@@ -203,7 +196,7 @@ const Question = () => {
   };
   return (
     <>
-      <div className="bg-[#050230] bg-fixed h-[100%] bg-high">
+      <div className="bg-[#050230] bg-fixed h-[100vh] bg-high">
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div>
@@ -313,13 +306,13 @@ const Question = () => {
                 <span class="text-[#FFCC5B] pl-1">{score}</span>
               </div>
 
-              <div className="pb-8">
+              {/* <div className="pb-8">
                 <div className="bg-white lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
                   <p className="text-black text-sm text-center">
                     ads by goggle
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div

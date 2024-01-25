@@ -189,29 +189,10 @@ const Quiz = () => {
       <div className="bg-[#050230]">
         <Row className="flex  ">
           <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
-            <div className="bg-white h-[350px] mx-auto mb-[8px]">
+            {/* <div className="bg-white h-[350px] mx-auto mb-[8px]">
               <p className="text-black text-center">ads by goggle</p>
-              {/* <iframe data-aa='2279699' src='//ad.a-ads.com/2279699?size=300x250' style={{width:'300px', height:'250px', border:'0px', padding:'0', overflow:'hidden', backgroundColor: 'transparent'}}></iframe> */}
-              {/* <script
-                async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9720528266916800"
-                crossOrigin="anonymous"
-              ></script> */}
-              {/* <ins
-                className="adsbygoogle"
-                style={{display:'block'}}
-                data-ad-client="ca-pub-9720528266916800"
-                data-ad-slot="6643013555"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-                data-adtest="on"
-              ></ins> */}
-
-              {/* <script>
-                {(window.adsbygoogle = window.adsbygoogle || []).push({})}
-              </script> */}
-            </div>
-
+                         </div> */}
+            <div></div>
             <div className="text-center">
               <h1 className="font-bold text-white text-18">Let's begin!</h1>
               <span className="text-[12px] text-[#8f8f8f]">
@@ -256,7 +237,7 @@ const Quiz = () => {
                   <div className="modal-container ">
                     <div className="modal">
                       <div className="flex justify-end">
-                        <FaX className="cursor-pointer" />
+                        <FaX className="cursor-pointer" onClick={closeModal} />
                       </div>
                       <div className="flex justify-center">
                         <img

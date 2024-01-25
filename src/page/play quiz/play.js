@@ -111,7 +111,6 @@ const Play = () => {
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
-                            'ngrok-skip-browser-warning': 5000
                         }
                     }
                 );
@@ -156,12 +155,7 @@ const Play = () => {
 
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(`${BaseUrl}/api/quesation/questions?quiz=${categoryid}`,
-                    {
-                        headers: {
-                            'ngrok-skip-browser-warning': 5000
-                        }
-                    });
+                const response = await axios.get(`${BaseUrl}/api/quesation/questions?quiz=${categoryid}`);
                 const newQuizData = response.data.data.map(item => item.quiz);
                 setSubcategories(newQuizData.slice(0, 1));
                 // console.log("QUIZOBJECT", newQuizData);
@@ -207,7 +201,7 @@ const Play = () => {
 
     return (
         <>
-            <div className="bg-[#050230]">
+            <div className="bg-[#050230] h-[100vh]">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[500px]  px-2 relative flex-col flex" >
@@ -234,11 +228,11 @@ const Play = () => {
 
                             </div>
 
-                            <div className="bg-white mt-[50px] h-[370px] mx-auto mb-[8px]">
+                            {/* <div className="bg-white mt-[50px] h-[370px] mx-auto mb-[8px]">
                                 <p className="text-center text-black">
                                     ads by goggle
                                 </p>
-                            </div>
+                            </div> */}
                             <div className="pb-[150px]">
 
                                 <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px] " style={{ borderColor: "#0060FF",boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)"}}>

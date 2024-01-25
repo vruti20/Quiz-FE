@@ -18,20 +18,9 @@ const Login = () => {
     try {
       const response = await axios.post(
         `${BaseUrl}/api/login`,
-        { mobileNumber },
-        {
-          headers: {
-            "ngrok-skip-browser-warning": 5000,
-          },
-        }
+        { mobileNumber }
       );
-      //   // const response=await axios.post("http://localhost:5000/api/login",
-      //   {
-      //     mobileNumber
-      //   }
-      // )
-      // localStorage.clear();
-      console.log("*************", response.data.data.mobileNumber);
+      // console.log("*************", response.data.data.mobileNumber);
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("logincoin", response.data.data.coins);
@@ -83,7 +72,7 @@ const Login = () => {
     <>
       <div className="bg-[#050230]">
         <Row className="flex ">
-          <Col className="md:w-[410px] h-[100vh] lg:w-[530px]  py-2 px-2">
+          <Col className="md:w-[410px] h-[100%] lg:w-[530px]  py-2 px-2">
             <div className="flex py-[8px] cursor-pointer ">
               <span>
                 <Link to="/">

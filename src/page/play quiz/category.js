@@ -29,12 +29,7 @@ const Category = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`${BaseUrl}/api/category/allcategories`,
-                    {
-                        headers: {
-                            'ngrok-skip-browser-warning': 5000
-                        }
-                    });
+                const response = await axios.get(`${BaseUrl}/api/category/allcategories`);
                 // const response = await axios.get("http://localhost:5000/api/category/allcategories")
                 setCategories(response.data.data);
                 console.log("CATEGORY LIST", response.data.data);
@@ -53,7 +48,6 @@ const Category = () => {
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
-                            'ngrok-skip-browser-warning': 5000
                         }
                     });
                 setDatabaseCoins(response.data.totalCoins);
@@ -78,13 +72,8 @@ const Category = () => {
     //subcategory data navigate subcategory page 
     const Subcategory = (id) => {
 
-        axios.get(`${BaseUrl}/api/category/subcategories/${id}`,
-            {
-                headers: {
-                    'ngrok-skip-browser-warning': 5000
-                }
-            })
-            // axios.get(`http://localhost:5000/api/category/subcategories/${id}`)
+        axios.get(`${BaseUrl}/api/category/subcategories/${id}`)
+            
             .then(function (response) {
                 navigate(`/subcategory/${id}`, { state: categories.find(category => category._id === id) });
                 console.log(response.data.data);
@@ -131,12 +120,6 @@ const Category = () => {
                                 </div>
 
                             </div>
-                            <div className="bg-white h-[350px] mx-auto mb-[8px]">
-                                <p className="text-center  text-black">
-                                    ads by goggle
-                                </p>
-                            </div>
-
                             <p class="text-lg font-bold text-center text-white py-5 pt-14">
                                 Select the Quiz category that you want to play
                             </p>
