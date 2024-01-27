@@ -186,7 +186,7 @@ const Quiz = () => {
 
   return (
     <>
-      <div className="bg-[#050230]">
+      <div>
         <Row className="flex  ">
           <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
             {/* <div className="bg-white h-[350px] mx-auto mb-[8px]">

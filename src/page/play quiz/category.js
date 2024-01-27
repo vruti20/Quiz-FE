@@ -17,6 +17,8 @@ const Category = () => {
     const [searchInput, setSearchInput] = useState(""); // serch the category name
     const [click, setClick] = useState(false); //click event  change background color
     const [databaseCoins, setDatabaseCoins] = useState(0);
+    const [playCount, setPlayCount] = useState(0); //quiz play numbers
+
 
     const allcoins = localStorage.getItem('allcoins') || 0;
 
@@ -68,7 +70,12 @@ const Category = () => {
         console.log("TOKEN", guestToken);
         return !!guestToken;
     };
-
+    useEffect(() => {
+        const storedPlayCountString = sessionStorage.getItem("playCount");
+        const storedPlayCount =
+          storedPlayCountString !== null ? parseInt(storedPlayCountString) : 0;
+        setPlayCount(storedPlayCount);
+      }, []);
     //subcategory data navigate subcategory page 
     const Subcategory = (id) => {
 
@@ -77,7 +84,10 @@ const Category = () => {
             .then(function (response) {
                 navigate(`/subcategory/${id}`, { state: categories.find(category => category._id === id) });
                 console.log(response.data.data);
-            })
+                sessionStorage.setItem("playCount", (playCount + 1).toString());
+                // Set the state with the updated play count
+                setPlayCount((prevPlayCount) => prevPlayCount + 1);
+            })    
             .catch(function (error) {
                 console.log(error);
             })
@@ -94,7 +104,7 @@ const Category = () => {
 
     return (
         <>
-            <div className="bg-[#050230] h-[100%]">
+            <div>
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex" >
                         <div className="">

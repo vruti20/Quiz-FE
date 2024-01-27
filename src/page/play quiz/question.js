@@ -196,7 +196,7 @@ const Question = () => {
   };
   return (
     <>
-      <div className="bg-[#050230] bg-fixed h-[100vh] bg-high">
+      <div>
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
             <div>

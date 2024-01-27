@@ -6,6 +6,10 @@
   margin: 0;
   padding: 0;
 }
+body
+{
+  background-color: #050230;
+}
 .fixed {
   position: fixed;
   top: 0; 
@@ -70,19 +74,19 @@
   left: 0%;
   width: 520px;
 }
-@media (max-width: 320px){
+@media (max-width: 1024px){
   .footer {
-    width: 320px;
+    width: 420px;
   }
 }
-@media (min-width: 375px){
-  .footer {
-    width: 375px;
+/* @media (max-width: 1024px){
+  .footer { 
+    width: 475px;
   }
-}
-@media (min-width: 425px){
+} */
+@media (max-width: 425px){
   .footer {
-    width: 425px;
+    width: 100%;
   }
 }
 .header{
@@ -90,19 +94,14 @@
  box-shadow: rgb(17, 24, 39) 0px -15px 15px;
  /* width: 520px; */
 }
-@media (max-width: 320px){
+@media (max-width: 1024px){
   .header {
-    width: 320px;
+    width: 420px;
   }
 }
-@media (min-width: 375px){
+@media (max-width: 425px){
   .header {
-    width: 375px;
-  }
-}
-@media (min-width: 425px){
-  .header {
-    width: 425px;
+    width: 100%;
   }
 }
 .modal-container {

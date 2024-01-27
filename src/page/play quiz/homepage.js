@@ -12,7 +12,7 @@ const BaseUrl = process.env.REACT_APP_BASEURL;
 const Home = () => {
   const menuRef = useRef(null);
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]); // fetch all category data
+  const [categories, setCategories] = useState([]); // fetch all category data 
   const [categorydata, setCategory] = useState([]); // fetch all subcategory data
   const [subcategories, setSubcategories] = useState([]); // fetch single category data
   const [selectedCategory, setSelectedCategory] = useState(null); //onclick event show category
@@ -154,11 +154,7 @@ const Home = () => {
   };
   return (
     <>
-      <div
-        className={`bg-[#050230] ${
-          selectedCategory ? "h-[1400px]" : "h-[100%]"
-        }`}
-      >
+      <div>
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px] py-[1px] px-2 relative flex-col flex overflow-y-auto">
             <div className="">
@@ -353,7 +349,7 @@ const Home = () => {
               {/* </Link> */}
             </div>
             <div
-              className=" footer flex justify-around lg:w-[520px] bg-[#0B0D26] pb-4"
+              className=" footer flex justify-around  bg-[#0B0D26] pb-4"
               style={{ boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)" }}
             >
               <Link to="/category">

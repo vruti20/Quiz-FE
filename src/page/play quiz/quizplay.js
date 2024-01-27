@@ -21,8 +21,7 @@ const Quizplay = () => {
 
     return (
         <>
-            <div className="bg-[#050230] h-[100vh] bg-fixed  ">
-
+            <div>
                 <Row className="flex">
                     <Col className="md:w-[400px] items-end  lg:w-[530px] py-3 px-2">
                         {/* <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">

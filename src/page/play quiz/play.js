@@ -201,7 +201,7 @@ const Play = () => {
 
     return (
         <>
-            <div className="bg-[#050230] h-[100%]">
+            <div>
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[500px]  px-2 relative flex-col flex" >

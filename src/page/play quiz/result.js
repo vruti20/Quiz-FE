@@ -77,7 +77,7 @@ const Result = () => {
 // localStorage.clear()
     return (
         <>
-            <div className="bg-[#050230] h-[100vh] ">
+            <div>
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
@@ -100,7 +100,7 @@ const Result = () => {
                                             <p>{score}</p>
                                             <p>Your Score</p>
                                         </Col>
-                                        <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#1A2F77] rounded-xl cursor-pointer">
+                                        <Col className="flex flex-col  items-center py-2 pl-[10px] pr-[10px] bg-[#1A2F77] rounded-xl cursor-pointer text-center">
                                             <p>{earnedCoins}</p>
                                             {/* <p>{coins}</p> */}
                                             <p>Coins Earned</p>

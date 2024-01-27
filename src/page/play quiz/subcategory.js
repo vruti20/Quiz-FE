@@ -16,6 +16,7 @@ const Subcategory = () => {
   const allcoins=localStorage.getItem('allcoins') || 0;
   const token = localStorage.getItem('token');
 
+
   // const newcoins= localStorage.getItem("coin") || 0;
   useEffect(() => {
     const id = location.state._id; // Get the category ID from the location state
@@ -44,11 +45,13 @@ const Subcategory = () => {
         });
         setDatabaseCoins(response.data.totalCoins);
         console.log("coins",response.data.totalCoins);// Update with your actual API response structure
+       
       } catch (error) {
         console.error("Error fetching database coins:", error);
       }
     }
     fetchDatabaseCoins();
+    // Set the state with the updated play count
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.state._id, token]);
 
@@ -57,14 +60,16 @@ const Subcategory = () => {
     // localStorage.removeItem('token');
     console.log("TOKEN",guestToken);
     return !!guestToken;
+
   };
+  
   return (
     <>
-      <div className="bg-[#050230] h-[100vh]">
+      <div>
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex">
           <div
-                className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
+                className="flex  justify-between items-center  lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
                 style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}
               >
                 <Link to={`/quizhome`} className="px-[10px] m-0 p-0">
@@ -84,7 +89,7 @@ const Subcategory = () => {
                     </p>
                   </div>
                   <div className="mt-[3px] flex items-center ml-1">
-                    <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-1">
+                    <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -143,7 +148,8 @@ const Subcategory = () => {
                     <div className="w-[120px]">
                       <img
                         className=" rounded-full p-2"
-                        src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                        // src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                        src={require('../../image/play.jpeg')}
                         alt="Play"
                       />
                     </div>

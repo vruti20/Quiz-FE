@@ -137,7 +137,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="bg-[#050230]">
+      <div>
         <Row className="flex ">
           <Col className="md:w-[410px] h-[100%] lg:w-[530px]  py-2 px-2">
             <div className="flex py-[8px] cursor-pointer ">

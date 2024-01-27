@@ -58,8 +58,8 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
   };
   return (
     <>
-      <div className="bg-[#050230]">
-        <Row className="h-[100vh] ">
+      <div>
+        <Row>
           <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex ">
             <div className="mb-[300px]">
               <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header" style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}
@@ -166,7 +166,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
 
               <Link to="/profile">
                 <div
-                  className={`px-8 py-1 rounded-xl ${
+                  className={`px-7 py-1 rounded-xl ${
                     isClicked ? "" : "bg-[#389A06]"
                   }`}
                   onClick={handleClick}
