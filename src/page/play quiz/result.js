@@ -89,7 +89,7 @@ const Result = () => {
                             </div> */}
                             <div >
 
-                                <div>
+                                <div className="mt-[300px]">
                                     <div className="flex justify-center ">
                                         <h1 className="text-white text-4xl">Well Played</h1>
                                         <img className="w-[200px] absolute " src="https://monetix-lookat1.quiztwiz.com/static/media/animation.82d3951ab49c98d92a06.gif" alt="gift"></img>

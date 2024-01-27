@@ -201,14 +201,14 @@ const Play = () => {
 
     return (
         <>
-            <div className="bg-[#050230] h-[100vh]">
+            <div className="bg-[#050230] h-[100%]">
 
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[500px]  px-2 relative flex-col flex" >
                         <div className="" >
                             <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header"   style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}>
                                 <Link to={`/quizhome`} className="pl-[10px]">
-                                <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
+                                <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold	italic font-serif">QuizTime !</div>
                                 </Link>
                                 <div className="flex justify-between">
                                     <div className="flex items-center">
@@ -217,7 +217,7 @@ const Play = () => {
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
                                     </div>
                                     <div className="mt-[3px] flex items-center ml-1">
-                                        <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md">
+                                        <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                                             <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
                                             <p>
                                                 {isGuest ? databaseCoins : loginscore} COINS
@@ -233,7 +233,7 @@ const Play = () => {
                                     ads by goggle
                                 </p>
                             </div> */}
-                            <div className="pb-[150px]">
+                            <div className="pb-[150px] mt-[300px]">
 
                                 <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px] " style={{ borderColor: "#0060FF",boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)"}}>
 
@@ -290,7 +290,7 @@ const Play = () => {
 
                                         <div className="flex w-full justify-around pb-[25px]">
                                             <Link to="/login">
-                                                <button  class="bg-[#389A06] py-2 px-14 font-[700] text-white rounded-md">JOIN NOW</button>
+                                                <button  class="bg-[#389A06] py-2 md:px-14 px-10 md:font-[700] font[500] text-white rounded-md">JOIN NOW</button>
                                             </Link>
                                             <p className="text-[20px] text-white">or</p>
                                            

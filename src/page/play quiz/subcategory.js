@@ -63,12 +63,16 @@ const Subcategory = () => {
       <div className="bg-[#050230] h-[100vh]">
         <Row className="">
           <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex">
-            <div className="">
-              <div className="flex justify-between lg:w-[520px] bg-[#0B0D26] py-[8px] cursor-pointer header"  style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}>
-              <Link to={`/quizhome`} className="pl-[10px]">
-              <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
-              </Link>
-                <div className="flex w-[40%] justify-between">
+          <div
+                className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
+                style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}
+              >
+                <Link to={`/quizhome`} className="px-[10px] m-0 p-0">
+                  <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold italic font-serif">
+                    QuizTime !
+                  </div>
+                </Link>
+                <div className="flex  justify-between">
                   <div className="flex items-center">
                     <img
                       class="w-[25px] "
@@ -76,23 +80,21 @@ const Subcategory = () => {
                       alt="animation"
                     />
                     <p className="text-white text-[10px] font-[700] pt-1">
-                      {" "}
                       Daily Reward
                     </p>
                   </div>
-                  <div className="mt-[3px]  items-center">
-                    <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md">
+                  <div className="mt-[3px] flex items-center ml-1">
+                    <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-1">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                         alt="svg"
                       ></img>
-                      {isGuest ? databaseCoins : allcoins} COINS
+                      <p> {isGuest ? databaseCoins : allcoins} COINS</p>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
             {/* Render subcategories */}
             <div className="mt-[20%]">
               {subcategories.map((subcategory) => (

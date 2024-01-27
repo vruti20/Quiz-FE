@@ -167,7 +167,7 @@ const Home = () => {
                 style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}
               >
                 <Link to={`/quizhome`} className="px-[10px] m-0 p-0">
-                  <div className="text-[#3FCAFF] text-2xl font-bold italic font-serif">
+                  <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold italic font-serif">
                     QuizTime !
                   </div>
                 </Link>
@@ -183,7 +183,7 @@ const Home = () => {
                     </p>
                   </div>
                   <div className="mt-[3px] flex items-center ml-1">
-                    <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md">
+                    <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -197,7 +197,7 @@ const Home = () => {
               {/* <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">
                 <p className="text-black text-center">ads by goggle</p>
               </div> */}
-              <div className="flex justify-between px-[3px] pb-[30px] pt-10 ">
+              <div className="flex justify-between px-[3px] pb-[30px] pt-10 mt-[300px]">
                 <div className="flex items-center">
                   <BsChevronLeft
                     className="text-white text-[14px] cursor-pointer"
@@ -286,7 +286,8 @@ const Home = () => {
                         <div className="w-[120px]">
                           <img
                             className=" rounded-full p-2"
-                            src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                            // src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                            src={require('../../image/play.jpeg')}
                             alt="Play"
                           />
                         </div>
@@ -340,8 +341,9 @@ const Home = () => {
                         </div>
                         <div className="w-[120px]">
                           <img
-                            cxlassName=" rounded-full p-2"
-                            src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                            className=" rounded-full p-2"
+                            // src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                            src={require('../../image/play.jpeg')}
                             alt="Play"
                           />
                         </div>

@@ -192,8 +192,7 @@ const Quiz = () => {
             {/* <div className="bg-white h-[350px] mx-auto mb-[8px]">
               <p className="text-black text-center">ads by goggle</p>
                          </div> */}
-            <div></div>
-            <div className="text-center">
+            <div className="text-center mt-[300px]">
               <h1 className="font-bold text-white text-18">Let's begin!</h1>
               <span className="text-[12px] text-[#8f8f8f]">
                 Answer few questions and win 150 free!

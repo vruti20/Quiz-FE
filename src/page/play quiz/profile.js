@@ -60,12 +60,12 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
     <>
       <div className="bg-[#050230]">
         <Row className="h-[100vh] ">
-          <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex">
-            <div className="">
+          <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex ">
+            <div className="mb-[300px]">
               <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header" style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}
 >
                 <Link to={`/quizhome`} className="pl-[10px]">
-                <div className="text-[#3FCAFF] text-2xl font-bold	italic font-serif">QuizTime !</div>
+                <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold	italic font-serif">QuizTime !</div>
                 </Link>
 
                 <div className="flex justify-between">
@@ -81,7 +81,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
                     </p>
                   </div>
                   <div className="mt-[3px] flex items-center ml-1">
-                    <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md">
+                    <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
