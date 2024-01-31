@@ -348,34 +348,34 @@ const Home = () => {
               </div>
               {/* </Link> */}
             </div>
-            <div
-              className=" footer flex justify-around  bg-[#0B0D26] pb-4"
-              style={{ boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)" }}
-            >
-              <Link to="/category">
-                <div className={`px-8 py-1 rounded-[28px] `}>
-                  <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
-                  <p className="text-white text-[12px]">Category</p>
-                </div>
-              </Link>
-              <Link to="/quizhome">
-                <div
-                  className={`px-8 py-1 rounded-xl  ${
-                    isClick ? "" : "bg-[#389A06]"
-                  }`}
-                  onClick={handleisClick}
-                >
-                  <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
-                  <p className="text-white text-[12px]">Home</p>
-                </div>
-              </Link>
-              <Link to="/profile">
-                <div className={`px-8 py-1 rounded-[28px] `}>
-                  <CgProfile className={`text-white text-[20px] mx-2 my-1`} />
-                  <p className="text-white text-[12px]">Profile</p>
-                </div>
-              </Link>
-            </div>
+          <div
+            className=" footer flex justify-around bg-[#0B0D26] pb-4"
+            style={{ boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)" }}
+          >
+            <Link to="/category" >
+              <div className={`px-8 py-1 rounded-[28px] `}>
+                <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
+                <p className="text-white text-[12px]">Category</p>
+              </div>
+            </Link>
+            <Link to="/quizhome">
+              <div
+                className={`px-8 py-1 rounded-xl  ${
+                  isClick ? "" : "bg-[#389A06]"
+                }`}
+                onClick={handleisClick}
+              >
+                <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
+                <p className="text-white text-[12px]">Home</p>
+              </div>
+            </Link>
+            <Link to="/profile">
+              <div className={`px-8 py-1 rounded-[28px] `}>
+                <CgProfile className={`text-white text-[20px] mx-2 my-1`} />
+                <p className="text-white text-[12px]">Profile</p>
+              </div>
+            </Link>
+          </div>
           </Col>
           <Col className="fixed me-[15%] bg-image">
             <div className="py-16 md:py-10">
@@ -386,7 +386,7 @@ const Home = () => {
               ></img>
             </div>
             <div class="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
-              Welcome to Quiztwiz. Play a quiz and earn coins.
+              Welcome to QuizTimeNow. Play a quiz and earn coins.
               <p class="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}
               </p>

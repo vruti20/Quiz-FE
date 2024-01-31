@@ -162,12 +162,12 @@ const Category = () => {
                             </div>
                         </div>
 
-                        <div className="footer bg-[#0B0D26] flex justify-around lg:w-[520px] pb-4" 
+                        <div className="footer bg-[#0B0D26] flex justify-around  pb-4" 
                                       style={{boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)"}}
                         >
-                            <Link to="/category">
+                            <Link to="/category" >
                                 <div
-                                    className={`px-6 py-1 rounded-xl ${click ? '' : 'bg-[#389A06]'}`}
+                                    className={`px-8 py-1 rounded-xl  ${click ? '' : 'bg-[#389A06]'}`}
                                     onClick={handleClicked}
                                 >
                                     <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
@@ -179,7 +179,7 @@ const Category = () => {
                                     className={`px-8 py-1 rounded-[28px] `}
                                 >
                                     <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
-                                    <p className="text-white text-[12px]">Home</p>
+                                    <p className="text-white text-[12px]">Home    </p>
                                 </div>
                             </Link>
 
@@ -200,7 +200,7 @@ const Category = () => {
                         </div>
 
                         <div class=" font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
-                            Welcome to Quiztwiz. Play a quiz and earn coins.
+                            Welcome to QuizTimeNow. Play a quiz and earn coins.
                             <p class="font-normal text-2xl pt-4 text-center">
                                 There's a quiz for everyone! </p>
                         </div>

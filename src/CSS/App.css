@@ -79,11 +79,6 @@ body
     width: 420px;
   }
 }
-/* @media (max-width: 1024px){
-  .footer { 
-    width: 475px;
-  }
-} */
 @media (max-width: 425px){
   .footer {
     width: 100%;
@@ -139,4 +134,7 @@ body
   .bg-image{
     margin-right: 9%;
   }
+}
+.active-link {
+  background-color: #389A06;
 }

@@ -1,140 +1,77 @@
-import {auth} from "../../firebase.config";
+// import {auth} from "../../firebase.config";
 import { toast } from "react-toastify";
 import { Button, Col, Row } from "react-bootstrap";
 import { FcGoogle } from "react-icons/fc";
 import { BsChevronLeft } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+// import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
 const BaseUrl = process.env.REACT_APP_BASEURL;
 
 const Login = () => {
   const [showOtpDiv, setShowOtpDiv] = useState(false); // show otp input box
-  const [mobileNumber, setMobileNumber] = useState(""); //set mobile number input
+  const [email, setEmail] = useState(""); //set mobile number input
   const [otp, setOtp] = useState(""); // set otp input
 
-  // otp Generate
-  // const generateOTP = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       `${BaseUrl}/api/login`,
-  //       { mobileNumber }
-  //     );
-  //     // console.log("*************", response.data.data.mobileNumber);
 
-  //     localStorage.setItem("token", response.data.token);
-  //     localStorage.setItem("logincoin", response.data.data.coins);
-  //     sessionStorage.setItem("moblieNumber", response.data.data.mobileNumber);
-  //     if (response.status === 200) {
-  //       const ganrateotp = response.data.otp;
-  //       console.log("OTP generated:", ganrateotp);
-  //       console.log("RESPONSE>>", response.data.data.coins);
-  //       setShowOtpDiv(true);
-  //       setOtp(ganrateotp);
-  //       toast.success(response.data.message, {
-  //         style: { background: "#050230", color: "white" },
-  //         progressStyle: { background: "green" },
-  //       });
-  //     } else {
-  //       console.log("Error generating OTP:", response.data.message);
-  //       toast.error(response.data.data.message, {
-  //         style: { background: "#050230", color: "white" },
-  //         progressStyle: { background: "red" },
-  //       });
-  //     }
-  //   } catch (error) {
-  //     if (
-  //       error.response &&
-  //       error.response.status === 400 &&
-  //       error.response.data &&
-  //       error.response.data.error
-  //     ) {
-  //       toast.error(error.response.data.error);
-  //     } else if (
-  //       error.response &&
-  //       error.response.data &&
-  //       error.response.data.message
-  //     ) {
-  //       toast.error(error.response.data.message, {
-  //         style: { background: "#050230", color: "white" },
-  //         progressStyle: { background: "red" },
-  //       });
-  //     } else {
-  //       toast.error(` ${error.message}`, {
-  //         style: { background: "#050230", color: "white" },
-  //         progressStyle: { background: "red" },
-  //       });
-  //     }
-  //   }
-  // };
-  function onCaptchVerify() {
-    console.log('**************************');
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            onSignup();
-          },
-          "expired-callback": () => {},
-        },
-        auth
-        );
-        console.log("#################");
+  const navigate = useNavigate();
+  // otp Generate
+  const generateOTP = async () => {
+    try {
+      const response = await axios.post(
+        `${BaseUrl}/api/login`,
+        { email }
+      );
+      // console.log("*************", response.data.data.mobileNumber);
+        console.log("res",response.data);
+        if(response.data.status === 'Success'){
+          toast.success(response.data.message ,{
+            style:{
+              backgroundColor:'#0B0D26'
+            }
+          })
+          setShowOtpDiv(true);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message , {
+          style :{
+            backgroundColor:'#0B0D26'
+          }
+        })
+      }
+    };
+    const otpVerify = async() => {
+      try {
+        const response = await axios.post(
+          `${BaseUrl}/api/otp_verify`,
+          { email,otp }
+          );
+          // console.log("otp",response.data.message);
+          // console.log("coins",response.data.data.coins);
+          // console.log("email",response.data.data.email);
+          if(response.data.status === 'Success') {
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("logincoin", response.data.data.coins);
+            sessionStorage.setItem("email", response.data.data.email);
+            toast.success(response.data.message ,{
+              style:{
+                backgroundColor:'#0B0D26'
+              }
+            });
+            navigate('/quizplay')
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.message , {
+        style:{
+          backgroundColor:'#0B0D26'
+        }
+      })
     }
   }
-  function onSignup() {
-    // setLoading(true);
-    onCaptchVerify();
-
-    const appVerifier = window.recaptchaVerifier;
-    console.log("app",appVerifier);
-    const formatPh = "+91" + mobileNumber;
-    signInWithPhoneNumber(auth, formatPh, appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-        setShowOtpDiv(true)
-      
-        console.log('OPT has sent', mobileNumber)
-        toast.success("OTP sended successfully!");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(error);
-
-      });
-  }
-  function onOTPVerify() {
-    // setLoading(true);
-    window.confirmationResult
-      .confirm(otp)
-      .then(async (res) => {
-        console.log(res);
-        axios.post(`${BaseUrl}/api/login`,{mobileNumber})
-        .then(async (response) => {
-          console.log(response.data.token);
-          localStorage.setItem("token", response.data.token);
-              localStorage.setItem("logincoin", response.data.data.coins);
-              sessionStorage.setItem("moblieNumber", response.data.data.mobileNumber);
-          // setUser(res.user);
-          // setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          // setLoading(false);
-        })
-        // setUser(res.user);
-        // setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        // setLoading(false);
-      });
-  }
-
   return (
     <>
       <div>
@@ -155,7 +92,7 @@ const Login = () => {
               <div>
                 <div className="text-center py-10">
                   <div className="text-white font-bold text-18">
-                    Join QuizTwiz now!👋
+                    Join QuizTimeNow now!👋
                   </div>
                   <div className="text-[12px] text-[#8789c3]">
                     Play Quizzes and Win Coins
@@ -165,19 +102,16 @@ const Login = () => {
                <form>
                <div id="recaptcha-container"></div>
                <div className="text-center">
-                  <input
-                    className="bg-[#0a0a2911] text-white border-[3px] border-[#4376c9] border-solid rounded-xl py-[10px] text-center px-8"
-                    placeholder="Enter phone number"
-                    type="tel"
-                    value={mobileNumber}
-                    onChange={(e) => setMobileNumber(e.target.value)}
-                  />
+                  <input type="email"  className="bg-[#0a0a2911] text-white border-[3px] border-[#4376c9] border-solid rounded-xl py-[10px] text-center px-8"
+                    placeholder="Enter Your Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 
                 <div className="text-center pt-5">
                   <Button
                     className="bg-[#D85B00] text-white font-bold text-[16px] rounded-xl py-[13px] text-center px-[88px]"
-                    onClick={onSignup}
+                    onClick={generateOTP}
                     value={otp}
                   >
                     GET CODE
@@ -215,17 +149,17 @@ const Login = () => {
                 </div>
 
                 <div className="text-center pt-5">
-                  <Link
+                  {/* <Link
                     to={otp ? "/quizplay" : ""}
                     onClick={() => !otp && alert("Please enter OTP")}
-                  >
+                  > */}
                     <Button
                       className={`bg-[#D85B00] text-white font-bold text-[16px] rounded-xl py-[13px] text-center px-[88px]`}
-                      disabled={!otp}
-                    onClick={onOTPVerify}>
+                       onClick={otpVerify}
+                  >
                       SUBMIT
                     </Button>
-                  </Link>
+                  {/* </Link> */}
                 </div>
 
                 <div

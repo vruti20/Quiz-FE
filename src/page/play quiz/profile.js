@@ -15,7 +15,7 @@ const Profile = () => {
 
   const allcoins = localStorage.getItem("allcoins") || 0;
   // const newcoins= localStorage.getItem("coin") || 0;
-const mobileNumber = sessionStorage.getItem("moblieNumber");
+const Email = sessionStorage.getItem("email");
 
 
   let playCount = sessionStorage.getItem("playCount") || 0;
@@ -60,11 +60,11 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
     <>
       <div>
         <Row>
-          <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex ">
+          <Col className="md:w-[400px]  lg:w-[520px]  py-1 px-2 relative flex-col flex ">
             <div className="mb-[300px]">
               <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header" style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}
 >
-                <Link to={`/quizhome`} className="pl-[10px]">
+                <Link to={`/quizhome`} className="px-[10px] p-0 m-0">
                 <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold	italic font-serif">QuizTime !</div>
                 </Link>
 
@@ -102,7 +102,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
                 </div>
                 <div class="flex gap-1 flex-col items-center justify-center text-white">
                   <p class="text-3xl">User X</p>
-                  {
+                  {/* {
                     isGuest ?
                   <p class="text-sm">
                     {mobileNumber}
@@ -110,8 +110,17 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
                     <p>
                       mobile not updated
                     </p>
+                  } */}
+                  <p class="text-sm">mobile not updated</p>
+                  {
+                    isGuest ?
+                  <p class="text-sm">
+                    {Email}
+                    </p> :
+                    <p>
+                      Email not updated
+                    </p>
                   }
-                  <p class="text-sm">Email not updated</p>
                 </div>
               </div>
               <div className="flex items-center justify-center mt-6 gap-10">
@@ -166,7 +175,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
 
               <Link to="/profile">
                 <div
-                  className={`px-7 py-1 rounded-xl ${
+                  className={`px-8 py-1 rounded-xl ${
                     isClicked ? "" : "bg-[#389A06]"
                   }`}
                   onClick={handleClick}
@@ -183,7 +192,7 @@ const mobileNumber = sessionStorage.getItem("moblieNumber");
                         </div>
 
             <div class="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
-              Welcome to Quiztwiz. Play a quiz and earn coins.
+              Welcome to QuizTimeNow. Play a quiz and earn coins.
               <p class="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}
               </p>

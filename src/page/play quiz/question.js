@@ -80,6 +80,9 @@ const Question = () => {
     return `${seconds}`;
   };
   const handleOptionClick = (answer) => {
+    if (selectedAnswer !== null) {
+      return;
+    }
     const currentQuestion = questionData[currentQuestionIndex];
     const isCorrect = answer === currentQuestion.correct;
   
@@ -446,7 +449,7 @@ const Question = () => {
                         </div>
 
             <div class="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
-              Welcome to Quiztwiz. Play a quiz and earn coins.
+              Welcome to QuizTimeNow. Play a quiz and earn coins.
               <p class="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}
               </p>
