@@ -193,7 +193,7 @@ const Home = () => {
               {/* <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">
                 <p className="text-black text-center">ads by goggle</p>
               </div> */}
-              <div className="flex justify-between px-[3px] pb-[30px] pt-10" style={{position:'fixed',marginTop:'50px',width:'420px',overflow:'hidden',backgroundColor:'#050230'}}>
+              <div className="flex justify-between px-[3px] pb-[30px] pt-10 nav_menu" style={{position:'fixed',marginTop:'50px',overflow:'hidden',backgroundColor:'#050230'}}>
                 <div className="flex items-center">
                   <BsChevronLeft
                     className="text-white text-[14px] cursor-pointer"
