@@ -60,7 +60,7 @@ const Email = sessionStorage.getItem("email");
     <>
       <div>
         <Row>
-          <Col className="md:w-[400px]  lg:w-[520px]  py-1 px-2 relative flex-col flex ">
+          <Col className="md:w-[400px]  lg:w-[520px]   px-2 relative flex-col flex ">
             <div className="mb-[300px]">
               <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header" style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}
 >

@@ -156,7 +156,7 @@ const Home = () => {
     <>
       <div>
         <Row className="">
-          <Col className="md:w-[400px]  lg:w-[520px] py-[1px] px-2 relative flex-col flex overflow-y-auto">
+          <Col className="md:w-[400px]  lg:w-[520px] px-2 relative flex-col flex overflow-y-auto">
             <div className="">
               <div
                 className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
@@ -193,7 +193,7 @@ const Home = () => {
               {/* <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">
                 <p className="text-black text-center">ads by goggle</p>
               </div> */}
-              <div className="flex justify-between px-[3px] pb-[30px] pt-10 mt-[300px]">
+              <div className="flex justify-between px-[3px] pb-[30px] pt-10" style={{position:'fixed',marginTop:'50px',width:'420px',overflow:'hidden',backgroundColor:'#050230'}}>
                 <div className="flex items-center">
                   <BsChevronLeft
                     className="text-white text-[14px] cursor-pointer"
@@ -201,7 +201,7 @@ const Home = () => {
                   />
                 </div>
                 <div ref={menuRef} className="overflow-hidden">
-                  <div className="flex text-white justify-center pl-[1240px] mx-2 ms-[220px]">
+                  <div className="flex text-white justify-center pl-[1220px] mx-2 ms-[220px]">
                     <div
                       onClick={() => handleCategoryClick("All")}
                       className={`flex-none flex text-[10px] border cursor-pointer border-[#1A2F77] rounded-xl items-center px-8 mx-4 py-[4px] h-[35px] ${getBackgroundColorClass(
@@ -231,7 +231,7 @@ const Home = () => {
                 </div>
               </div>
               {/* <Link to={`/play/${categoryid}`}> */}
-              <div className="pb-[125px]">
+              <div className="pb-[125px] mt-[200px]">
                 {selectedCategory
                   ? subcategories.map((data) => (
                       <div
