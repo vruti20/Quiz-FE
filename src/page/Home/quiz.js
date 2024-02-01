@@ -21,6 +21,7 @@ const Quiz = () => {
     localStorage.clear();
     sessionStorage.clear();
   }, []);
+  
   // Function To Open The Modal
   const openModal = () => {
     setModalOpen(true);

@@ -29,6 +29,17 @@ const Home = () => {
   const additionDone = localStorage.getItem("additionDone");
   const usercoin = localStorage.getItem("usercoin") || 0;
 
+  // useEffect(() => {
+
+  //   function preventBack() { 
+  //     window.history.forward();  
+  //   } 
+  //   setTimeout(() => preventBack(), 0);
+  
+  // }, []);
+  
+
+
   if (additionDone !== true) {
     const updatedAllCoins = parseInt(allcoin) + parseInt(usercoin);
     // console.log('updatedAllCoins:', updatedAllCoins);
@@ -152,11 +163,13 @@ const Home = () => {
       menuRef.current.scrollLeft += 300;
     }
   };
+  
+  
   return (
     <>
       <div>
         <Row className="">
-          <Col className="md:w-[400px]  lg:w-[520px] px-2 relative flex-col flex overflow-y-auto">
+          <Col className="md:w-[400px]  lg:w-[520px] mx-2 relative flex-col flex overflow-y-auto">
             <div className="">
               <div
                 className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
@@ -193,10 +206,10 @@ const Home = () => {
               {/* <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">
                 <p className="text-black text-center">ads by goggle</p>
               </div> */}
-              <div className="flex justify-between px-[3px] pb-[30px] pt-10 nav_menu" style={{position:'fixed',marginTop:'50px',overflow:'hidden',backgroundColor:'#050230'}}>
+              <div className="flex justify-between pe-3 pb-[30px] pt-10 nav_menu " style={{position:'fixed',marginTop:'42px',overflow:'hidden',backgroundColor:'#050230'}}>
                 <div className="flex items-center">
                   <BsChevronLeft
-                    className="text-white text-[14px] cursor-pointer"
+                    className="text-white text-[25px] cursor-pointer me-2"
                     onClick={scrollLeft}
                   />
                 </div>
@@ -213,7 +226,7 @@ const Home = () => {
                     {categories.map((data) => (
                       <div
                         key={data._id}
-                        className={`flex-none flex text-[10px] border cursor-pointer border-[#1A2F77]  rounded-xl items-center px-8 mx-4 py-[4px] h-[35px] ${getBackgroundColorClass(
+                        className={`flex-none flex text-[10px] border cursor-pointer border-[#1A2F77]  rounded-xl items-center px-8 mx-4 py-[4px] h-[35px] hover:bg-[#1A2F77] ${getBackgroundColorClass(
                           data._id
                         )} `}
                         onClick={() => handleCategoryClick(data._id)}
@@ -225,7 +238,7 @@ const Home = () => {
                 </div>
                 <div className="flex items-center">
                   <BsChevronRight
-                    className="text-white text-[14px] cursor-pointer"
+                    className="text-white text-[25px] cursor-pointer ms-2"
                     onClick={scrollRight}
                   />
                 </div>
@@ -380,7 +393,7 @@ const Home = () => {
           <Col className="fixed me-[15%] bg-image">
             <div className="py-16 md:py-10">
               <img
-                className="lg:w-[100%] md:w-[300px] "
+                className="lg:w-[100%]"
                 src={require("../../image/quiz-1.png")}
                 alt=""
               ></img>

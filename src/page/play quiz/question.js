@@ -197,6 +197,7 @@ const Question = () => {
       setUseFourthLifeline(false);
     }
   };
+  
   return (
     <>
       <div>

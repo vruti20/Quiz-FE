@@ -36,13 +36,13 @@ body
 }
 @media (max-width:1024px) {
   .fixed img{
-    width: 300px;
+    width: 350px;
    display: flex;
    justify-content: center;
    }
    .fixed {
     font-size: 15px;
-    margin: 20px 35px 0px 50px;
+    margin: 20px 0px 0px 50px;
    }
    .fixed p{
     font-size: 15px;
@@ -99,12 +99,14 @@ body
     width: 100%;
   }
 }
-.nav_menu{
-  width: 520px;
-}
-@media (max-width: 1024px){
-  .nav_menu {
+@media (max-width: 768px) {
+  .nav_menu{
     width: 420px;
+  }
+}
+@media (min-width: 1024px){
+  .nav_menu {
+    width: 520px;
   }
 }
 @media (max-width: 425px){
@@ -143,6 +145,7 @@ body
     height: 100vh !important;
   }
 }
+
 @media  (max-width: 1024px) and (min-width: 769px)   {
   .bg-image{
     margin-right: 9%;
