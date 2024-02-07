@@ -177,12 +177,18 @@ const Home = () => {
   };
   const scrollLeft = () => {
     if (menuRef.current) {
-      menuRef.current.scrollLeft -= 300;
+      menuRef.current.scrollBy({
+        left: -200, // Adjust the value based on your preference
+        behavior: 'smooth',
+      });
     }
   };
   const scrollRight = () => {
     if (menuRef.current) {
-      menuRef.current.scrollLeft += 300;
+      menuRef.current.scrollBy({
+        left: 200, // Adjust the value based on your preference
+        behavior: 'smooth',
+      });
     }
   };
   return (
