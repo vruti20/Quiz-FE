@@ -4,7 +4,7 @@ import { BsChevronRight } from "react-icons/bs";
 import { BiCategory } from "react-icons/bi";
 import { LiaHomeSolid } from "react-icons/lia";
 import { CgProfile } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -29,16 +29,28 @@ const Home = () => {
   const additionDone = localStorage.getItem("additionDone");
   const usercoin = localStorage.getItem("usercoin") || 0;
 
-  // useEffect(() => {
+  const location = useLocation();
+  const handlePopstate = () => {
+    // Check if the current pathname is the home page
+    if (location.pathname === "/quizhome") {
+      // Perform any cleanup or prevent navigation logic here
+      console.log('Leaving the home page...');
+      console.log("Current pathname:", location.pathname);
+      // Example: navigate to login page
+      navigate('/login');
+    }
+  };
 
-  //   function preventBack() { 
-  //     window.history.forward();  
-  //   } 
-  //   setTimeout(() => preventBack(), 0);
-  
-  // }, []);
-  
-
+  useEffect(() => {
+    // Cleanup the event listener when component unmounts
+    console.log('Removing popstate event listener...');
+    window.removeEventListener('popstate', handlePopstate);
+    return () => {
+      console.log('Adding popstate event listener...');
+      window.addEventListener('popstate', handlePopstate);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
   if (additionDone !== true) {
     const updatedAllCoins = parseInt(allcoin) + parseInt(usercoin);
@@ -57,6 +69,8 @@ const Home = () => {
       storedPlayCountString !== null ? parseInt(storedPlayCountString) : 0;
     setPlayCount(storedPlayCount);
   }, []);
+
+
   //onclick page navigate
   const handleCategoryid = (categoryid) => {
     setCategoryid(categoryid);
@@ -66,6 +80,7 @@ const Home = () => {
     // Navigate to the new page
     navigate(`/play/${categoryid}`);
   };
+
   //onclick event change background color
   const getBackgroundColorClass = (categoryId) => {
     return selectedCategory === categoryId ||
@@ -73,6 +88,7 @@ const Home = () => {
       ? "bg-[#1A2F77]"
       : "";
   };
+
   const fetchDatabaseCoins = async () => {
     const token = localStorage.getItem("token");
     try {
@@ -108,7 +124,7 @@ const Home = () => {
           `${BaseUrl}/api/category/allcategories`
         );
         setCategories(response.data.data);
-        console.log("CATEGORY LIST", response.data.data);
+        console.log("CATEGORY LIST", response.data.data[0].category);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -119,6 +135,8 @@ const Home = () => {
           `${BaseUrl}/api/category/allsubcategories`
         );
         setCategory(response.data.data);
+        // console.log("response",response.data.data);
+        console.log("categorydata", response.data.data);
         console.log("categoryid", categoryid);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -131,6 +149,9 @@ const Home = () => {
             `${BaseUrl}/api/category/subcategories/${selectedCategory}`
           );
           setSubcategories(response.data.data);
+          // console.log("subcategory",response.data.data[0].Category.category);
+          console.log("subcategories", subcategories);
+
         }
       } catch (error) {
         console.error("Error fetching subcategories:", error);
@@ -150,6 +171,7 @@ const Home = () => {
     console.log("TOKEN", guestToken);
     return !!guestToken;
   };
+  
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId === "All" ? null : categoryId);
   };
@@ -163,13 +185,11 @@ const Home = () => {
       menuRef.current.scrollLeft += 300;
     }
   };
-  
-  
   return (
     <>
       <div>
         <Row className="">
-          <Col className="md:w-[400px]  lg:w-[520px] mx-2 relative flex-col flex overflow-y-auto">
+          <Col className="md:w-[400px]  lg:w-[520px] relative flex-col flex overflow-y-auto">
             <div className="">
               <div
                 className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
@@ -183,7 +203,7 @@ const Home = () => {
                 <div className="flex  justify-between">
                   <div className="flex items-center">
                     <img
-                      class="w-[25px] "
+                      className="w-[25px] "
                       src={require("../../../src/image/gift.gif")}
                       alt="animation"
                     />
@@ -192,7 +212,7 @@ const Home = () => {
                     </p>
                   </div>
                   <div className="mt-[3px] flex items-center ml-1">
-                    <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
+                    <div className="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                       <img
                         className="w-3 mr-2"
                         src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
@@ -206,7 +226,7 @@ const Home = () => {
               {/* <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">
                 <p className="text-black text-center">ads by goggle</p>
               </div> */}
-              <div className="flex justify-between pe-3 pb-[30px] pt-10 nav_menu " style={{position:'fixed',marginTop:'42px',overflow:'hidden',backgroundColor:'#050230'}}>
+              <div className="flex justify-between pe-3 pb-[30px] pt-10 nav_menu " style={{ position: 'fixed', marginTop: '45px', overflow: 'hidden', backgroundColor: '#050230' }}>
                 <div className="flex items-center">
                   <BsChevronLeft
                     className="text-white text-[25px] cursor-pointer me-2"
@@ -225,9 +245,9 @@ const Home = () => {
                     </div>
                     {categories.map((data) => (
                       <div
-                        key={data._id}
+                        key={data.id}
                         className={`flex-none flex text-[10px] border cursor-pointer border-[#1A2F77]  rounded-xl items-center px-8 mx-4 py-[4px] h-[35px] hover:bg-[#1A2F77] ${getBackgroundColorClass(
-                          data._id
+                          data.id
                         )} `}
                         onClick={() => handleCategoryClick(data._id)}
                       >
@@ -243,152 +263,152 @@ const Home = () => {
                   />
                 </div>
               </div>
+        
               {/* <Link to={`/play/${categoryid}`}> */}
               <div className="pb-[125px] mt-[200px]">
                 {selectedCategory
                   ? subcategories.map((data) => (
-                      <div
-                        onClick={() => handleCategoryid(data._id)}
-                        key={data._id}
-                        className="flex rounded-2xl gap-2 border mb-[25px] border-[#35C6F6]"
-                      >
-                        <div className="flex flex-col">
-                          <img
-                            className="rounded-full w-[125px] p-2"
-                            src={data.category.img}
-                            alt={data.title}
-                          ></img>
+                    <div
+                      onClick={() => handleCategoryid(data.id)}
+                      key={data._id}
+                      className="flex rounded-2xl gap-2 border mb-[25px] border-[#35C6F6]"
+                    >
+                      <div className="flex flex-col">
+                        <img
+                          className="rounded-full w-[125px] p-2"
+                          src={data.category.img}
+                          alt={data.title}
+                        ></img>
+                      </div>
+                      <div className="w-full ">
+                        <div className="flex text-[10px] justify-end my-[5px] font-[900]">
+                          <p className="text-[#D85B00] max-h-[20px]  px-2">
+                          {data.category.name} | {data.title}
+                          </p>
                         </div>
-                        <div className="w-full ">
-                          <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                            <p className="text-[#D85B00] max-h-[20px]  px-2">
-                              {data.category.name} | {data.title}
-                            </p>
-                          </div>
-                          <div className="flex justify-end my-[8px]">
-                            <p className="text-white font-[900] text-[14px]">
-                              Play & Win &nbsp;
-                            </p>
+                        <div className="flex justify-end my-[8px]">
+                          <p className="text-white font-[900] text-[14px]">
+                            Play & Win &nbsp;
+                          </p>
+                          <img
+                            className="w-[14px]"
+                            src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                            alt="coins"
+                          ></img>
+                          <p className="text-white font-[900] text-[14px]">
+                            &nbsp;{data?.totalPrice}
+                          </p>
+                        </div>
+                        <div className="flex justify-end my-[5px] text-[7px]">
+                          <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#191a4d] px-2 rounded-full">
+                            <p className="text-white">Entry Fee&nbsp;</p>
                             <img
-                              className="w-[14px]"
+                              className="w-[10px]"
                               src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                               alt="coins"
                             ></img>
-                            <p className="text-white font-[900] text-[14px]">
-                              &nbsp;{data.totalPrice}
+                            <p className="text-white">
+                              &nbsp;{data?.entryFee}
                             </p>
                           </div>
-                          <div className="flex justify-end my-[5px] text-[7px]">
-                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#191a4d] px-2 rounded-full">
-                              <p className="text-white">Entry Fee&nbsp;</p>
-                              <img
-                                className="w-[10px]"
-                                src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
-                                alt="coins"
-                              ></img>
-                              <p className="text-white">
-                                &nbsp;{data.entryFee}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-[120px]">
-                          <img
-                            className=" rounded-full p-2"
-                            // src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
-                            src={require('../../image/play.jpeg')}
-                            alt="Play"
-                          />
                         </div>
                       </div>
-                    ))
+                      <div className="w-[120px]">
+                        <img
+                          className=" rounded-full p-2"
+                          // src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                          src={require('../../image/play.jpeg')}
+                          alt="Play"
+                        />
+                      </div>
+                    </div>
+                  ))
                   : categorydata.map((category, index) => (
-                      <div
-                        onClick={() => handleCategoryid(category._id)}
-                        key={index}
-                        className="flex rounded-2xl gap-2 border border-[#35C6F6]  mb-[25px]"
-                      >
-                        <div className="flex flex-col">
-                          <img
-                            className="rounded-full w-[125px] p-2"
-                            src={category.category.img}
-                            alt={category.title}
-                          ></img>
+                    <div
+                      onClick={() => handleCategoryid(category._id)}
+                      key={index}
+                      className="flex rounded-2xl gap-2 border border-[#35C6F6]  mb-[25px]"
+                    >
+                      <div className="flex flex-col">
+                        <img
+                          className="rounded-full w-[125px] p-2"
+                          src={category.category.img}
+                          alt={category.title}
+                        ></img>
+                      </div>
+                      <div className="w-full ">
+                        <div className="flex text-[10px] justify-end my-[5px] font-[900]">
+                          <p className="text-[#D85B00] max-h-[20px] px-2">
+                          {category.category.name} | {category.title}
+                          </p>
                         </div>
-                        <div className="w-full ">
-                          <div className="flex text-[10px] justify-end my-[5px] font-[900]">
-                            <p className="text-[#D85B00] max-h-[20px] px-2">
-                              {category.category.name} | {category.title}
-                            </p>
-                          </div>
-                          <div className="flex justify-end my-[8px]">
-                            <p className="text-white font-[900] text-[14px]">
-                              Play & Win &nbsp;
-                            </p>
+                        <div className="flex justify-end my-[8px]">
+                          <p className="text-white font-[900] text-[14px]">
+                            Play & Win &nbsp;
+                          </p>
+                          <img
+                            className="w-[14px]"
+                            src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                            alt="coins"
+                          ></img>
+                          <p className="text-white font-[900] text-[14px]">
+                            &nbsp;{category.totalPrice}
+                          </p>
+                        </div>
+                        <div className="flex justify-end my-[5px] text-[7px]">
+                          <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#202255]  px-2 rounded-full">
+                            <p className="text-white">Entry Fee&nbsp;</p>
                             <img
-                              className="w-[14px]"
+                              className="w-[10px]"
                               src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
                               alt="coins"
                             ></img>
-                            <p className="text-white font-[900] text-[14px]">
-                              &nbsp;{category.totalPrice}
+                            <p className="text-white">
+                              &nbsp;{category.entryFee}
                             </p>
                           </div>
-                          <div className="flex justify-end my-[5px] text-[7px]">
-                            <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#202255]  px-2 rounded-full">
-                              <p className="text-white">Entry Fee&nbsp;</p>
-                              <img
-                                className="w-[10px]"
-                                src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
-                                alt="coins"
-                              ></img>
-                              <p className="text-white">
-                                &nbsp;{category.entryFee}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-[120px]">
-                          <img
-                            className=" rounded-full p-2"
-                            // src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
-                            src={require('../../image/play.jpeg')}
-                            alt="Play"
-                          />
                         </div>
                       </div>
-                    ))}
+                      <div className="w-[120px]">
+                        <img
+                          className=" rounded-full p-2"
+                          // src="https://monetix-lookat1.quiztwiz.com/static/media/play.17ec10000a8bb2f32711ea9c880db5c3.svg"
+                          src={require('../../image/play.jpeg')}
+                          alt="Play"
+                        />
+                      </div>
+                    </div>
+                  ))}
               </div>
               {/* </Link> */}
             </div>
-          <div
-            className=" footer flex justify-around bg-[#0B0D26] pb-4"
-            style={{ boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)" }}
-          >
-            <Link to="/category" >
-              <div className={`px-8 py-1 rounded-[28px] `}>
-                <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
-                <p className="text-white text-[12px]">Category</p>
-              </div>
-            </Link>
-            <Link to="/quizhome">
-              <div
-                className={`px-8 py-1 rounded-xl  ${
-                  isClick ? "" : "bg-[#389A06]"
-                }`}
-                onClick={handleisClick}
-              >
-                <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
-                <p className="text-white text-[12px]">Home</p>
-              </div>
-            </Link>
-            <Link to="/profile">
-              <div className={`px-8 py-1 rounded-[28px] `}>
-                <CgProfile className={`text-white text-[20px] mx-2 my-1`} />
-                <p className="text-white text-[12px]">Profile</p>
-              </div>
-            </Link>
-          </div>
+            <div
+              className=" footer flex justify-around bg-[#0B0D26] pb-4"
+              style={{ boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)" }}
+            >
+              <Link to="/category" >
+                <div className={`px-8 py-1 rounded-[28px] `}>
+                  <BiCategory className="text-white ml-4 text-[20px]  mx-2 my-1" />
+                  <p className="text-white text-[12px]">Category</p>
+                </div>
+              </Link>
+              <Link to="/quizhome">
+                <div
+                  className={`px-8 py-1 rounded-xl  ${isClick ? "" : "bg-[#389A06]"
+                    }`}
+                  onClick={handleisClick}
+                >
+                  <LiaHomeSolid className="text-white text-[20px] mx-2 my-1" />
+                  <p className="text-white text-[12px]">Home</p>
+                </div>
+              </Link>
+              <Link to="/profile">
+                <div className={`px-8 py-1 rounded-[28px] `}>
+                  <CgProfile className={`text-white text-[20px] mx-2 my-1`} />
+                  <p className="text-white text-[12px]">Profile</p>
+                </div>
+              </Link>
+            </div>
           </Col>
           <Col className="fixed me-[15%] bg-image">
             <div className="py-16 md:py-10">
@@ -398,9 +418,9 @@ const Home = () => {
                 alt=""
               ></img>
             </div>
-            <div class="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
+            <div className="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
               Welcome to QuizTimeNow. Play a quiz and earn coins.
-              <p class="font-normal text-2xl pt-4 text-center">
+              <p className="font-normal text-2xl pt-4 text-center">
                 There's a quiz for everyone!{" "}
               </p>
             </div>

@@ -67,7 +67,7 @@ const Subcategory = () => {
     <>
       <div>
         <Row className="">
-          <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] px-2 relative flex-col flex">
+          <Col className="md:w-[400px]  lg:w-[520px]  py-[1px] relative flex-col flex">
           <div
                 className="flex  justify-between items-center  lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
                 style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}

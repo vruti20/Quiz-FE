@@ -106,7 +106,7 @@ const Category = () => {
         <>
             <div>
                 <Row className="">
-                    <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
+                    <Col className="md:w-[400px]  lg:w-[520px]  relative flex-col flex" >
                         <div className="">
                         <div
                 className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"

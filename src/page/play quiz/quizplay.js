@@ -1,4 +1,4 @@
-import { useEffect } from    "react";
+// import { useEffect } from    "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -9,15 +9,15 @@ const Quizplay = () => {
     const token = localStorage.getItem('token');
     const coins= token ? loginscore : userCoins
     console.log("user",coins);
-    useEffect(() => {
+    // useEffect(() => {
 
-        function preventBack() { 
-          window.history.forward();  
-        } 
+    //     function preventBack() { 
+    //       window.history.forward();  
+    //     } 
 
-        setTimeout(() => preventBack(), 0);
+    //     setTimeout(() => preventBack(), 0);
       
-      }, []);
+    //   }, []);
 
     return (
         <>
