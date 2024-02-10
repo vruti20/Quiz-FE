@@ -54,20 +54,34 @@ const Question = () => {
     const playerIsGuest = checkIfPlayerIsGuest();
     // Set the isGuest state based on the result
     setIsGuest(playerIsGuest);
+    // const countdownInterval = setInterval(() => {
+    //   if (!isFrozen) {
+    //     setSecondsRemaining((prevSeconds) => prevSeconds - 1);
+    //     setProgress((prevProgress) => prevProgress - 100 / 118); // Adjust for your total time
+    //   }
+    // }, 1000);
+
+    
+    // if (secondsRemaining === 0) {
+    //   clearInterval(countdownInterval);
+    //   navigate("/result");
+    // }
+    // return () => clearInterval(countdownInterval);
+  }, [categoryId]);
+
+  useEffect(() => {
     const countdownInterval = setInterval(() => {
       if (!isFrozen) {
         setSecondsRemaining((prevSeconds) => prevSeconds - 1);
         setProgress((prevProgress) => prevProgress - 100 / 118); // Adjust for your total time
       }
     }, 1000);
-
-    
     if (secondsRemaining === 0) {
       clearInterval(countdownInterval);
       navigate("/result");
     }
     return () => clearInterval(countdownInterval);
-  }, [categoryId, secondsRemaining, navigate, isFrozen]);
+  }, [secondsRemaining, navigate, isFrozen]);
 
   const checkIfPlayerIsGuest = () => {
     const guestToken = localStorage.getItem("token");
