@@ -104,6 +104,11 @@ body
     width: 420px;
   }
 }
+@media (max-width:1023px) {
+  .nav_menu{
+    width: 420px;
+  }
+}
 @media (min-width: 1024px){
   .nav_menu {
     width: 520px;
