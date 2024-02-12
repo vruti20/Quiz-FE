@@ -191,6 +191,24 @@ const Home = () => {
       });
     }
   };
+  let touchStartX = 0;
+let touchMoveX = 0;
+
+const handleTouchStart = (e) => {
+  touchStartX = e.touches[0].clientX;
+};
+
+const handleTouchMove = (e) => {
+  touchMoveX = e.touches[0].clientX;
+  const scrollAmount = touchStartX - touchMoveX;
+
+  if (menuRef.current) {
+    menuRef.current.scrollLeft += scrollAmount;
+  }
+
+  touchStartX = touchMoveX;
+};
+
   return (
     <>
       <div>
@@ -198,7 +216,7 @@ const Home = () => {
           <Col className="md:w-[400px]  lg:w-[520px] relative flex-col flex overflow-y-auto">
             <div className="">
               <div
-                className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
+                className="flex  justify-between items-center  lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
                 style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}
               >
                 <Link to={`/quizhome`} className="px-[10px] m-0 p-0">
@@ -232,14 +250,15 @@ const Home = () => {
               {/* <div className="bg-white mt-[50px] h-[350px] mx-auto mb-[8px]">
                 <p className="text-black text-center">ads by goggle</p>
               </div> */}
-              <div className="flex justify-between pe-3 pb-[30px] pt-10 nav_menu " style={{ position: 'fixed', marginTop: '45px', overflow: 'hidden', backgroundColor: '#050230' }}>
+              <div className="flex justify-between pb-[30px] pt-10 nav_menu " style={{ position: 'fixed', marginTop: '45px', overflow: 'hidden', backgroundColor: '#050230' }}>
                 <div className="flex items-center">
                   <BsChevronLeft
                     className="text-white text-[25px] cursor-pointer me-2"
                     onClick={scrollLeft}
                   />
                 </div>
-                <div ref={menuRef} className="overflow-hidden">
+                <div ref={menuRef} className="overflow-hidden"   onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}>
                   <div className="flex text-white justify-center pl-[1220px] mx-2 ms-[220px]">
                     <div
                       onClick={() => handleCategoryClick("All")}
@@ -389,7 +408,7 @@ const Home = () => {
               {/* </Link> */}
             </div>
             <div
-              className=" footer flex justify-around bg-[#0B0D26] pb-4"
+              className=" footer  flex justify-around bg-[#0B0D26] pb-4"
               style={{ boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)" }}
             >
               <Link to="/category" >

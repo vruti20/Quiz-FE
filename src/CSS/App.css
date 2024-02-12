@@ -74,7 +74,7 @@ body
   left: 0%;
   width: 520px;
 }
-@media (max-width: 1024px){
+@media (max-width: 1023px){
   .footer {
     width: 420px;
   }
