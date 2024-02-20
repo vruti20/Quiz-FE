@@ -34,7 +34,6 @@ const Category = () => {
                 const response = await axios.get(`${BaseUrl}/api/category/allcategories`);
                 // const response = await axios.get("http://localhost:5000/api/category/allcategories")
                 setCategories(response.data.data);
-                console.log("CATEGORY LIST", response.data.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
@@ -53,7 +52,6 @@ const Category = () => {
                         }
                     });
                 setDatabaseCoins(response.data.totalCoins);
-                console.log("coins", response.data.totalCoins);// Update with your actual API response structure
             } catch (error) {
                 console.error("Error fetching database coins:", error);
             }
@@ -66,8 +64,7 @@ const Category = () => {
     // check player is login 
     const checkIfPlayerIsGuest = () => {
         const guestToken = localStorage.getItem('token');
-        // localStorage.removeItem('token');
-        console.log("TOKEN", guestToken);
+     
         return !!guestToken;
     };
     useEffect(() => {
@@ -83,7 +80,6 @@ const Category = () => {
             
             .then(function (response) {
                 navigate(`/subcategory/${id}`, { state: categories.find(category => category._id === id) });
-                console.log(response.data.data);
                 sessionStorage.setItem("playCount", (playCount + 1).toString());
                 // Set the state with the updated play count
                 setPlayCount((prevPlayCount) => prevPlayCount + 1);

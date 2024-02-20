@@ -24,8 +24,6 @@ const Login = () => {
         `${BaseUrl}/api/login`,
         { email }
       );
-      // console.log("*************", response.data.data.mobileNumber);
-        console.log("res",response.data);
         if(response.data.status === 'Success'){
           toast.success(response.data.message ,{
             style:{
@@ -49,9 +47,6 @@ const Login = () => {
           `${BaseUrl}/api/otp_verify`,
           { email,otp }
           );
-          // console.log("otp",response.data.message);
-          // console.log("coins",response.data.data.coins);
-          // console.log("email",response.data.data.email);
           if(response.data.status === 'Success') {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("logincoin", response.data.data.coins);

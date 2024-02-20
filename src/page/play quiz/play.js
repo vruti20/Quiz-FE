@@ -20,14 +20,11 @@ const Play = () => {
     const [userCoins, setUserCoins] = useState(0);
     const [databaseCoins, setDatabaseCoins] = useState(0);
     const loginscore = localStorage.getItem('allcoins') || 0;
-    console.log(">>>>>>>>>>",loginscore);
     const newcoins = localStorage.getItem("logincoin") || 0;
-    // console.log("<<<<<", newcoins);
     localStorage.setItem('usercoin', 0)
 
     // Function to open the modal
     const openModal = () => {
-        console.log('Opening modal');
         setModalOpen(true);
     };
 
@@ -35,60 +32,7 @@ const Play = () => {
     const closeModal = () => {
         setModalOpen(false);
     };
-    // Function to deduct coins
-
-    // const deductCoins = async () => {
-    //     const updatedScore = loginscore - 100;
-    
-    //     // Check if the updated score is non-negative
-    //     if (databaseCoins >= 100) {
-    //         localStorage.setItem('coins', updatedScore);
-    
-    //         try {
-    //             const token = localStorage.getItem('token');
-    //             const response = await axios.post(
-    //                 `${BaseUrl}/api/updateCoins`,
-    //                 { coins: -100 },
-    //                 {
-    //                     headers: {
-    //                         Authorization: `Bearer ${token}`,
-    //                         'ngrok-skip-browser-warning': 5000,
-    //                     },
-    //                 }
-    //             );
-    
-    //             // Check if the API request was successful
-    //             if (response.data.status === 'Success') {
-    //                 // Update the local state or storage with the new coin value
-    //                 if (isGuest) {
-    //                     localStorage.setItem('coin', newcoins - 100);
-    //                     // navigate(`/question/${categoryid}`);
-    //                 } else {
-    //                     setUserCoins(userCoins - 100);
-    //                 }
-    
-    //                 if (isGuest && databaseCoins >= 100) {
-    //                     // Navigate to the question page
-    //                     console.log('user', databaseCoins);
-    //                     navigate(`/question/${categoryid}`);
-    //                 } else {
-    //                     openModal();
-    //                 }
-    //             } else {
-    //                 // Handle API request failure
-    //                 console.log('API request failed:', response.data.message);
-    //             }
-    //         } catch (error) {
-    //             // Handle errors, e.g., network issues
-    //             console.error('Error deducting coins:', error);
-    //         }
-    //     } else {
-    //         // Handle the case where the updated score is negative
-    //                     openModal();
-    //                     console.log('Score cannot be negative');
-    //         // You may want to show an error message to the user or handle it accordingly
-    //     }
-    // };
+  
     
     const deductCoins = async () => {
         if (loginscore >= 100) {
@@ -98,10 +42,8 @@ const Play = () => {
             navigate(`/question/${categoryid}`);
 
         } else {
-            console.log("no coins");
             openModal();
         }
-        // console.log("UPDATE", updatedScore);
         try {
             if(databaseCoins >= 100){
 
@@ -127,7 +69,6 @@ const Play = () => {
     
                     if (isGuest && databaseCoins >= 100) {
                         // Navigate to the question page
-                        console.log("user",databaseCoins);
                         navigate(`/question/${categoryid}`);
                     } else {
                         openModal();
@@ -158,8 +99,7 @@ const Play = () => {
                 const response = await axios.get(`${BaseUrl}/api/quesation/questions?quiz=${categoryid}`);
                 const newQuizData = response.data.data.map(item => item.quiz);
                 setSubcategories(newQuizData.slice(0, 1));
-                // console.log("QUIZOBJECT", newQuizData);
-                // console.log("HOMECTAEGORY:", response.data.data[0].quiz);
+              
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -176,7 +116,6 @@ const Play = () => {
                         }
                     });
                 setDatabaseCoins(response.data.totalCoins);
-                // console.log("coins", response.data.totalCoins);// Update with your actual API response structure
             } catch (error) {
                 console.error("Error fetching database coins:", error);
             }
@@ -194,8 +133,7 @@ const Play = () => {
 
     const checkIfPlayerIsGuest = () => {
         const guestToken = localStorage.getItem('token');
-        // localStorage.removeItem('token');
-        // console.log("TOKEN", guestToken);
+      
         return !!guestToken;
     };
 

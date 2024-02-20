@@ -17,12 +17,10 @@ const Subcategory = () => {
   const token = localStorage.getItem('token');
 
 
-  // const newcoins= localStorage.getItem("coin") || 0;
   useEffect(() => {
     const id = location.state._id; // Get the category ID from the location state
     axios
       .get(`${BaseUrl}/api/category/subcategories/${id}`)
-      //  axios.get(`http://localhost:5000/api/category/subcategories/${id}`)
       .then(function (response) {
         setSubcategories(response.data.data); // Set the subcategories in the state
       })
@@ -44,7 +42,6 @@ const Subcategory = () => {
           }
         });
         setDatabaseCoins(response.data.totalCoins);
-        console.log("coins",response.data.totalCoins);// Update with your actual API response structure
        
       } catch (error) {
         console.error("Error fetching database coins:", error);
@@ -57,8 +54,6 @@ const Subcategory = () => {
 
   const checkIfPlayerIsGuest = () => {
     const guestToken = localStorage.getItem('token');
-    // localStorage.removeItem('token');
-    console.log("TOKEN",guestToken);
     return !!guestToken;
 
   };

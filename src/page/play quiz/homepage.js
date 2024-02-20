@@ -34,8 +34,6 @@ const Home = () => {
     // Check if the current pathname is the home page
     if (location.pathname === "/quizhome") {
       // Perform any cleanup or prevent navigation logic here
-      console.log('Leaving the home page...');
-      console.log("Current pathname:", location.pathname);
       // Example: navigate to login page
       navigate('/login');
     }
@@ -43,10 +41,8 @@ const Home = () => {
 
   useEffect(() => {
     // Cleanup the event listener when component unmounts
-    console.log('Removing popstate event listener...');
     window.removeEventListener('popstate', handlePopstate);
     return () => {
-      console.log('Adding popstate event listener...');
       window.addEventListener('popstate', handlePopstate);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,7 +50,6 @@ const Home = () => {
 
   if (additionDone !== true) {
     const updatedAllCoins = parseInt(allcoin) + parseInt(usercoin);
-    // console.log('updatedAllCoins:', updatedAllCoins);
     localStorage.setItem("allcoins", updatedAllCoins);
     localStorage.setItem("additionDone", "false");
   }
@@ -102,15 +97,12 @@ const Home = () => {
         }
       );
       setDatabaseCoins(response.data.totalCoins);
-      console.log("coins", response.data.totalCoins);
     } catch (error) {
       console.error("Error fetching database coins:", error);
     }
   };
   useEffect(() => {
-    // console.log('Checking conditions for fetching database coins...');
     if (selectedCategory === null && categories.length === 0) {
-      // console.log('Fetching database coins...');
       fetchDatabaseCoins();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,7 +116,6 @@ const Home = () => {
           `${BaseUrl}/api/category/allcategories`
         );
         setCategories(response.data.data);
-        console.log("CATEGORY LIST", response.data.data[0].category);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -135,9 +126,7 @@ const Home = () => {
           `${BaseUrl}/api/category/allsubcategories`
         );
         setCategory(response.data.data);
-        // console.log("response",response.data.data);
-        console.log("categorydata", response.data.data);
-        console.log("categoryid", categoryid);
+   
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -149,8 +138,6 @@ const Home = () => {
             `${BaseUrl}/api/category/subcategories/${selectedCategory}`
           );
           setSubcategories(response.data.data);
-          // console.log("subcategory",response.data.data[0].Category.category);
-          console.log("subcategories", subcategories);
 
         }
       } catch (error) {
@@ -168,7 +155,6 @@ const Home = () => {
   const checkIfPlayerIsGuest = () => {
     const guestToken = localStorage.getItem("token");
     // localStorage.removeItem('token');
-    console.log("TOKEN", guestToken);
     return !!guestToken;
   };
   
@@ -270,9 +256,9 @@ const handleTouchMove = (e) => {
                     </div>
                     {categories.map((data) => (
                       <div
-                        key={data.id}
+                        key={data._id}
                         className={`flex-none flex text-[10px] border cursor-pointer border-[#1A2F77]  rounded-xl items-center px-8 mx-4 py-[4px] h-[35px] hover:bg-[#1A2F77] ${getBackgroundColorClass(
-                          data.id
+                          data._id
                         )} `}
                         onClick={() => handleCategoryClick(data._id)}
                       >
@@ -294,7 +280,7 @@ const handleTouchMove = (e) => {
                 {selectedCategory
                   ? subcategories.map((data) => (
                     <div
-                      onClick={() => handleCategoryid(data.id)}
+                      onClick={() => handleCategoryid(data._id)}
                       key={data._id}
                       className="flex rounded-2xl gap-2 border mb-[25px] border-[#35C6F6]"
                     >

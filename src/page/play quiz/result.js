@@ -8,7 +8,6 @@ const BaseUrl = process.env.REACT_APP_BASEURL;
 const Result = () => {
 
     const [coins, setCoins] = useState(0);
-    // const [playCount, setPlayCount] = useState(0);  
     
     const calculateEarnedCoins = (score) => {
         if (score >= 50 && score <= 150) {
@@ -27,7 +26,6 @@ const Result = () => {
     };
 
     const score = localStorage.getItem('score') || 0;
-    // const mobileNumber = localStorage.getItem('mobileNumber')
 
     const earnedCoins = calculateEarnedCoins(score);
     localStorage.setItem('earnedCoins', earnedCoins)
@@ -37,14 +35,8 @@ const Result = () => {
             try {
                 const token = localStorage.getItem('token');
 
-                // const score = parseInt(localStorage.getItem("score"), 10);
-                // const earnedCoins= parseInt(localStorage.getItem('earnedCoins'), 10);
-                console.log("earn",earnedCoins);
-
                 const response = await axios.post(`${BaseUrl}/api/updateCoins`, 
                     {
-                        // Uncomment if needed
-                        // mobileNumber: mobileNumber,
                         coins: coins,
                       },
                       {
@@ -53,26 +45,18 @@ const Result = () => {
                         },
                       }
                 );
-
-                // const data = response.data;
-                console.log("DATA",response.data.totalCoins);
-
-                // const totalCoins = data.coins;
-                // console.log("TOTALCOINS",totalCoins);   
+ 
                 setCoins(earnedCoins);
-                console.log("COINSSS",coins);
                 localStorage.setItem("coin",response.data.totalCoins)
-                console.log("res",response.data.totalCoins);
               } catch (error) {
                 console.error('Error updating coins:', error);
-
               }
             };
 
             updateCoins(); 
           }, [coins,earnedCoins]);
           
-// localStorage.clear()
+
     return (
         <>
             <div>
@@ -80,11 +64,7 @@ const Result = () => {
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  px-2 relative flex-col flex" >
                         <div className="" >
-                            {/* <div className="pb-8">
-                                <div className="bg-white lg:w-[500px] h-[360px] mx-auto mt-7 mb-[8px]">
-                                    <p className="text-black text-sm text-center">ads by goggle</p>
-                                </div>
-                            </div> */}
+                      
                             <div >
 
                                 <div className="mt-[300px]">

@@ -52,7 +52,6 @@ const Quiz = () => {
         const response = await axios.get(
           `${BaseUrl}/api/quesation/loginquestions`
         );
-        console.log("response", response);
         const allQuestions = response.data.data;
         const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
         const selectedQuestions = shuffledQuestions.slice(0, 2);
@@ -69,7 +68,6 @@ const Quiz = () => {
   const handleOptionClick = (answer) => {
     const currentQuestion = questions[currentQuestionIndex];
     const isCorrect = answer === currentQuestion.correct;
-    console.log("Questions array:", questions);
 
     setSelectedAnswer(answer);
     setAnswerStatus(isCorrect);
@@ -98,7 +96,7 @@ const Quiz = () => {
     const token = localStorage.getItem("token");
     const updateScoreInDatabase = async (score, type) => {
       try {
-        const response = await axios.post(
+        await axios.post(
           `${BaseUrl}/api/updateCoins`,
           { coins: score, type: type }, //Add a 'type' parameter to distinguish defaultScore and scoreChange
           {
@@ -107,7 +105,6 @@ const Quiz = () => {
             },
           }
         );
-        console.log(`${type} updated in the database`, response.data);
       } catch (error) {
         console.error(`Error updating ${type}:`, error);
       }
@@ -117,82 +114,15 @@ const Quiz = () => {
       setTotalScore(scoreChange);
       const scorecoin = defaultScore + parseInt(totalscore) + scoreChange;
       localStorage.setItem("usercoin", scorecoin);
-      console.log("SCORCOIN", scorecoin);
-      // console.log("TOTALSCORE",totalscore)
     }
   };
-  //   let interval = setInterval(() => {
-  //     // Check if Adsense script is loaded every 300ms
-  //     if (window.adsbygoogle) {
-  //       pushAd()
-  //       // clear the interval once the ad is pushed so that function isn't called indefinitely
-  //       clearInterval(interval)
-  //     }
-  //   }, 1000)
-
-  //   return () => {
-  //     clearInterval(interval)
-  //   }
-  // }, [])
-  // useEffect(() => {
-  //   const initializeAdSense = () => {
-  //     if (window.adsbygoogle && window.adsbygoogle.loaded) {
-  //       return; // AdSense script already loaded
-  //     }
-
-  //     window.adsbygoogle = window.adsbygoogle || [];
-  //     window.adsbygoogle.loaded = true;
-
-  //     const script = document.createElement("script");
-  //     script.src =
-  //       "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-  //     script.async = true;
-  //     script.crossOrigin = "anonymous";
-
-  //     script.onload = () => {
-  //       console.log("AdSense script loaded successfully");
-  //     };
-
-  //     script.onerror = (error) => {
-  //       console.error("Error loading AdSense script:", error);
-  //     };
-
-  //     document.head.appendChild(script);
-  //   };
-
-  //   const pushAd = () => {
-  //     try {
-  //       // Push ads after the script is loaded
-  //       (window.adsbygoogle = window.adsbygoogle || []).push({});
-  //       console.log("Ad pushed successfully");
-  //     } catch (error) {
-  //       console.error("Error pushing ads:", error);
-  //     }
-  //   };
-
-  //   initializeAdSense();
-
-  //   // Check if Adsense script is loaded every 300ms
-  //   const interval = setInterval(() => {
-  //     if (window.adsbygoogle && window.adsbygoogle.loaded) {
-  //       pushAd();
-  //       clearInterval(interval); // Clear the interval once the ad is pushed
-  //     }
-  //   }, 300);
-
-  //   return () => {
-  //     clearInterval(interval); // Cleanup function to clear the interval
-  //   };
-  // }, []);
-
+ 
   return (
     <>
       <div>
         <Row className="flex  ">
           <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
-            {/* <div className="bg-white h-[350px] mx-auto mb-[8px]">
-              <p className="text-black text-center">ads by goggle</p>
-                         </div> */}
+         
             <div className="text-center mt-[300px]">
               <h1 className="font-bold text-white text-18">Let's begin!</h1>
               <span className="text-[12px] text-[#8f8f8f]">

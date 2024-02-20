@@ -85,8 +85,6 @@ const Question = () => {
 
   const checkIfPlayerIsGuest = () => {
     const guestToken = localStorage.getItem("token");
-    // localStorage.removeItem('token');
-    // console.log("TOKEN", guestToken);
     return !!guestToken;
   };
 
@@ -141,7 +139,6 @@ const Question = () => {
       const remaining = currentQuestion.answer.filter(
         (answer) => !eliminatedAnswers.includes(answer)
       );
-      console.log("Remaining Answers:", remaining);
       setRemainingAnswers(remaining);
       setUseFirstLifeline(false);
     }
@@ -184,7 +181,6 @@ const Question = () => {
           }
         });
         setDatabaseCoins(response.data.totalCoins);
-        // console.log("coins",response.data.totalCoins);// Update with your actual API response structure
       } catch (error) {
         console.error("Error fetching database coins:", error);
       }
