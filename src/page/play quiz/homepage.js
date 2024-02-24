@@ -102,7 +102,7 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    if (selectedCategory === null && categories.length === 0) {
+    if (selectedCategory === null && categories?.length === 0) {
       fetchDatabaseCoins();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -254,7 +254,7 @@ const handleTouchMove = (e) => {
                     >
                       <p>All</p>
                     </div>
-                    {categories.map((data) => (
+                    {categories?.map((data) => (
                       <div
                         key={data._id}
                         className={`flex-none flex text-[10px] border cursor-pointer border-[#1A2F77]  rounded-xl items-center px-8 mx-4 py-[4px] h-[35px] hover:bg-[#1A2F77] ${getBackgroundColorClass(
@@ -278,7 +278,7 @@ const handleTouchMove = (e) => {
               {/* <Link to={`/play/${categoryid}`}> */}
               <div className="pb-[125px] mt-[200px]">
                 {selectedCategory
-                  ? subcategories.map((data) => (
+                  ? subcategories?.map((data) => (
                     <div
                       onClick={() => handleCategoryid(data._id)}
                       key={data._id}
@@ -334,7 +334,7 @@ const handleTouchMove = (e) => {
                       </div>
                     </div>
                   ))
-                  : categorydata.map((category, index) => (
+                  : categorydata?.map((category, index) => (
                     <div
                       onClick={() => handleCategoryid(category._id)}
                       key={index}

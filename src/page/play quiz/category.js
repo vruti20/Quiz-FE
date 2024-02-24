@@ -94,7 +94,7 @@ const Category = () => {
     };
 
     // Function to filter categories based on search input
-    const filteredCategories = categories.filter((category) =>
+    const filteredCategories = categories?.filter((category) =>
         category.name.toLowerCase().includes(searchInput.toLowerCase())
     );
 
@@ -151,7 +151,7 @@ const Category = () => {
                                 ></input>
                             </div>
                             <div className="flex flex-wrap pb-[100px]">
-                                {filteredCategories.map((data) => (
+                                {filteredCategories?.map((data) => (
                                     <div key={data._id} className="px-2 pt-5 w-1/2" onClick={() => Subcategory(data._id)}>
                                         <div className="flex gap-1 items-center border-[1px] border-sky-300  rounded-xl p-2 cursor-pointer w-full">
                                             <img
