@@ -231,17 +231,41 @@ const Quiz = () => {
               <h1 className="text-2xl text-center text-[#67d1fc] ">
                 Fun Facts
               </h1>
-              <p className="text-center text-white">
-                Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible.
-                Bananas are berries, but strawberries are not. Botanically speaking, berries are defined as fruits produced from a single ovary, which bananas meet, but strawberries do not.
-                The shortest war in history was between Britain and Zanzibar on August 27, 1896. It lasted only 38 minutes.
-                Octopuses have three hearts. Two pump blood to the gills, while the third pumps it to the rest of the body.
-                The Eiffel Tower can be 15 cm taller during the summer. Due to the expansion of the iron when it's heated, the height of the tower can increase by up to 15 centimeters.
-                A group of flamingos is called a flamboyance. These colorful birds are often seen in large groups in their natural habitat.
-                A small child could swim through the veins of a blue whale. Blue whales are the largest animals on Earth, and their hearts alone can weigh as much as a car.
-                The unicorn is the national animal of Scotland. It has been a symbol of purity and grace, and it has been associated with Scotland for centuries.
-                The electric chair was invented by a dentist. Alfred P. Southwick, a dentist, came up with the idea of using electricity for executions after witnessing an accidental electrocution.
-                The world's largest desert is not the Sahara, but Antarctica. While we typically associate deserts with hot, sandy environments, a desert is technically defined by its low precipitation levels, making Antarctica the largest desert in the world.
+              <p className="text-white">
+                <ul className=" text-[15px] list-disc my-3 px-4">
+                  <li className="mb-2">
+                    Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible.
+                  </li>
+                  <li className="mb-2">
+                    Bananas are berries, but strawberries are not. Botanically speaking, berries are defined as fruits produced from a single ovary, which bananas meet, but strawberries do not.
+                  </li>
+                  <li className="mb-2">
+                    The shortest war in history was between Britain and Zanzibar on August 27, 1896. It lasted only 38 minutes.
+                  </li>
+                  <li className="mb-2">
+                    Octopuses have three hearts. Two pump blood to the gills, while the third pumps it to the rest of the body.
+                  </li>
+                  <li className="mb-2">
+                    The Eiffel Tower can be 15 cm taller during the summer. Due to the expansion of the iron when it's heated, the height of the tower can increase by up to 15 centimeters.
+                  </li>
+                  <li className="mb-2">
+                    A group of flamingos is called a flamboyance. These colorful birds are often seen in large groups in their natural habitat.
+                  </li>
+                  <li className="mb-2">
+                    A small child could swim through the veins of a blue whale. Blue whales are the largest animals on Earth, and their hearts alone can weigh as much as a car.
+                  </li>
+                  <li className="mb-2">
+                    The unicorn is the national animal of Scotland. It has been a symbol of purity and grace, and it has been associated with Scotland for centuries.
+                  </li>
+                  <li className="mb-2">
+
+                    The electric chair was invented by a dentist. Alfred P. Southwick, a dentist, came up with the idea of using electricity for executions after witnessing an accidental electrocution.
+                  </li>
+                  <li className="mb-2">
+                    The world's largest desert is not the Sahara, but Antarctica. While we typically associate deserts with hot, sandy environments, a desert is technically defined by its low precipitation levels, making Antarctica the largest desert in the world.
+                  </li>
+                </ul>
+
               </p>
             </div>
           </Col>
