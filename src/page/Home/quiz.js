@@ -232,16 +232,16 @@ const Quiz = () => {
                 Fun Facts
               </h1>
               <p className="text-center text-white">
-                Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible.<br></br>
-                Bananas are berries, but strawberries are not. Botanically speaking, berries are defined as fruits produced from a single ovary, which bananas meet, but strawberries do not.<br></br>
-                The shortest war in history was between Britain and Zanzibar on August 27, 1896. It lasted only 38 minutes.<br></br>
-                Octopuses have three hearts. Two pump blood to the gills, while the third pumps it to the rest of the body.<br></br>
-                The Eiffel Tower can be 15 cm taller during the summer. Due to the expansion of the iron when it's heated, the height of the tower can increase by up to 15 centimeters.<br></br>
-                A group of flamingos is called a flamboyance. These colorful birds are often seen in large groups in their natural habitat.<br></br>
-                A small child could swim through the veins of a blue whale. Blue whales are the largest animals on Earth, and their hearts alone can weigh as much as a car.<br></br>
-                The unicorn is the national animal of Scotland. It has been a symbol of purity and grace, and it has been associated with Scotland for centuries.<br></br>
-                The electric chair was invented by a dentist. Alfred P. Southwick, a dentist, came up with the idea of using electricity for executions after witnessing an accidental electrocution.<br></br>
-                The world's largest desert is not the Sahara, but Antarctica. While we typically associate deserts with hot, sandy environments, a desert is technically defined by its low precipitation levels, making Antarctica the largest desert in the world.<br></br>
+                Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible.
+                Bananas are berries, but strawberries are not. Botanically speaking, berries are defined as fruits produced from a single ovary, which bananas meet, but strawberries do not.
+                The shortest war in history was between Britain and Zanzibar on August 27, 1896. It lasted only 38 minutes.
+                Octopuses have three hearts. Two pump blood to the gills, while the third pumps it to the rest of the body.
+                The Eiffel Tower can be 15 cm taller during the summer. Due to the expansion of the iron when it's heated, the height of the tower can increase by up to 15 centimeters.
+                A group of flamingos is called a flamboyance. These colorful birds are often seen in large groups in their natural habitat.
+                A small child could swim through the veins of a blue whale. Blue whales are the largest animals on Earth, and their hearts alone can weigh as much as a car.
+                The unicorn is the national animal of Scotland. It has been a symbol of purity and grace, and it has been associated with Scotland for centuries.
+                The electric chair was invented by a dentist. Alfred P. Southwick, a dentist, came up with the idea of using electricity for executions after witnessing an accidental electrocution.
+                The world's largest desert is not the Sahara, but Antarctica. While we typically associate deserts with hot, sandy environments, a desert is technically defined by its low precipitation levels, making Antarctica the largest desert in the world.
               </p>
             </div>
           </Col>
