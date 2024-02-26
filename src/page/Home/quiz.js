@@ -21,7 +21,7 @@ const Quiz = () => {
     localStorage.clear();
     sessionStorage.clear();
   }, []);
-  
+
   // Function To Open The Modal
   const openModal = () => {
     setModalOpen(true);
@@ -116,13 +116,13 @@ const Quiz = () => {
       localStorage.setItem("usercoin", scorecoin);
     }
   };
- 
+
   return (
     <>
       <div>
         <Row className="flex  ">
           <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
-         
+
             <div className="text-center mt-[300px]">
               <h1 className="font-bold text-white text-18">Let's begin!</h1>
               <span className="text-[12px] text-[#8f8f8f]">
@@ -146,17 +146,16 @@ const Quiz = () => {
                       <Col
                         key={index}
                         onClick={() => handleOptionClick(answer)}
-                        className={`flex flex-col items-center m-2 py-2 ${
-                          answer === selectedAnswer
-                            ? answerStatus
-                              ? "bg-[#099623] !important"
-                              : "bg-[#f02d1f] !important"
-                            : answer ===
-                                questions[currentQuestionIndex].correct &&
-                              answerStatus === false
+                        className={`flex flex-col items-center m-2 py-2 ${answer === selectedAnswer
+                          ? answerStatus
+                            ? "bg-[#099623] !important"
+                            : "bg-[#f02d1f] !important"
+                          : answer ===
+                            questions[currentQuestionIndex].correct &&
+                            answerStatus === false
                             ? "bg-[#099623] !important"
                             : "bg-[#171349] !important"
-                        } rounded-xl cursor-pointer`}
+                          } rounded-xl cursor-pointer`}
                       >
                         {answer}
                       </Col>
@@ -233,16 +232,17 @@ const Quiz = () => {
                 Fun Facts
               </h1>
               <p className="text-center text-white">
-                The insurance industry is one of the largest industries in the
-                United States, with over $1.5 trillion in annual premiums.The
-                word "insurance" comes from the French word "assurer", which
-                means "to make sure". The first insurance company in the United
-                States was founded in Charleston, South Carolina, in 1735.The
-                insurance industry employs over 2 million people in the United
-                States. The average American household spends about $1,500 per
-                year on insurance premiums. The most expensive type of insurance
-                in the United States is long-term care insurance, which can cost
-                upwards of $5,000 per month.
+                Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian
+                tombs that are over 3,000 years old and still perfectly edible.
+                Bananas are berries, but strawberries are not. Botanically speaking,
+                berries are defined as fruits produced from a single ovary,
+                which bananas meet, but strawberries do not.
+                The shortest war in history was between Britain and Zanzibar
+                on August 27, 1896. It lasted only 38 minutes.
+                Octopuses have three hearts. Two pump blood to the gills,
+                while the third pumps it to the rest of the body.
+                The Eiffel Tower can be 15 cm taller during the summer.
+
               </p>
             </div>
           </Col>
