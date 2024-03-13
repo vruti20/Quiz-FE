@@ -85,9 +85,9 @@ const Subcategory = () => {
                   </div>
                   <div className="mt-[3px] flex items-center ml-1">
                     <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
-                      <img
-                        className="w-3 mr-2"
-                        src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                    <img
+                        className="w-[14px] mr-1"
+                        src={require('../../image/coins-1.png')}
                         alt="svg"
                       ></img>
                       <p> {isGuest ? databaseCoins : allcoins} COINS</p>
@@ -120,8 +120,8 @@ const Subcategory = () => {
                           Play & Win &nbsp;
                         </p>
                         <img
-                          className="w-[14px]"
-                          src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                          className="w-[20px]"
+                          src={require('../../image/coins-1.png')}
                           alt="coins"
                         ></img>
                         <p className="text-white font-[900] text-[14px]">
@@ -132,8 +132,8 @@ const Subcategory = () => {
                         <div className="text-[10px] flex justify-end  gap-1 sm:text-[8px]  bg-[#202255]  px-2 rounded-full">
                           <p className="text-white">Entry Fee&nbsp;</p>
                           <img
-                            className="w-[10px]"
-                            src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                            className="w-[15px]"
+                            src={require('../../image/coins-1.png')}
                             alt="coins"
                           ></img>
                           <p className="text-white">&nbsp;{subcategory.entryFee}</p>

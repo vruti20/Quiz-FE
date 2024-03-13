@@ -92,7 +92,7 @@ const Result = () => {
                                 <div class="mt-5 cursor-pointer flex justify-center">
                                     <button class=" flex gap-2 rounded-full px-7 py-2 border-2 border-[#D85B00] text-white ">
                                         Double Your winnings
-                                        <img src="	https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="coin" />
+                                        <img    src={require('../../image/coins-1.png')} alt="coin" />
                                     </button>
                                 </div>
 

@@ -32,11 +32,11 @@ const Play = () => {
     const closeModal = () => {
         setModalOpen(false);
     };
-  
-    
+
+
     const deductCoins = async () => {
         if (loginscore >= 100) {
-            
+
             const updatedScore = loginscore - 100;
             localStorage.setItem('coins', updatedScore);
             navigate(`/question/${categoryid}`);
@@ -45,7 +45,7 @@ const Play = () => {
             openModal();
         }
         try {
-            if(databaseCoins >= 100){
+            if (databaseCoins >= 100) {
 
                 const token = localStorage.getItem('token');
                 const response = await axios.post(`${BaseUrl}/api/updateCoins`,
@@ -62,25 +62,25 @@ const Play = () => {
                     if (isGuest) {
                         localStorage.setItem('coin', newcoins - 100);
                         // navigate(`/question/${categoryid}`);
-    
+
                     } else {
                         setUserCoins(userCoins - 100);
                     }
-    
+
                     if (isGuest && databaseCoins >= 100) {
                         // Navigate to the question page
                         navigate(`/question/${categoryid}`);
                     } else {
                         openModal();
                     }
-                    
+
                 } else {
                     // Handle API request failure
                     console.log('API request failed:', response.data.message);
                 }
             }
 
-                
+
         } catch (error) {
             // Handle errors, e.g., network issues
             openModal();
@@ -91,7 +91,7 @@ const Play = () => {
     const earnedCoins = parseInt(localStorage.getItem('earnedCoins')) || 0;
     const allcoins = parseInt(updated) + parseInt(earnedCoins);
     localStorage.setItem('allcoin', allcoins);
-   
+
     useEffect(() => {
 
         const fetchCategory = async () => {
@@ -99,7 +99,7 @@ const Play = () => {
                 const response = await axios.get(`${BaseUrl}/api/quesation/questions?quiz=${categoryid}`);
                 const newQuizData = response.data.data.map(item => item.quiz);
                 setSubcategories(newQuizData.slice(0, 1));
-              
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -133,7 +133,7 @@ const Play = () => {
 
     const checkIfPlayerIsGuest = () => {
         const guestToken = localStorage.getItem('token');
-      
+
         return !!guestToken;
     };
 
@@ -144,9 +144,9 @@ const Play = () => {
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[500px]  relative flex-col flex" >
                         <div className="" >
-                            <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header"   style={{boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)"}}>
+                            <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header" style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}>
                                 <Link to={`/quizhome`} className="pl-[10px]">
-                                <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold	italic font-serif">QuizTime !</div>
+                                    <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold	italic font-serif">QuizTime !</div>
                                 </Link>
                                 <div className="flex justify-between">
                                     <div className="flex items-center">
@@ -156,7 +156,11 @@ const Play = () => {
                                     </div>
                                     <div className="mt-[3px] flex items-center ml-1">
                                         <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
-                                            <img className="w-3 mr-2" src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg" alt="svg"></img>
+                                            <img
+                                                className="w-[14px] mr-1"
+                                                src={require('../../image/coins-1.png')}
+                                                alt="svg"
+                                            ></img>
                                             <p>
                                                 {isGuest ? databaseCoins : loginscore} COINS
                                             </p>
@@ -173,7 +177,7 @@ const Play = () => {
                             </div> */}
                             <div className="pb-[150px] mt-[300px]">
 
-                                <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px] " style={{ borderColor: "#0060FF",boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)"}}>
+                                <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px] " style={{ borderColor: "#0060FF", boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)" }}>
 
                                     {subcategories.map((quiz, index) => (
                                         <div key={index} className="px-5 gap-2 flex items-center py-6">
@@ -187,8 +191,8 @@ const Play = () => {
                                                 <div className="flex text-white text-[18px] font-black cursor-pointer">
                                                     <p>Play Win</p>
                                                     <img
-                                                        className="w-5 ms-2"
-                                                        src="https://monetix-lookat1.quiztwiz.com/static/media/coin.637476e7fc615b3d4479fb73c7565f29.svg"
+                                                        className="w-[25px] ms-2"
+                                                        src={require('../../image/coins-1.png')}
                                                         alt="svg"
                                                     />
                                                     <p className="ms-2">{quiz.totalPrice}</p>
@@ -205,7 +209,7 @@ const Play = () => {
                                             </Button>
                                             {isModalOpen && (
                                                 <div className="modal-container" >
-                                                <div className="modal" style={{padding:"30px 20px 40px 20px"}}>
+                                                    <div className="modal" style={{ padding: "30px 20px 40px 20px" }}>
                                                         <div className="flex justify-end">
                                                             <FaX onClick={closeModal} className="cursor-pointer" />
                                                         </div>
@@ -228,16 +232,16 @@ const Play = () => {
 
                                         <div className="flex w-full justify-around pb-[25px]">
                                             <Link to="/login">
-                                                <button  class="bg-[#389A06] py-2 md:px-14 px-10 md:font-[700] font[500] text-white rounded-md">JOIN NOW</button>
+                                                <button class="bg-[#389A06] py-2 md:px-14 px-10 md:font-[700] font[500] text-white rounded-md">JOIN NOW</button>
                                             </Link>
                                             <p className="text-[20px] text-white">or</p>
-                                           
-                                                <div onClick={deductCoins} class="border border-[#389A06] text-white text-center rounded-md font-bold text-sm py-3  px-10 cursor-pointer">
-                                                    PLAY AS GUEST
-                                                </div>
-                                                {isModalOpen && (
+
+                                            <div onClick={deductCoins} class="border border-[#389A06] text-white text-center rounded-md font-bold text-sm py-3  px-10 cursor-pointer">
+                                                PLAY AS GUEST
+                                            </div>
+                                            {isModalOpen && (
                                                 <div className="modal-container" >
-                                                <div className="modal" style={{padding:"30px 20px 40px 20px"}}>
+                                                    <div className="modal" style={{ padding: "30px 20px 40px 20px" }}>
                                                         <div className="flex justify-end">
                                                             <FaX onClick={closeModal} className="cursor-pointer" />
                                                         </div>
@@ -269,8 +273,8 @@ const Play = () => {
 
                         </div>
 
-                        <div className="footer  bg-[#0B0D26] flex justify-around lg:w-[520px]  pb-4" 
-                        style={{boxShadow: "0px -15px 15px rgba(9, 58, 92,0.7)"}}
+                        <div className="footer  bg-[#0B0D26] flex justify-around lg:w-[520px]  pb-4"
+                            style={{ boxShadow: "0px -15px 15px rgba(9, 58, 92,0.7)" }}
                         >
                             <Link to="/category">
                                 <span >
@@ -297,8 +301,8 @@ const Play = () => {
                     </Col>
                     <Col className="fixed me-[15%] bg-image">
 
-                    <div className="py-16 md:py-10">
-                        <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
+                        <div className="py-16 md:py-10">
+                            <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
                         </div>
 
                         <div class="font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
