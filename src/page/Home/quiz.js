@@ -123,7 +123,7 @@ const Quiz = () => {
         <Row className="flex  ">
           <Col className="lg:w-[520px] md:w-[410px]  py-3 px-2">
 
-            <div className="text-center mt-[300px]">
+            <div className="text-center">
               <h1 className="font-bold text-white text-18">Let's begin!</h1>
               <span className="text-[12px] text-[#8f8f8f]">
                 Answer few questions and win 150 free!
