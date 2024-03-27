@@ -73,7 +73,7 @@ const Subcategory = () => {
                   </div>
                 </Link>
                 <div className="flex  justify-between">
-                  <div className="flex items-center">
+                  {/* <div className="flex items-center">
                     <img
                       class="w-[25px] "
                       src={require("../../../src/image/gift.gif")}
@@ -82,7 +82,7 @@ const Subcategory = () => {
                     <p className="text-white text-[10px] font-[700] pt-1">
                       Daily Reward
                     </p>
-                  </div>
+                  </div> */}
                   <div className="mt-[3px] flex items-center ml-1">
                     <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                     <img

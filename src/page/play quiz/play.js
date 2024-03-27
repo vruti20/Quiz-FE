@@ -4,7 +4,7 @@ import { LiaHomeSolid } from "react-icons/lia"
 import { CgProfile } from "react-icons/cg"
 import { Link, useParams } from "react-router-dom"
 import React, { useState, useEffect } from 'react';
-import { FaX } from "react-icons/fa6";
+// import { FaX } from "react-icons/fa6";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -149,11 +149,11 @@ const Play = () => {
                                     <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold	italic font-serif">QuizTime !</div>
                                 </Link>
                                 <div className="flex justify-between">
-                                    <div className="flex items-center">
+                                    {/* <div className="flex items-center">
 
                                         <img class="w-[25px] " src={require("../../../src/image/gift.gif")} alt="animation" />
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
-                                    </div>
+                                    </div> */}
                                     <div className="mt-[3px] flex items-center ml-1">
                                         <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                                             <img
@@ -175,7 +175,7 @@ const Play = () => {
                                     ads by goggle
                                 </p>
                             </div> */}
-                            <div className="pb-[150px] mt-[300px]">
+                            <div className="pb-[150px] mt-[100px]">
 
                                 <div className="border-2 w-full pb-[10px] m-[5px] rounded-[30px] " style={{ borderColor: "#0060FF", boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)" }}>
 
@@ -207,7 +207,7 @@ const Play = () => {
                                             <Button onClick={deductCoins} className=" py-[10px] px-8 bg-[#389A06]  rounded-md text-white font-bold cursor-pointer">
                                                 PLAY QUIZ
                                             </Button>
-                                            {isModalOpen && (
+                                            {/* {isModalOpen && (
                                                 <div className="modal-container" >
                                                     <div className="modal" style={{ padding: "30px 20px 40px 20px" }}>
                                                         <div className="flex justify-end">
@@ -225,7 +225,7 @@ const Play = () => {
 
                                                     </div>
                                                 </div>
-                                            )}
+                                            )} */}
                                         </div>
                                         // </Link>
                                     ) : (
@@ -239,7 +239,7 @@ const Play = () => {
                                             <div onClick={deductCoins} class="border border-[#389A06] text-white text-center rounded-md font-bold text-sm py-3  px-10 cursor-pointer">
                                                 PLAY AS GUEST
                                             </div>
-                                            {isModalOpen && (
+                                            {/* {isModalOpen && (
                                                 <div className="modal-container" >
                                                     <div className="modal" style={{ padding: "30px 20px 40px 20px" }}>
                                                         <div className="flex justify-end">
@@ -257,7 +257,7 @@ const Play = () => {
 
                                                     </div>
                                                 </div>
-                                            )}
+                                            )} */}
                                         </div>
                                     )}
 

@@ -58,32 +58,32 @@ const Category = () => {
         }
         fetchCategories();
         fetchDatabaseCoins();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // check player is login 
     const checkIfPlayerIsGuest = () => {
         const guestToken = localStorage.getItem('token');
-     
+
         return !!guestToken;
     };
     useEffect(() => {
         const storedPlayCountString = sessionStorage.getItem("playCount");
         const storedPlayCount =
-          storedPlayCountString !== null ? parseInt(storedPlayCountString) : 0;
+            storedPlayCountString !== null ? parseInt(storedPlayCountString) : 0;
         setPlayCount(storedPlayCount);
-      }, []);
+    }, []);
     //subcategory data navigate subcategory page 
     const Subcategory = (id) => {
 
         axios.get(`${BaseUrl}/api/category/subcategories/${id}`)
-            
+
             .then(function (response) {
                 navigate(`/subcategory/${id}`, { state: categories.find(category => category._id === id) });
                 sessionStorage.setItem("playCount", (playCount + 1).toString());
                 // Set the state with the updated play count
                 setPlayCount((prevPlayCount) => prevPlayCount + 1);
-            })    
+            })
             .catch(function (error) {
                 console.log(error);
             })
@@ -104,17 +104,17 @@ const Category = () => {
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[520px]  relative flex-col flex" >
                         <div className="">
-                        <div
-                className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
-                style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}
-              >
-                <Link to={`/quizhome`} className="px-[10px] m-0 p-0">
-                  <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold italic font-serif">
-                    QuizTime !
-                  </div>
-                </Link>
-                <div className="flex  justify-between">
-                  <div className="flex items-center">
+                            <div
+                                className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
+                                style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}
+                            >
+                                <Link to={`/quizhome`} className="px-[10px] m-0 p-0">
+                                    <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold italic font-serif">
+                                        QuizTime !
+                                    </div>
+                                </Link>
+                                <div className="flex  justify-between">
+                                    {/* <div className="flex items-center">
                     <img
                       class="w-[25px] "
                       src={require("../../../src/image/gift.gif")}
@@ -123,20 +123,20 @@ const Category = () => {
                     <p className="text-white text-[10px] font-[700] pt-1">
                       Daily Reward
                     </p>
-                  </div>
-                  <div className="mt-[3px] flex items-center ml-1">
-                    <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
-                    <img
-                        className="w-[14px] mr-1"
-                        src={require('../../image/coins-1.png')}
-                        alt="svg"
-                      ></img>
-                      <p> {isGuest ? databaseCoins : allcoins} COINS</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-                            <p class="text-lg font-bold text-center text-white py-5 pt-14 mt-[300px]">
+                  </div> */}
+                                    <div className="mt-[3px] flex items-center ml-1">
+                                        <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
+                                            <img
+                                                className="w-[14px] mr-1"
+                                                src={require('../../image/coins-1.png')}
+                                                alt="svg"
+                                            ></img>
+                                            <p> {isGuest ? databaseCoins : allcoins} COINS</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-lg font-bold text-center text-white py-5 pt-14 mt-[70px]">
                                 Select the Quiz category that you want to play
                             </p>
 
@@ -168,8 +168,8 @@ const Category = () => {
                             </div>
                         </div>
 
-                        <div className="footer bg-[#0B0D26] flex justify-around  pb-4" 
-                                      style={{boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)"}}
+                        <div className="footer bg-[#0B0D26] flex justify-around  pb-4"
+                            style={{ boxShadow: "0px -15px 15px rgba(8, 13, 87,0.7)" }}
                         >
                             <Link to="/category" >
                                 <div
@@ -202,7 +202,7 @@ const Category = () => {
                     <Col className="fixed me-[15%] bg-image">
 
                         <div className="py-16 md:py-10">
-                        <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
+                            <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>
                         </div>
 
                         <div class=" font-bold text-center text-white md:text-sm  big:bottom-12  big:z-[-1]">
