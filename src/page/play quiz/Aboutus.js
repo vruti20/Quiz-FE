@@ -46,7 +46,7 @@ const Aboutus = () => {
                 <li className="my-1"><Link to='/privacy-policy'>PRIVACY POLICY</Link></li>
                 <li className="my-1"><Link to='/login'>LOGIN</Link></li>
                 <li className="my-1"><Link to='/aboutus'>ABOUT US</Link></li>
-                <li className="my-1"><Link to='/contactus'>CONTACT US</Link></li>
+                <li className="my-1"><Link to='/contact'>CONTACT US</Link></li>
               </ul>
             </div>
           )}
