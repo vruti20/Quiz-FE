@@ -36,7 +36,8 @@ const Play = () => {
 
 
     const deductCoins = async () => {
-        if (loginscore >= 100) {
+        // if (loginscore >= 100) {
+        if (loginscore >= 0) {
 
             const updatedScore = loginscore - 100;
             localStorage.setItem('coins', updatedScore);
@@ -46,7 +47,8 @@ const Play = () => {
             openModal();
         }
         try {
-            if (databaseCoins >= 100) {
+            // if (databaseCoins >= 100) {
+            if (databaseCoins >= 0) {
 
                 const token = localStorage.getItem('token');
                 const response = await axios.post(`${BaseUrl}/api/updateCoins`,
@@ -68,7 +70,8 @@ const Play = () => {
                         setUserCoins(userCoins - 100);
                     }
 
-                    if (isGuest && databaseCoins >= 100) {
+                    // if (isGuest && databaseCoins >= 100) {
+                    if (isGuest && databaseCoins >= 0) {
                         // Navigate to the question page
                         navigate(`/question/${categoryid}`);
                     } else {
@@ -160,14 +163,14 @@ const Play = () => {
               </ul>
             </div>
             <div className="mt-[3px] flex items-center ml-1">
-              <div className="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
+              {/* <div className="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                 <img
                   className="w-[14px] mr-1"
                   src={require('../../image/coins-1.png')}
                   alt="svg"
                 ></img>
                 <p> {isGuest ? databaseCoins : allcoins} COINS</p>
-              </div>
+              </div> */}
             </div>
             <div className="lg:hidden">
               <AiOutlineMenu className="text-2xl text-white" onClick={toggleMenu} />
