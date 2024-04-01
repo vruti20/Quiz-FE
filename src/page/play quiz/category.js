@@ -6,6 +6,7 @@ import { CgProfile } from "react-icons/cg"
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { AiOutlineMenu } from "react-icons/ai";
 
 const BaseUrl = process.env.REACT_APP_BASEURL;
 
@@ -18,7 +19,7 @@ const Category = () => {
     const [click, setClick] = useState(false); //click event  change background color
     const [databaseCoins, setDatabaseCoins] = useState(0);
     const [playCount, setPlayCount] = useState(0); //quiz play numbers
-
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const allcoins = localStorage.getItem('allcoins') || 0;
 
@@ -97,14 +98,100 @@ const Category = () => {
     const filteredCategories = categories?.filter((category) =>
         category.name.toLowerCase().includes(searchInput.toLowerCase())
     );
-
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+      };
     return (
         <>
             <div>
+            <div className="relative">
+          <div className="flex justify-between items-center cursor-pointer bg-[#0B0D26] px-4 py-2 text-white header">
+          <Link to={`/quizhome`} className="px-[10px] m-0 p-0">
+                  <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold italic font-serif">
+                    QuizTime !
+                  </div>
+                </Link>
+            <div className="hidden lg:flex items-center">
+              <ul className="flex items-center text-white font-semibold">
+                <li className="mx-3"><Link to='/quizhome'>HOME</Link></li>
+                <li className="mx-3"><Link to='/privacy-policy'>PRIVACY POLICY</Link></li>
+                <li className="mx-3"><Link to='/login'>LOGIN</Link></li>
+                <li className="mx-3"><Link to='/aboutus'>ABOUT US</Link></li>
+                <li className="mx-3"><Link to='/contact'>CONTACT US</Link></li>
+              </ul>
+            </div>
+            <div className="mt-[3px] flex items-center ml-1">
+              <div className="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
+                <img
+                  className="w-[14px] mr-1"
+                  src={require('../../image/coins-1.png')}
+                  alt="svg"
+                ></img>
+                <p> {isGuest ? databaseCoins : allcoins} COINS</p>
+              </div>
+            </div>
+            <div className="lg:hidden">
+              <AiOutlineMenu className="text-2xl text-white" onClick={toggleMenu} />
+            </div>
+          </div>
+          {isMenuOpen && (
+            <div className="absolute left-0 top-12 w-full bg-[#050230] text-white py-2 z-50">
+              <ul className="flex flex-col items-start pl-4">
+                <li className="my-1"><Link to='/quizhome'>HOME</Link></li>
+                <li className="my-1"><Link to='/privacy-policy'>PRIVACY POLICY</Link></li>
+                <li className="my-1"><Link to='/login'>LOGIN</Link></li>
+                <li className="my-1"><Link to='/aboutus'>ABOUT US</Link></li>
+                <li className="my-1"><Link to='/contactus'>CONTACT US</Link></li>
+              </ul>
+            </div>
+          )}
+        </div>
                 <Row className="">
+                {/* <div
+                className="flex  justify-between items-center  lg:w-[100%]  py-[8px] cursor-pointer bg-[#0B0D26] header"
+                style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}
+              >
+                <Link to={`/quizhome`} className="px-[10px] m-0 p-0">
+                  <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold italic font-serif">
+                    QuizTime !
+                  </div>
+                </Link>
+                  <div>
+                  <ul className="text-white font-semibold flex items-center">
+                  <li className="mx-3"><Link to='/quizhome'>HOME</Link></li>
+                  <li className="mx-3"><Link to='/privacy-policy'>PRIVACY POLICY</Link></li>
+                  <li className="mx-3"><Link to='/login'>LOGIN</Link></li>
+                  <li className="mx-3"><Link to='/aboutus'>ABOUT US</Link></li>
+                  <li className="mx-3"><Link to='/contact'>CONTACT US</Link></li>
+                  </ul>
+                  </div>
+                <div className="flex  justify-between">
+                  <div className="flex items-center">
+                    <img
+                      className="w-[25px] "
+                      src={require("../../../src/image/gift.gif")}
+                      alt="animation"
+                    />
+                    <p className="text-white text-[10px] font-[700] pt-1">
+                      Daily Reward
+                    </p>
+                  </div>
+                  
+                  <div className="mt-[3px] flex items-center ml-1">
+                    <div className="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
+                    <img
+                        className="w-[14px] mr-1"
+                        src={require('../../image/coins-1.png')}
+                        alt="svg"
+                      ></img>
+                      <p> {isGuest ? databaseCoins : allcoins} COINS</p>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
                     <Col className="md:w-[400px]  lg:w-[520px]  relative flex-col flex" >
                         <div className="">
-                            <div
+                            {/* <div
                                 className="flex  justify-between items-center     lg:w-[520px]  py-[8px] cursor-pointer bg-[#0B0D26] header"
                                 style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}
                             >
@@ -114,7 +201,7 @@ const Category = () => {
                                     </div>
                                 </Link>
                                 <div className="flex  justify-between">
-                                    {/* <div className="flex items-center">
+                                    <div className="flex items-center">
                     <img
                       class="w-[25px] "
                       src={require("../../../src/image/gift.gif")}
@@ -123,7 +210,7 @@ const Category = () => {
                     <p className="text-white text-[10px] font-[700] pt-1">
                       Daily Reward
                     </p>
-                  </div> */}
+                  </div>
                                     <div className="mt-[3px] flex items-center ml-1">
                                         <div class="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                                             <img
@@ -135,7 +222,7 @@ const Category = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <p class="text-lg font-bold text-center text-white py-5 pt-14 mt-[70px]">
                                 Select the Quiz category that you want to play
                             </p>
@@ -199,7 +286,7 @@ const Category = () => {
                             </Link>
                         </div>
                     </Col>
-                    <Col className="fixed me-[15%] bg-image">
+                    <Col className="fixed me-[15%] bg-image mt-10">
 
                         <div className="py-16 md:py-10">
                             <img className="lg:w-[100%] md:w-[300px] " src={require('../../image/quiz-1.png')} alt=""></img>

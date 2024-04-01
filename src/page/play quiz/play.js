@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 // import { FaX } from "react-icons/fa6";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { AiOutlineMenu } from "react-icons/ai";
 const BaseUrl = process.env.REACT_APP_BASEURL;
 
 const Play = () => {
@@ -22,6 +22,7 @@ const Play = () => {
     const loginscore = localStorage.getItem('allcoins') || 0;
     const newcoins = localStorage.getItem("logincoin") || 0;
     localStorage.setItem('usercoin', 0)
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     // Function to open the modal
     const openModal = () => {
@@ -136,24 +137,67 @@ const Play = () => {
 
         return !!guestToken;
     };
-
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+      };
     return (
         <>
             <div>
-
+            <div className="relative">
+          <div className="flex justify-between items-center cursor-pointer bg-[#0B0D26] px-4 py-2 text-white header">
+          <Link to={`/quizhome`} className="px-[10px] m-0 p-0">
+                  <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold italic font-serif">
+                    QuizTime !
+                  </div>
+                </Link>
+            <div className="hidden lg:flex items-center">
+              <ul className="flex items-center text-white font-semibold">
+                <li className="mx-3"><Link to='/quizhome'>HOME</Link></li>
+                <li className="mx-3"><Link to='/privacy-policy'>PRIVACY POLICY</Link></li>
+                <li className="mx-3"><Link to='/login'>LOGIN</Link></li>
+                <li className="mx-3"><Link to='/aboutus'>ABOUT US</Link></li>
+                <li className="mx-3"><Link to='/contact'>CONTACT US</Link></li>
+              </ul>
+            </div>
+            <div className="mt-[3px] flex items-center ml-1">
+              <div className="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
+                <img
+                  className="w-[14px] mr-1"
+                  src={require('../../image/coins-1.png')}
+                  alt="svg"
+                ></img>
+                <p> {isGuest ? databaseCoins : allcoins} COINS</p>
+              </div>
+            </div>
+            <div className="lg:hidden">
+              <AiOutlineMenu className="text-2xl text-white" onClick={toggleMenu} />
+            </div>
+          </div>
+          {isMenuOpen && (
+            <div className="absolute left-0 top-12 w-full bg-[#050230] text-white py-2 z-50">
+              <ul className="flex flex-col items-start pl-4">
+                <li className="my-1"><Link to='/quizhome'>HOME</Link></li>
+                <li className="my-1"><Link to='/privacy-policy'>PRIVACY POLICY</Link></li>
+                <li className="my-1"><Link to='/login'>LOGIN</Link></li>
+                <li className="my-1"><Link to='/aboutus'>ABOUT US</Link></li>
+                <li className="my-1"><Link to='/contactus'>CONTACT US</Link></li>
+              </ul>
+            </div>
+          )}
+        </div>
                 <Row className="">
                     <Col className="md:w-[400px]  lg:w-[500px]  relative flex-col flex" >
                         <div className="" >
-                            <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header" style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}>
+                            {/* <div className="flex justify-between lg:w-[520px] py-[8px] cursor-pointer bg-[#0B0D26] header" style={{ boxShadow: "0px 10px 15px rgba(8, 13, 87,0.7)" }}>
                                 <Link to={`/quizhome`} className="pl-[10px]">
                                     <div className="text-[#3FCAFF] md:text-2xl sm:text-lg font-bold	italic font-serif">QuizTime !</div>
                                 </Link>
                                 <div className="flex justify-between">
-                                    {/* <div className="flex items-center">
+                                    <div className="flex items-center">
 
                                         <img class="w-[25px] " src={require("../../../src/image/gift.gif")} alt="animation" />
                                         <p className="text-white text-[10px] font-[700] pt-1"> Daily Reward</p>
-                                    </div> */}
+                                    </div>
                                     <div className="mt-[3px] flex items-center ml-1">
                                         <div class="text-[10px] flex w-[110px] text-white bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                                             <img
@@ -168,7 +212,7 @@ const Play = () => {
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> */}
 
                             {/* <div className="bg-white mt-[50px] h-[370px] mx-auto mb-[8px]">
                                 <p className="text-center text-black">

@@ -29,7 +29,7 @@ const Quizplay = () => {
                                 ads by goggle
                             </p>
                         </div> */}
-                        <div className="border-2 w-full p-[15px] m-[5px] rounded-[30px] mt-[300px]"  style={{ borderColor: "#0060FF",boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)"}}>
+                        <div className="border-2 w-full p-[15px] m-[5px] rounded-[30px]"  style={{ borderColor: "#0060FF",boxShadow: "5px  10px 15px rgba(0, 96, 255, 0.3)"}}>
                             <h1 class="text-[12px] text-center text-[#D85B00] font-black ">
                                 QuizTimeNow
                             </h1>

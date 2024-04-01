@@ -10,14 +10,14 @@ body
 {
   background-color: #050230;
 }
-.fixed {
+.bg-image {
   position: fixed;
   top: 0; 
   right: 0;
   z-index: 1;
 }
 @media (min-width: 200px), (max-width: 425px) {
-  .fixed {
+  .bg-image {
     display: none;
   }
 }
@@ -30,32 +30,32 @@ body
 
 /* Display the second column on larger screens */
 @media (min-width: 1024px), (min-width: 768px), (min-width: 1440px), (min-width: 2500px) {
-  .fixed {
+  .bg-image {
     display: block;
   }
 }
 @media (max-width:1024px) {
-  .fixed img{
-    width: 350px;
+  .bg-image img{
+   width: 350px;
    display: flex;
    justify-content: center;
    }
-   .fixed {
+  .bg-image {
     font-size: 15px;
     margin: 20px 0px 0px 50px;
    }
-   .fixed p{
+   .bg-image p{
     font-size: 15px;
    }
 }
 @media (min-width:1440px)  {
-  .fixed{
+  .bg-image{
     font-size: 50px;
   }
 }
 
 @media (min-width: 1024px) {
-  .lg-fixed-column {
+  .lg-bg-image-column {
     position: fixed;
   }
 
@@ -87,15 +87,20 @@ body
 .header{
   position: fixed;
  box-shadow: rgb(17, 24, 39) 0px -15px 15px;
+ width: 100%;
+ z-index: 10;
  /* width: 520px; */
 }
 @media (max-width: 1024px){
   .header {
-    width: 420px;
+    /* width: 420px; */
+    font-size: 10px;
   }
 }
 @media (max-width: 425px){
   .header {
+    position: relative;
+    font-size: 10px;
     width: 100%;
   }
 }
