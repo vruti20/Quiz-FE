@@ -121,14 +121,14 @@ const Category = () => {
               </ul>
             </div>
             <div className="mt-[3px] flex items-center ml-1">
-              <div className="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
+              {/* <div className="text-[10px] flex text-white w-[110px] bg-[#2DAAE2] px-[18px] py-[5px] rounded-md me-2">
                 <img
                   className="w-[14px] mr-1"
                   src={require('../../image/coins-1.png')}
                   alt="svg"
                 ></img>
                 <p> {isGuest ? databaseCoins : allcoins} COINS</p>
-              </div>
+              </div> */}
             </div>
             <div className="lg:hidden">
               <AiOutlineMenu className="text-2xl text-white" onClick={toggleMenu} />
