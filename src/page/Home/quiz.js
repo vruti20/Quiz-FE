@@ -67,7 +67,7 @@ const Quiz = () => {
   // Check The Answer True & False
   const handleOptionClick = (answer) => {
     const currentQuestion = questions[currentQuestionIndex];
-    const isCorrect = answer === currentQuestion.correct;
+    const isCorrect = answer === currentQuestion.correct_answer;
 
     setSelectedAnswer(answer);
     setAnswerStatus(isCorrect);
@@ -151,7 +151,7 @@ const Quiz = () => {
                             ? "bg-[#099623] !important"
                             : "bg-[#f02d1f] !important"
                           : answer ===
-                            questions[currentQuestionIndex].correct &&
+                            questions[currentQuestionIndex].correct_answer &&
                             answerStatus === false
                             ? "bg-[#099623] !important"
                             : "bg-[#171349] !important"

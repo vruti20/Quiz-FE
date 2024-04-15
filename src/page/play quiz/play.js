@@ -247,9 +247,8 @@ const Play = () => {
                                             </div>
                                         </div>
                                     ))}
-                                    {isGuest ? (
-                                        // Render only the "PLAY" button when the user is logged in
-                                        // <Link to={`/question/${categoryid}`}>
+                                    {/* {isGuest ? ( */}
+                                         <Link to={`/question/${categoryid}`}>
                                         <div className="flex justify-center pb-6">
                                             <Button onClick={deductCoins} className=" py-[10px] px-8 bg-[#389A06]  rounded-md text-white font-bold cursor-pointer">
                                                 PLAY QUIZ
@@ -274,19 +273,19 @@ const Play = () => {
                                                 </div>
                                             )} */}
                                         </div>
-                                        // </Link>
-                                    ) : (
+                                         </Link>
+                                     {/* ) : (
 
-                                        <div className="flex w-full justify-around pb-[25px]">
-                                            <Link to="/login">
+                                         <div className="flex w-full justify-around pb-[25px]">
+                                             <Link to="/login">
                                                 <button class="bg-[#389A06] py-2 md:px-14 px-10 md:font-[700] font[500] text-white rounded-md">JOIN NOW</button>
-                                            </Link>
-                                            <p className="text-[20px] text-white">or</p>
+                                             </Link>
+                                             <p className="text-[20px] text-white">or</p>
 
                                             <div onClick={deductCoins} class="border border-[#389A06] text-white text-center rounded-md font-bold text-sm py-3  px-10 cursor-pointer">
-                                                PLAY AS GUEST
-                                            </div>
-                                            {/* {isModalOpen && (
+                                                 PLAY AS GUEST
+                                             </div>
+                                             {isModalOpen && (
                                                 <div className="modal-container" >
                                                     <div className="modal" style={{ padding: "30px 20px 40px 20px" }}>
                                                         <div className="flex justify-end">
@@ -304,9 +303,9 @@ const Play = () => {
 
                                                     </div>
                                                 </div>
-                                            )} */}
-                                        </div>
-                                    )}
+                                            )} 
+                                         </div>
+                                     )} */}
 
                                     <ul class="list-disc text-white text-sm flex flex-col pb-[10px] gap-4 px-9 ">
                                         <li>You've got 90 - 150 seconds to answer all questions</li>
@@ -318,7 +317,7 @@ const Play = () => {
                                 </div>
                             </div>
 
-                        </div>
+                        // </div>
 
                         <div className="footer  bg-[#0B0D26] flex justify-around lg:w-[520px]  pb-4"
                             style={{ boxShadow: "0px -15px 15px rgba(9, 58, 92,0.7)" }}
